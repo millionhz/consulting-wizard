@@ -1,3 +1,3 @@
 # Consulting Wizard
 
-An application to connect alumnis with students.
+A consultancy application connecting students and alumnis
