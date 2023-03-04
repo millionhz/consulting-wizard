@@ -1,5 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const logger = require('morgan');
+
+require('./utils/database').connect();
 
 const indexRouter = require('./routes/index');
 
