@@ -1,0 +1,25 @@
+{
+  "name": "consulting-wizard",
+  "version": "1.0.0",
+  "description": "A consultancy application connecting students and alumnis",
+  "main": "index.js",
+  "scripts": {
+    "install": "cd server && npm install && cd ../client && npm install",
+    "build": "cd client && npm run dev",
+    "start": "cd server && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/millionhz/consulting-wizard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/millionhz/consulting-wizard/issues"
+  },
+  "homepage": "https://github.com/millionhz/consulting-wizard#readme",
+  "engines": {
+    "node": "18.x"
+  }
+}
