@@ -4,7 +4,7 @@
   "description": "A consultancy application connecting students and alumnis",
   "main": "index.js",
   "scripts": {
-    "install": "cd server && npm install && cd ../client && npm install",
+    "install": "cd server && npm ci && cd ../client && npm ci",
     "build": "cd client && npm run build",
     "start": "cd server && npm start"
   },
