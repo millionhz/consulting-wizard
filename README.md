@@ -7,6 +7,18 @@ A consultancy application connecting students and alumnis
 - Prettier
 - Eslint
 
+## Tooling
+
+| Module | Framework |
+| --- | --- |
+| Database | MongoDB |
+| Backend| Express |
+| Frontend | React |
+| Authentication | firebaseAuth |
+| UI | Material UI |
+| State Management | ReactContext |
+| REST | Axios + react-query |
+
 ## Running Dev Environment
 
 Clone the repository to your local machine:
