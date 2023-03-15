@@ -7,8 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  lint:
-    name: Lint
+  lint-server:
+    name: Lint Server
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -16,12 +16,21 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install server dependencies
+      - name: Install dependencies
         run: cd server && npm ci
-      - name: Lint server
+      - name: Lint
         run: cd server && npm run lint
 
-      - name: Install client dependencies
+  lint-client:
+    name: Lint Client
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 18
+
+      - name: Install dependencies
         run: cd client && npm ci
-      - name: Lint client
+      - name: Lint
         run: cd client && npm run lint
