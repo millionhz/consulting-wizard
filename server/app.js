@@ -5,7 +5,7 @@ require('./utils/database').connect();
 
 const apiRouter = require('./routes/api');
 
-const app = express();
+const app =  express();
 
 app.use(logger('dev'));
 app.use(express.json());
