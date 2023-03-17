@@ -4,9 +4,80 @@ import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
 function profileItem(props) {
-  const editHandler = () => {
-    console.log('edit button clicked');
+  const [description, setDescription] = useState(props.description);
+  const editHandler = (e) => {
+    setDescription(e.target.value);
   };
+
+  const rows = description.length / 50 + 1;
+
+  const [isInputField, setInputField] = useState(false);
+
+  const textToInput = () => {
+    setInputField(true);
+  };
+
+  const inputToText = () => {
+    setInputField(false);
+  };
+
+  const textField = (
+    <p style={{ fontSize: '1.2rem', marginTop: '0' }}>{description}</p>
+  );
+
+  const editButton = (
+    <button
+      onClick={textToInput}
+      style={{ background: 'none', border: 'none' }}
+    >
+      <img
+        src="../../public/assets/edit.png"
+        alt="edit"
+        style={{ width: '20px', height: 'auto', marginLeft: '1rem' }}
+      />
+    </button>
+  );
+
+  const inputField = (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        marginBottom: '1.5rem',
+      }}
+    >
+      <textarea
+        autoFocus
+        type="textarea"
+        rows={rows}
+        defaultValue={description}
+        onChange={editHandler}
+        style={{
+          width: '100%',
+          boxShadow: 'none',
+          border: '2px solid',
+          borderRadius: '5px',
+          fontSize: '1rem',
+          fontFamily: 'inherit',
+        }}
+      />
+      <button
+        onClick={inputToText}
+        style={{
+          background: '#2C9612',
+          color: '#ffffff',
+          border: 'none',
+          borderRadius: '5px',
+          marginLeft: '0.5rem',
+          fontSize: '1rem',
+        }}
+      >
+        OK
+      </button>
+    </div>
+  );
 
   return (
     <div
@@ -18,7 +89,7 @@ function profileItem(props) {
         marginBottom: '0.5rem',
       }}
     >
-      <div>
+      <div style={{ width: '100%' }}>
         <p
           style={{
             fontSize: '0.9rem',
@@ -29,22 +100,9 @@ function profileItem(props) {
         >
           {props.title}
         </p>
-        <p style={{ fontSize: '1.2rem', marginTop: '0' }}>
-          {props.description}
-        </p>
+        {isInputField ? inputField : textField}
       </div>
-      <div>
-        <button
-          onClick={editHandler}
-          style={{ background: 'none', border: 'none' }}
-        >
-          <img
-            src="../../public/assets/edit.png"
-            alt="edit"
-            style={{ width: '20px', height: 'auto', marginLeft: '1rem' }}
-          />
-        </button>
-      </div>
+      <div>{isInputField ? null : editButton}</div>
     </div>
   );
 }
