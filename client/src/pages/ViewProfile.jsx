@@ -59,6 +59,17 @@ function ViewProfile() {
     console.log('save button clicked');
   };
 
+  const user = {
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'johndoe@gmail.com',
+    major: 'Computer Science',
+    yearOfGraduation: '2024',
+    linkedIn: 'linkedin.com/johndoe',
+    additionalInformation:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+  };
+
   return (
     <div>
       <NavBar />
@@ -88,32 +99,31 @@ function ViewProfile() {
         >
           {profileItem({
             title: 'First Name',
-            description: 'John',
+            description: user.firstName,
           })}
           {profileItem({
             title: 'Last Name',
-            description: 'Doe',
+            description: user.lastName,
           })}
           {profileItem({
             title: 'Email',
-            description: 'johndoe@gmail.com',
+            description: user.email,
           })}
           {profileItem({
             title: 'Major',
-            description: 'Computer Science',
+            description: user.major,
           })}
           {profileItem({
             title: 'Year of Graduation',
-            description: '2024',
+            description: user.yearOfGraduation,
           })}
           {profileItem({
             title: 'LinkedIn',
-            description: 'linkedin.com/johndoe',
+            description: user.linkedIn,
           })}
           {profileItem({
             title: 'Additional Information',
-            description:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+            description: user.additionalInformation,
           })}
         </div>
 
