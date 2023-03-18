@@ -7,6 +7,7 @@ function profileItem(props) {
   const [description, setDescription] = useState(props.description);
   const editHandler = (e) => {
     setDescription(e.target.value);
+    props.setValue(description);
   };
 
   const rows = description.length / 50 + 1;
@@ -19,6 +20,7 @@ function profileItem(props) {
 
   const inputToText = () => {
     setInputField(false);
+    props.setValue(description);
   };
 
   const textField = (
@@ -115,6 +117,13 @@ function ViewProfile() {
 
   const saveHandler = () => {
     console.log('save button clicked');
+    console.log('fnameState: ' + fnameState);
+    console.log('lnameState: ' + lnameState);
+    console.log('emailState: ' + emailState);
+    console.log('majorState: ' + majorState);
+    console.log('yearState: ' + yearState);
+    console.log('linkedinState: ' + linkedinState);
+    console.log('infoState: ' + infoState);
   };
 
   const user = {
@@ -127,6 +136,14 @@ function ViewProfile() {
     additionalInformation:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
   };
+
+  const [fnameState, setFnameState] = useState(user.firstName);
+  const [lnameState, setLnameState] = useState(user.lastName);
+  const [emailState, setEmailState] = useState(user.email);
+  const [majorState, setMajorState] = useState(user.major);
+  const [yearState, setYearState] = useState(user.yearOfGraduation);
+  const [linkedinState, setLinkedinState] = useState(user.linkedIn);
+  const [infoState, setInfoState] = useState(user.additionalInformation);
 
   return (
     <div>
@@ -158,30 +175,37 @@ function ViewProfile() {
           {profileItem({
             title: 'First Name',
             description: user.firstName,
+            setValue: setFnameState,
           })}
           {profileItem({
             title: 'Last Name',
             description: user.lastName,
+            setValue: setLnameState,
           })}
           {profileItem({
             title: 'Email',
             description: user.email,
+            setValue: setEmailState,
           })}
           {profileItem({
             title: 'Major',
             description: user.major,
+            setValue: setMajorState,
           })}
           {profileItem({
             title: 'Year of Graduation',
             description: user.yearOfGraduation,
+            setValue: setYearState,
           })}
           {profileItem({
             title: 'LinkedIn',
             description: user.linkedIn,
+            setValue: setLinkedinState,
           })}
           {profileItem({
             title: 'Additional Information',
             description: user.additionalInformation,
+            setValue: setInfoState,
           })}
           <p>
             <a href="#" style={{ color: '#786E6E' }}>
