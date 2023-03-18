@@ -7,7 +7,9 @@ const authenticate = (req, res, next) => {
       req.user = userObj;
       next();
     })
-    .catch(next);
+    .catch(() => {
+      res.status(401).end();
+    });
 };
 
 module.exports = authenticate;
