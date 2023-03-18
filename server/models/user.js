@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const userTypes = require('../utils/userTypes');
-const { createUser } = require('../utils/auth');
+const { createUser } = require('../utils/firebaseAuth');
 
 const userSchema = new mongoose.Schema({
   type: { type: String, required: true, enum: Object.values(userTypes) },
