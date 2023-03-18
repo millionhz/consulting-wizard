@@ -4,7 +4,7 @@ const authenticate = (req, res, next) => {
   const { token } = req.cookies;
 
   if (!token) {
-    res.status(401).end();
+    res.sendStatus(401);
     return;
   }
 
@@ -14,7 +14,7 @@ const authenticate = (req, res, next) => {
       next();
     })
     .catch(() => {
-      res.status(401).end();
+      res.sendStatus(401);
     });
 };
 

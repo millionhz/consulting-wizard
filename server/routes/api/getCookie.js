@@ -9,7 +9,7 @@ router.post('/', (req, res, next) => {
   validateToken(token)
     .then(() => {
       res.cookie('token', token, { httpOnly: true, sameSite: true });
-      res.status(200).end();
+      res.sendStatus(200);
     })
     .catch(next);
 });
