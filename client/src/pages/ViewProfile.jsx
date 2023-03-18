@@ -102,7 +102,7 @@ function profileItem(props) {
         </p>
         {isInputField ? inputField : textField}
       </div>
-      <div>{isInputField ? null : editButton}</div>
+      <div>{isInputField || props.title === 'Email' ? null : editButton}</div>
     </div>
   );
 }
@@ -183,6 +183,12 @@ function ViewProfile() {
             title: 'Additional Information',
             description: user.additionalInformation,
           })}
+          <p>
+            <a href="#" style={{ color: '#786E6E' }}>
+              {' '}
+              Change Password{' '}
+            </a>
+          </p>
         </div>
 
         <button
