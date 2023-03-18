@@ -17,4 +17,6 @@ const createUser = (uid, email, password) =>
 
 const deleteUser = (uid) => auth.deleteUser(uid);
 
-module.exports = { createUser, deleteUser };
+const validateToken = (token) => auth.verifyIdToken(token);
+
+module.exports = { createUser, deleteUser, validateToken };

@@ -15,4 +15,8 @@ function addUser(email, password) {
     .then(({ _id }) => createUser(_id.toString(), email, password));
 }
 
-module.exports = { addUser };
+function getUserById(uid) {
+  return User.findById(uid).exec();
+}
+
+module.exports = { addUser, getUserById };
