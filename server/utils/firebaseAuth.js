@@ -20,3 +20,4 @@ const deleteUser = (uid) => auth.deleteUser(uid);
 const validateToken = (token) => auth.verifyIdToken(token);
 
 module.exports = { createUser, deleteUser, validateToken };
+
