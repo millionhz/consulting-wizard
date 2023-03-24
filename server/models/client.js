@@ -48,4 +48,14 @@ const addClient = (
 
 const getClientById = (uid) => Client.findById(uid).exec();
 
-module.exports = { addClient, getClientById };
+const updateClient = (uid, attr) =>
+  getClientById(uid)
+    .then((obj) =>
+      obj.overwrite({
+        ...obj.toObject(),
+        ...attr,
+      })
+    )
+    .then((obj) => obj.save());
+
+module.exports = { addClient, getClientById, updateClient };
