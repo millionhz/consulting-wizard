@@ -9,8 +9,8 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-function addUser(email, password) {
-  return User({ type: userTypes.CLIENT })
+function addUser(id, email, password, type) {
+  return User({ _id: id, type })
     .save()
     .then(({ _id }) => createUser(_id.toString(), email, password));
 }
