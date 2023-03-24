@@ -60,4 +60,8 @@ function addConsultant(
     );
 }
 
-module.exports = { addConsultant };
+function getConsultantById(uid) {
+  return Consultant.findById(uid).exec();
+}
+
+module.exports = { addConsultant, getConsultantById };

@@ -40,4 +40,8 @@ function addClient(email, password, displayName, major, yearOfGraduation, bio) {
     );
 }
 
-module.exports = { addClient };
+function getClientById(uid) {
+  return Client.findById(uid).exec();
+}
+
+module.exports = { addClient, getClientById };
