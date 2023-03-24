@@ -9,14 +9,11 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-function addUser(id, email, password, type) {
-  return User({ _id: id, type })
+const addUser = (id, email, password, type) =>
+  User({ _id: id, type })
     .save()
     .then(({ _id }) => createUser(_id.toString(), email, password));
-}
 
-function getUserById(uid) {
-  return User.findById(uid).exec();
-}
+const getUserById = (uid) => User.findById(uid).exec();
 
 module.exports = { addUser, getUserById };

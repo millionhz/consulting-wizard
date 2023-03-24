@@ -32,16 +32,20 @@ const clientSchema = new mongoose.Schema({
 
 const Client = mongoose.model('client', clientSchema);
 
-function addClient(email, password, displayName, major, yearOfGraduation, bio) {
-  return Client({ displayName, major, yearOfGraduation, bio })
+const addClient = (
+  email,
+  password,
+  displayName,
+  major,
+  yearOfGraduation,
+  bio
+) =>
+  Client({ displayName, major, yearOfGraduation, bio })
     .save()
     .then(({ _id }) =>
       addUser(_id.toString(), email, password, userTypes.CLIENT)
     );
-}
 
-function getClientById(uid) {
-  return Client.findById(uid).exec();
-}
+const getClientById = (uid) => Client.findById(uid).exec();
 
 module.exports = { addClient, getClientById };

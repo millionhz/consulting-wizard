@@ -38,7 +38,7 @@ const consultantSchema = new mongoose.Schema({
 
 const Consultant = mongoose.model('consultant', consultantSchema);
 
-function addConsultant(
+const addConsultant = (
   email,
   password,
   displayName,
@@ -46,8 +46,8 @@ function addConsultant(
   yearOfGraduation,
   currentPlacement,
   bio
-) {
-  return Consultant({
+) =>
+  Consultant({
     displayName,
     major,
     yearOfGraduation,
@@ -58,10 +58,7 @@ function addConsultant(
     .then(({ _id }) =>
       addUser(_id.toString(), email, password, userTypes.CONSULTANT)
     );
-}
 
-function getConsultantById(uid) {
-  return Consultant.findById(uid).exec();
-}
+const getConsultantById = (uid) => Consultant.findById(uid).exec();
 
 module.exports = { addConsultant, getConsultantById };
