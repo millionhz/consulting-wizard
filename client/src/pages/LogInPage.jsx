@@ -18,10 +18,9 @@ function LogInPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email, password);
     logIn(email, password)
       .then(() => {
-        window.location.reload();
+        // window.location.reload();
       })
       .catch((err) => {
         console.log(err);
