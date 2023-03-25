@@ -61,4 +61,14 @@ const addConsultant = (
 
 const getConsultantById = (uid) => Consultant.findById(uid).exec();
 
-module.exports = { addConsultant, getConsultantById };
+const updateConsultant = (uid, attr) =>
+  getConsultantById(uid)
+    .then((obj) =>
+      obj.overwrite({
+        ...obj.toObject(),
+        ...attr,
+      })
+    )
+    .then((obj) => obj.save());
+
+module.exports = { addConsultant, getConsultantById, updateConsultant };
