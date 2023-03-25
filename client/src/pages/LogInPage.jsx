@@ -1,12 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Button, Grid, TextField } from '@mui/material';
 import styled from '@emotion/styled';
-import { UserContext } from '../context/UserContext';
+import { logIn } from '../api/firebaseAuth';
 
 function LogInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { logIn } = useContext(UserContext);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
