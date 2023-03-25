@@ -1,38 +1,38 @@
-import React, { useState, useContext } from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import styled from '@emotion/styled';
 
-function navLink(props) {
+function NavLink({ title, page }) {
   const [isHover, setHover] = useState(false);
   const handleHover = () => {
     setHover(!isHover);
   };
 
   return (
-    <NavLink
+    <StyledNavLink
       href="#"
       onMouseEnter={handleHover}
       onMouseLeave={handleHover}
       style={{
-        color: props.title === props.page ? '#bfab25' : '',
+        color: title === page ? '#bfab25' : '',
       }}
     >
-      {props.title}
-    </NavLink>
+      {title}
+    </StyledNavLink>
   );
 }
 
-function NavBar(props) {
+function NavBar({ page }) {
   return (
     <NavbarDiv className="navbar">
       <div className="navbar__logo">
         <Logo src="../../public/assets/logo.png" alt="logo" />
       </div>
       <div className="navbar__links" style={{ padding: '20px' }}>
-        {navLink({ title: 'About', page: props.page })}
-        {navLink({ title: 'Book Appointment', page: props.page })}
-        {navLink({ title: 'View Appointments', page: props.page })}
-        {navLink({ title: 'Settings', page: props.page })}
-        {navLink({ title: 'Logout', page: props.page })}
+        {NavLink({ title: 'About', page })}
+        {NavLink({ title: 'Book Appointment', page })}
+        {NavLink({ title: 'View Appointments', page })}
+        {NavLink({ title: 'Settings', page })}
+        {NavLink({ title: 'Logout', page })}
       </div>
     </NavbarDiv>
   );
@@ -56,7 +56,7 @@ const Logo = styled.img`
   padding: 0px 20px 0px 20px;
 `;
 
-const NavLink = styled.a`
+const StyledNavLink = styled.a`
   margin: 0 25px 0 25px;
   text-decoration: none;
   font-size: 0.85rem;

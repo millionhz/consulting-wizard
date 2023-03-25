@@ -1,13 +1,12 @@
-import React, { useState, useContext } from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import styled from '@emotion/styled';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
-function profileItem(props) {
-  const [description, setDescription] = useState(props.description);
+function ProfileItem({ description: description_, title }) {
+  const [description, setDescription] = useState(description_);
   const editHandler = (e) => {
     setDescription(e.target.value);
-    props.setValue(description);
   };
 
   const rows = description.length / 50 + 1;
@@ -20,7 +19,6 @@ function profileItem(props) {
 
   const inputToText = () => {
     setInputField(false);
-    props.setValue(description);
   };
 
   const textField = <FieldDescription>{description}</FieldDescription>;
@@ -47,24 +45,24 @@ function profileItem(props) {
   return (
     <FieldDiv>
       <FieldText>
-        <FieldTitle>{props.title}</FieldTitle>
+        <FieldTitle>{title}</FieldTitle>
         {isInputField ? inputField : textField}
       </FieldText>
-      <div>{isInputField || props.title === 'Email' ? null : editButton}</div>
+      <div>{isInputField || title === 'Email' ? null : editButton}</div>
     </FieldDiv>
   );
 }
 
 function ViewProfile() {
   const saveHandler = () => {
-    console.log('save button clicked');
-    console.log('fnameState: ' + fnameState);
-    console.log('lnameState: ' + lnameState);
-    console.log('emailState: ' + emailState);
-    console.log('majorState: ' + majorState);
-    console.log('yearState: ' + yearState);
-    console.log('linkedinState: ' + linkedinState);
-    console.log('infoState: ' + infoState);
+    // console.log('save button clicked');
+    // console.log('fnameState: ' + fnameState);
+    // console.log('lnameState: ' + lnameState);
+    // console.log('emailState: ' + emailState);
+    // console.log('majorState: ' + majorState);
+    // console.log('yearState: ' + yearState);
+    // console.log('linkedinState: ' + linkedinState);
+    // console.log('infoState: ' + infoState);
   };
 
   const user = {
@@ -88,44 +86,44 @@ function ViewProfile() {
 
   return (
     <div>
-      <NavBar page={'Settings'} />
+      <NavBar page="Settings" />
 
       <Profile className="profile">
         <Title>Account Management</Title>
         <Subtitle>Manage your account details</Subtitle>
 
         <Fields>
-          {profileItem({
+          {ProfileItem({
             title: 'First Name',
             description: user.firstName,
             setValue: setFnameState,
           })}
-          {profileItem({
+          {ProfileItem({
             title: 'Last Name',
             description: user.lastName,
             setValue: setLnameState,
           })}
-          {profileItem({
+          {ProfileItem({
             title: 'Email',
             description: user.email,
             setValue: setEmailState,
           })}
-          {profileItem({
+          {ProfileItem({
             title: 'Major',
             description: user.major,
             setValue: setMajorState,
           })}
-          {profileItem({
+          {ProfileItem({
             title: 'Year of Graduation',
             description: user.yearOfGraduation,
             setValue: setYearState,
           })}
-          {profileItem({
+          {ProfileItem({
             title: 'LinkedIn',
             description: user.linkedIn,
             setValue: setLinkedinState,
           })}
-          {profileItem({
+          {ProfileItem({
             title: 'Additional Information',
             description: user.additionalInformation,
             setValue: setInfoState,
