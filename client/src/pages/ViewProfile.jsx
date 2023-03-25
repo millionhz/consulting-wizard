@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import styled from '@emotion/styled';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
-import axios from 'axios';
 
 function ProfileItem({ description: description_, title, setValue }) {
   const [description, setDescription] = useState(description_);
@@ -71,7 +71,7 @@ function ViewProfile() {
       // setLnameState(res.data.displayName);
       setEmailState(res.data.email);
       setMajorState(res.data.major);
-      setYearState(res.data.yearOfGraduation);
+      setYearState(res.data.yearOfGraduation.toString());
       // setLinkedinState(res.data.linkedIn);
       setInfoState(res.data.bio);
     });
@@ -83,7 +83,7 @@ function ViewProfile() {
       displayName: fnameState,
       email: emailState,
       major: majorState,
-      yearOfGraduation: yearState,
+      yearOfGraduation: Number(yearState),
       bio: infoState,
     };
     axios.patch('/api/profile', userData).then((res) => {
@@ -101,37 +101,37 @@ function ViewProfile() {
 
         <Fields key={emailState}>
           <ProfileItem
-            title={'First Name'}
+            title="First Name"
             description={fnameState}
             setValue={setFnameState}
           />
           <ProfileItem
-            title={'Last Name'}
+            title="Last Name"
             description={lnameState}
             setValue={setLnameState}
           />
           <ProfileItem
-            title={'Email'}
+            title="Email"
             description={emailState}
             setValue={setEmailState}
           />
           <ProfileItem
-            title={'Major'}
+            title="Major"
             description={majorState}
             setValue={setMajorState}
           />
           <ProfileItem
-            title={'Year of Graduation'}
+            title="Year of Graduation"
             description={yearState}
             setValue={setYearState}
           />
           <ProfileItem
-            title={'LinkedIn'}
+            title="LinkedIn"
             description={linkedinState}
             setValue={setLinkedinState}
           />
           <ProfileItem
-            title={'Additional Information'}
+            title="Additional Information"
             description={infoState}
             setValue={setInfoState}
           />
