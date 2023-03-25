@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
+import axios from 'axios';
 
-function ProfileItem({ description: description_, title }) {
+function ProfileItem({ description: description_, title, setValue }) {
   const [description, setDescription] = useState(description_);
   const editHandler = (e) => {
     setDescription(e.target.value);
@@ -18,6 +19,7 @@ function ProfileItem({ description: description_, title }) {
   };
 
   const inputToText = () => {
+    setValue(description);
     setInputField(false);
   };
 
@@ -54,35 +56,40 @@ function ProfileItem({ description: description_, title }) {
 }
 
 function ViewProfile() {
+  const [fnameState, setFnameState] = useState('-');
+  const [lnameState, setLnameState] = useState('-');
+  const [emailState, setEmailState] = useState('-');
+  const [majorState, setMajorState] = useState('-');
+  const [yearState, setYearState] = useState('-');
+  const [linkedinState, setLinkedinState] = useState('-');
+  const [infoState, setInfoState] = useState('-');
+
+  useEffect(() => {
+    console.log('Fetching user data...');
+    axios.get('/api/profile').then((res) => {
+      setFnameState(res.data.displayName);
+      // setLnameState(res.data.displayName);
+      setEmailState(res.data.email);
+      setMajorState(res.data.major);
+      setYearState(res.data.yearOfGraduation);
+      // setLinkedinState(res.data.linkedIn);
+      setInfoState(res.data.bio);
+    });
+  }, []);
+
   const saveHandler = () => {
-    // console.log('save button clicked');
-    // console.log('fnameState: ' + fnameState);
-    // console.log('lnameState: ' + lnameState);
-    // console.log('emailState: ' + emailState);
-    // console.log('majorState: ' + majorState);
-    // console.log('yearState: ' + yearState);
-    // console.log('linkedinState: ' + linkedinState);
-    // console.log('infoState: ' + infoState);
+    console.log('save button clicked');
+    const userData = {
+      displayName: fnameState,
+      email: emailState,
+      major: majorState,
+      yearOfGraduation: yearState,
+      bio: infoState,
+    };
+    axios.patch('/api/profile', userData).then((res) => {
+      console.log(res);
+    });
   };
-
-  const user = {
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'johndoe@gmail.com',
-    major: 'Computer Science',
-    yearOfGraduation: '2024',
-    linkedIn: 'linkedin.com/johndoe',
-    additionalInformation:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-  };
-
-  const [fnameState, setFnameState] = useState(user.firstName);
-  const [lnameState, setLnameState] = useState(user.lastName);
-  const [emailState, setEmailState] = useState(user.email);
-  const [majorState, setMajorState] = useState(user.major);
-  const [yearState, setYearState] = useState(user.yearOfGraduation);
-  const [linkedinState, setLinkedinState] = useState(user.linkedIn);
-  const [infoState, setInfoState] = useState(user.additionalInformation);
 
   return (
     <div>
@@ -92,42 +99,42 @@ function ViewProfile() {
         <Title>Account Management</Title>
         <Subtitle>Manage your account details</Subtitle>
 
-        <Fields>
-          {ProfileItem({
-            title: 'First Name',
-            description: user.firstName,
-            setValue: setFnameState,
-          })}
-          {ProfileItem({
-            title: 'Last Name',
-            description: user.lastName,
-            setValue: setLnameState,
-          })}
-          {ProfileItem({
-            title: 'Email',
-            description: user.email,
-            setValue: setEmailState,
-          })}
-          {ProfileItem({
-            title: 'Major',
-            description: user.major,
-            setValue: setMajorState,
-          })}
-          {ProfileItem({
-            title: 'Year of Graduation',
-            description: user.yearOfGraduation,
-            setValue: setYearState,
-          })}
-          {ProfileItem({
-            title: 'LinkedIn',
-            description: user.linkedIn,
-            setValue: setLinkedinState,
-          })}
-          {ProfileItem({
-            title: 'Additional Information',
-            description: user.additionalInformation,
-            setValue: setInfoState,
-          })}
+        <Fields key={emailState}>
+          <ProfileItem
+            title={'First Name'}
+            description={fnameState}
+            setValue={setFnameState}
+          />
+          <ProfileItem
+            title={'Last Name'}
+            description={lnameState}
+            setValue={setLnameState}
+          />
+          <ProfileItem
+            title={'Email'}
+            description={emailState}
+            setValue={setEmailState}
+          />
+          <ProfileItem
+            title={'Major'}
+            description={majorState}
+            setValue={setMajorState}
+          />
+          <ProfileItem
+            title={'Year of Graduation'}
+            description={yearState}
+            setValue={setYearState}
+          />
+          <ProfileItem
+            title={'LinkedIn'}
+            description={linkedinState}
+            setValue={setLinkedinState}
+          />
+          <ProfileItem
+            title={'Additional Information'}
+            description={infoState}
+            setValue={setInfoState}
+          />
           <p>
             <ChangePassword href="#"> Change Password </ChangePassword>
           </p>
