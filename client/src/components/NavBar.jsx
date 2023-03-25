@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { UserContext } from '../context/UserContext';
+import styled from 'styled-components';
 
 function navLink(props) {
   const [isHover, setHover] = useState(false);
@@ -8,58 +8,63 @@ function navLink(props) {
   };
 
   return (
-    <a
+    <NavLink
       href="#"
       onMouseEnter={handleHover}
       onMouseLeave={handleHover}
       style={{
-        margin: '0 25px 0 25px',
-        color: props.title === 'Settings' || isHover ? '#bfab25' : '#ffffff',
-        textDecoration: 'none',
-        fontSize: '0.85rem',
+        color: props.title === props.page ? '#bfab25' : '',
       }}
     >
       {props.title}
-    </a>
+    </NavLink>
   );
 }
 
-function NavBar() {
+function NavBar(props) {
   return (
-    <div
-      className="navbar"
-      style={{
-        width: '100vw',
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderBottom: '0.005rem solid #938D8D',
-        position: 'sticky',
-        top: '0',
-        backgroundColor: '#0b0b45',
-      }}
-    >
+    <NavbarDiv className="navbar">
       <div className="navbar__logo">
-        <img
-          src="../../public/assets/logo.png"
-          alt="logo"
-          style={{
-            width: '200px',
-            height: 'auto',
-            padding: '0px 20px 0px 20px',
-          }}
-        />
+        <Logo src="../../public/assets/logo.png" alt="logo" />
       </div>
       <div className="navbar__links" style={{ padding: '20px' }}>
-        {navLink({ title: 'About' })}
-        {navLink({ title: 'Book Appointment' })}
-        {navLink({ title: 'View Appointments' })}
-        {navLink({ title: 'Settings' })}
-        {navLink({ title: 'Logout' })}
+        {navLink({ title: 'About', page: props.page })}
+        {navLink({ title: 'Book Appointment', page: props.page })}
+        {navLink({ title: 'View Appointments', page: props.page })}
+        {navLink({ title: 'Settings', page: props.page })}
+        {navLink({ title: 'Logout', page: props.page })}
       </div>
-    </div>
+    </NavbarDiv>
   );
 }
+
+const NavbarDiv = styled.div`
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 0.005rem solid #938d8d;
+  position: sticky;
+  top: 0;
+  background-color: #0b0b45;
+`;
+
+const Logo = styled.img`
+  width: 200px;
+  height: auto;
+  padding: 0px 20px 0px 20px;
+`;
+
+const NavLink = styled.a`
+  margin: 0 25px 0 25px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  color: #ffffff;
+
+  &:hover {
+    color: #bfab25;
+  }
+`;
 
 export default NavBar;
