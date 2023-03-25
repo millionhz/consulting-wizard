@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const userTypes = require('../utils/userTypes');
-const { createUser, validateToken } = require('../utils/firebaseAuth');
+const { createUser } = require('../utils/firebaseAuth');
 
 const userSchema = new mongoose.Schema({
   type: { type: String, required: true, enum: Object.values(userTypes) },
@@ -9,25 +9,11 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-function addUser(email, password) {
-  return User({ type: userTypes.CLIENT })
+const addUser = (id, email, password, type) =>
+  User({ _id: id, type })
     .save()
     .then(({ _id }) => createUser(_id.toString(), email, password));
-}
 
-function getUserById(uid) {
-  return User.findById(uid).exec();
-}
+const getUserById = (uid) => User.findById(uid).exec();
 
-function getUserByToken(token) {
-  let retObj = {};
-  return validateToken(token)
-    .then((userObj) => {
-      const { uid } = userObj;
-      retObj = { ...userObj };
-      return getUserById(uid);
-    })
-    .then((userObj) => ({ ...retObj, ...userObj.toObject() }));
-}
-
-module.exports = { addUser, getUserById, getUserByToken };
+module.exports = { addUser, getUserById };
