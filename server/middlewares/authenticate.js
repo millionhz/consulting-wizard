@@ -1,4 +1,4 @@
-const { validateToken } = require('../utils/firebaseAuth');
+const { verifySessionToken } = require('../utils/firebaseAuth');
 const { getUserById } = require('../models/user');
 const { getConsultantById } = require('../models/consultant');
 const { getClientById } = require('../models/client');
@@ -6,7 +6,7 @@ const userTypes = require('../utils/userTypes');
 
 const getUserByToken = (token) => {
   let retObj = {};
-  return validateToken(token)
+  return verifySessionToken(token)
     .then((userObj) => {
       const { uid } = userObj;
       retObj = { ...userObj };
@@ -30,14 +30,14 @@ const getUserByToken = (token) => {
 };
 
 const authenticate = (req, res, next) => {
-  const { token } = req.cookies;
+  const { session } = req.cookies;
 
-  if (!token) {
+  if (!session) {
     res.sendStatus(401);
     return;
   }
 
-  getUserByToken(token)
+  getUserByToken(session)
     .then((userObj) => {
       req.user = userObj;
       next();

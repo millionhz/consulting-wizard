@@ -17,6 +17,14 @@ const createUser = (uid, email, password) =>
 
 const deleteUser = (uid) => auth.deleteUser(uid);
 
-const validateToken = (token) => auth.verifyIdToken(token);
+const createSessionCookie = (token, expiresIn) =>
+  auth.createSessionCookie(token, { expiresIn });
 
-module.exports = { createUser, deleteUser, validateToken };
+const verifySessionToken = (cookie) => auth.verifySessionCookie(cookie);
+
+module.exports = {
+  createUser,
+  deleteUser,
+  createSessionCookie,
+  verifySessionToken,
+};

@@ -1,13 +1,13 @@
 const express = require('express');
 const authenticate = require('../../middlewares/authenticate');
-const getCookieRouter = require('./getCookie');
+const logInRouter = require('./logIn');
 const signUpRouter = require('./signUp');
 const authenticateRouter = require('./authenticate');
 
 const router = express.Router();
 
 router.use('/signUp', signUpRouter);
-router.use('/getCookie', getCookieRouter);
+router.use('/logIn', logInRouter);
 
 router.use(authenticate);
 

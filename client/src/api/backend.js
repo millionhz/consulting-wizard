@@ -4,7 +4,7 @@ const api = axios.create({
   baseURL: '/api',
 });
 
-export const getCookie = (token) => api.post('/getCookie', { token });
+export const sessionLogIn = (token) => api.post('/logIn', { token });
 
 export const authenticate = () => api.get('/authenticate');
 
