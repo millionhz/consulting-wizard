@@ -25,7 +25,7 @@ function NavBar({ page }) {
   return (
     <NavbarDiv className="navbar">
       <div className="navbar__logo">
-        <Logo src="../../public/assets/logo.png" alt="logo" />
+        <Logo src="/logo.png" alt="logo" />
       </div>
       <div className="navbar__links" style={{ padding: '20px' }}>
         {NavLink({ title: 'About', page })}
