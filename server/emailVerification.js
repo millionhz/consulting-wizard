@@ -17,7 +17,7 @@ const myPassword = process.env.PASSWORD
 
 app.use(bodyParser.urlencoded({extended:true}))
 
-mongoose.connect('mongodb://localhost:27017',{useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect('mongodb://localhost:27017/ConsultingWizards',{useNewUrlParser: true, useUnifiedTopology: true})
 const database = mongoose.connection
 database.on("error",console.error.bind(console, "database connection error: "))
 
@@ -33,7 +33,10 @@ const schema = new mongoose.Schema({
 const User = mongoose.model('User',schema)
 
 const myTransporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port:587,
+    secure:false,
+    requireTLS:true,
     auth: {
         user: myEmail,
         pass: myPassword
@@ -98,7 +101,7 @@ app.post('/signup',async (req,res)=>{
             from: myEmail,
             to: userEmail,
             subject: 'User Email Verification',
-            html: '<p>Please click on the following link to verify your email: <a href="https://localhost:3000/verify/:${userId}">Verify</a></p>'
+            html: `<p>Please click on the following link to verify your email: <a href="https://localhost:3000/verify/:${userId}">Verify</a></p>`
         }
 
     await myTransporter.sendMail(emailContent)
