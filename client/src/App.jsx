@@ -1,10 +1,10 @@
 import LogInPage from './pages/LogInPage';
-import ViewProfile from './pages/ViewProfile';
+import ManageProfilePage from './pages/ManageProfilePage';
 
 function App() {
   return (
     <div>
-      <ViewProfile />
+      <ManageProfilePage />
       {/* <LogInPage /> */}
     </div>
   );
