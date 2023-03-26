@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import Modal from 'react-modal';
 
