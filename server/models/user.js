@@ -7,6 +7,8 @@ const userSchema = new mongoose.Schema({
   createdTime: { type: Date, required: true, default: Date.now },
 });
 
+userSchema.set('toObject', { getters: true });
+
 const User = mongoose.model('User', userSchema);
 
 const addUser = (id, email, password, type) =>

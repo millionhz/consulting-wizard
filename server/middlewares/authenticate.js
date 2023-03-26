@@ -6,6 +6,7 @@ const userTypes = require('../utils/userTypes');
 
 const getUserByToken = (token) => {
   let retObj = {};
+
   return verifySessionToken(token)
     .then((userObj) => {
       const { uid } = userObj;

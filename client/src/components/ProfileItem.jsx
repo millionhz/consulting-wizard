@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 
-function ProfileItem({ description: description_, title, setValue }) {
+function ProfileItem({ description: description_, title, setValue, disabled }) {
   const [description, setDescription] = useState(description_);
   const editHandler = (e) => {
     setDescription(e.target.value);
@@ -49,7 +49,7 @@ function ProfileItem({ description: description_, title, setValue }) {
         <FieldTitle>{title}</FieldTitle>
         {isInputField ? inputField : textField}
       </FieldText>
-      <div>{isInputField || title === 'Email' ? null : editButton}</div>
+      <div>{isInputField || disabled ? null : editButton}</div>
     </FieldDiv>
   );
 }
