@@ -17,12 +17,16 @@ router.get('/', (req, res) => {
     res.json(retObj);
   };
 
+  const send404 = () => {
+    res.sendStatus(404);
+  };
+
   if (type === userTypes.CLIENT) {
-    return getClientById(id).then(packageAndSend);
+    return getClientById(id).then(packageAndSend).catch(send404);
   }
 
   if (type === userTypes.CONSULTANT) {
-    return getConsultantById(id).then(packageAndSend);
+    return getConsultantById(id).then(packageAndSend).catch(send404);
   }
 
   return res.sendStatus(403);
@@ -38,12 +42,16 @@ router.patch('/', (req, res) => {
     res.json(retObj);
   };
 
+  const send500 = () => {
+    res.sendStatus(500);
+  };
+
   if (type === userTypes.CLIENT) {
-    return updateClient(id, body).then(packageAndSend);
+    return updateClient(id, body).then(packageAndSend).catch(send500);
   }
 
   if (type === userTypes.CONSULTANT) {
-    return updateConsultant(id, body).then(packageAndSend);
+    return updateConsultant(id, body).then(packageAndSend).catch(send500);
   }
 
   return res.sendStatus(403);
