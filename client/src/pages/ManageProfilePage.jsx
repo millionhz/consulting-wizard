@@ -6,36 +6,38 @@ import ProfileItem from '../components/ProfileItem';
 import { getProfileInfo, setProfileInfo } from '../api/backend';
 
 function ViewProfile() {
-  const [name, setName] = useState('');
+  const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [major, setMajor] = useState('');
   const [yearOfGraduation, setYearOfGraduation] = useState('');
   const [bio, setBio] = useState('');
 
+  const setProfileData = (data) => {
+    setDisplayName(data.displayName);
+    setEmail(data.email);
+    setMajor(data.major);
+    setYearOfGraduation(data.yearOfGraduation.toString());
+    setBio(data.bio);
+  };
+
   useEffect(() => {
     getProfileInfo()
       .then(({ data }) => data)
-      .then((data) => {
-        setName(data.displayName);
-        setEmail(data.email);
-        setMajor(data.major);
-        setYearOfGraduation(data.yearOfGraduation.toString());
-        setBio(data.bio);
-      });
+      .then(setProfileData);
   }, []);
 
   const saveHandler = () => {
     const userData = {
-      displayName: name,
+      displayName,
       email,
       major,
       yearOfGraduation,
       bio,
     };
 
-    setProfileInfo(userData).then((res) => {
-      window.location.reload();
-    });
+    setProfileInfo(userData)
+      .then(({ data }) => data)
+      .then(setProfileData);
   };
 
   return (
@@ -47,8 +49,17 @@ function ViewProfile() {
         <Subtitle>Manage your account details</Subtitle>
 
         <Fields key={email}>
-          <ProfileItem title="Name" description={name} setValue={setName} />
-          <ProfileItem title="Email" description={email} setValue={setEmail} />
+          <ProfileItem
+            title="Name"
+            description={displayName}
+            setValue={setDisplayName}
+          />
+          <ProfileItem
+            title="Email"
+            description={email}
+            setValue={setEmail}
+            disabled
+          />
           <ProfileItem title="Major" description={major} setValue={setMajor} />
           <ProfileItem
             title="Year of Graduation"
