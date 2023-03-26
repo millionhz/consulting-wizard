@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
+import { useCallback } from 'react';
 import Modal from 'react-modal';
 
 function Confirmation({ date, timeslot, counselor, closeModal, isOpen }) {
-  function goToHome() {
+  const goToHome = useCallback(() => {
     window.location.href = '/';
-  }
+  }, []);
 
   return (
     <div>

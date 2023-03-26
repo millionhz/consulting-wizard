@@ -8,7 +8,7 @@ function Timeslot({ timeslot, BookHandler }) {
   return (
     <TimeSlot>
       <TimeSlotText>
-        {timeslot.start + ' ' + timeslot.end + ' Pakistan Time (UTC +5)'}
+        {`${timeslot.start} ${timeslot.end} Pakistan Time (UTC +5)`}
       </TimeSlotText>
       <BookSlot onClick={onClickHandler}>
         <BookIcon src="../../public/book_slot.png" alt="Book" />

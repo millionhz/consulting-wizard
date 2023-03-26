@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import styled from '@emotion/styled';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
@@ -85,7 +84,7 @@ function BookAppointment() {
         date={date}
         timeslot={selectedTimeslot}
         counselor={counselor}
-        closeModal={closeModal}
+        closeModal={() => closeModal()}
         isOpen={modalIsOpen}
       />
 
