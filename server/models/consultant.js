@@ -74,6 +74,8 @@ const updateConsultant = (uid, attr) =>
     
 const searchConsultant = (searchInput) => Consultant.find({major: searchInput}).exec();
 
+const filterAgeGreater = (filterInput) => Consultant.find({$query: {}, $orderby:{age:filterInput}})
 
 
-module.exports = { addConsultant, getConsultantById, updateConsultant, searchConsultant};
+
+module.exports = { addConsultant, getConsultantById, updateConsultant, searchConsultant, filterAgeGreater};
