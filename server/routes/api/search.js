@@ -4,7 +4,7 @@ const { searchConsultant } = require('../../models/consultant');
 const router = express.Router();
 
 
-router.post('/api/search/consultant', (req, res, next) => {
+router.post('/consultant', (req, res, next) => {
     const value = req.body;
   
     searchConsultant(value)

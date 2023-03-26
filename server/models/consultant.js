@@ -71,9 +71,9 @@ const updateConsultant = (uid, attr) =>
     )
     .then((obj) => obj.save());
 
-const searchConsultant = (searchInput) =>
-{
-  Consultant.find({major: searchInput}).exec();
-}
+    
+const searchConsultant = (searchInput) => Consultant.find({major: searchInput}).exec();
+
+
 
 module.exports = { addConsultant, getConsultantById, updateConsultant, searchConsultant};
