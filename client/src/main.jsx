@@ -7,6 +7,7 @@ import LogInPage from './pages/LogInPage';
 import UserContextProvider from './context/UserContext';
 import UpdatePassword from './pages/UpdatePassword';
 import ViewReportedFeedback from './pages/ViewReportedFeedback';
+import ViewDeactivationRequests from './pages/ViewDeactivationRequests';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -16,7 +17,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       {/* <LogInPage/> */}
       {/* <UpdatePassword/> */}
       {/* <ChangePassword/> */}
-      <ViewReportedFeedback />
+      {/* <ViewReportedFeedback /> */}
+      <ViewDeactivationRequests />
     </UserContextProvider>
   </React.StrictMode>
 );
