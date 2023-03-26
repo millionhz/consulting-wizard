@@ -41,7 +41,10 @@ function Confirmation({ date, timeslot, counselor, closeModal, isOpen }) {
             Time: {timeslot.start} - {timeslot.end} Pakistan Time (UTC +5)
           </ModalText>
         </BookingTime>
-        <ModalText>Please check your email for meeting details</ModalText>
+        <EmailNotif>
+          <InfoIcon>!</InfoIcon>
+          <ModalText>Please check your email for meeting details</ModalText>
+        </EmailNotif>
 
         <ModalButton onClick={goToHome}>OK</ModalButton>
       </Modal>
@@ -81,6 +84,25 @@ const ModalHeading = styled.p`
   margin-bottom: 0;
 `;
 
+const EmailNotif = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+const InfoIcon = styled.p`
+  color: #efe611;
+  border: solid 2px #efe611;
+  border-radius: 100%;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  margin-right: 0.5rem;
+`;
+
 const ModalText = styled.p`
   margin-top: 0;
   margin-bottom: 0;
@@ -90,7 +112,7 @@ const ModalText = styled.p`
 
 const BookingTime = styled.div`
   margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 `;
 
 const ModalButton = styled.button`
