@@ -29,10 +29,13 @@ function NavBar({ page }) {
       </div>
       <div className="navbar__links" style={{ padding: '20px' }}>
         {NavLink({ title: 'About', page })}
-        {NavLink({ title: 'Book Appointment', page })}
-        {NavLink({ title: 'View Appointments', page })}
         {NavLink({ title: 'Settings', page })}
         {NavLink({ title: 'Logout', page })}
+        <br />
+        {NavLink({ title: 'Deactivation Requests', page })}
+        {NavLink({ title: 'Reported Feedback', page })}
+        {NavLink({ title: 'Reported Counselor', page })}
+        {NavLink({ title: 'Reported User', page })}
       </div>
     </NavbarDiv>
   );
