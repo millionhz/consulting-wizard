@@ -9,7 +9,7 @@ const userTypes = require('../../utils/userTypes');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  const { uid, type, email } = req.user;
+  const { id, type, email } = req.user;
   let retObj = { type, email };
 
   const packageAndSend = (userObj) => {
@@ -18,18 +18,18 @@ router.get('/', (req, res) => {
   };
 
   if (type === userTypes.CLIENT) {
-    return getClientById(uid).then(packageAndSend);
+    return getClientById(id).then(packageAndSend);
   }
 
   if (type === userTypes.CONSULTANT) {
-    return getConsultantById(uid).then(packageAndSend);
+    return getConsultantById(id).then(packageAndSend);
   }
 
   return res.sendStatus(403);
 });
 
 router.patch('/', (req, res) => {
-  const { uid, type, email } = req.user;
+  const { id, type, email } = req.user;
   const { body } = req;
   let retObj = { type, email };
 
@@ -39,11 +39,11 @@ router.patch('/', (req, res) => {
   };
 
   if (type === userTypes.CLIENT) {
-    return updateClient(uid, body).then(packageAndSend);
+    return updateClient(id, body).then(packageAndSend);
   }
 
   if (type === userTypes.CONSULTANT) {
-    return updateConsultant(uid, body).then(packageAndSend);
+    return updateConsultant(id, body).then(packageAndSend);
   }
 
   return res.sendStatus(403);
