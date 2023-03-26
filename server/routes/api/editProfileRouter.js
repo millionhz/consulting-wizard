@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/profile', async (req, res, next) => {
+router.post('/profile', async (req, res, next) => {
     try {
        
       } catch (err) {
