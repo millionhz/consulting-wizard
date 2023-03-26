@@ -1,26 +1,22 @@
-import React, { useState, useContext } from 'react';
-import { UserContext } from '../context/UserContext';
+/* eslint-disable no-unused-vars */
+import React, { useState } from 'react';
 import NavBarLogin from '../components/NavBar_Login';
 import Footer from '../components/Footer';
 // import {useNavigate} from 'react-router-dom';
 // import { updatePassword } from '../api/backend';
 
-function AuthForm({onSubmit, error}){
-    const [confirmNewPassword, setConfirmNewPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
+function AuthForm({ onSubmit, error }) {
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
 
-    const submitHandler = (event) => {
-        if (confirmNewPassword == newPassword)
-        {
-            event.preventDefault();
-            onSubmit(newPassword,confirmNewPassword);
-        }
-        else
-        {
-            //error message
-        }
-    };
-
+  const submitHandler = (event) => {
+    if (confirmNewPassword === newPassword) {
+      event.preventDefault();
+      onSubmit(newPassword, confirmNewPassword);
+    } else {
+      // error message
+    }
+  };
 
   return (
     <div>
@@ -41,7 +37,6 @@ function AuthForm({onSubmit, error}){
       >
         <h1 style={{ marginBottom: '0' }}>Forgot Password</h1>
 
-
         <div
           style={{
             marginTop: '4rem',
@@ -49,57 +44,72 @@ function AuthForm({onSubmit, error}){
           }}
         >
           <form onSubmit={submitHandler}>
-            <label style={{
+            <label
+              style={{
                 textAlign: 'justify',
-                marginLeft: '20px'
-            }}>
-                <strong>New Password:</strong>
-            </label><br></br>
-            <input id='newPassword' type='password' placeholder='Enter new Password'
-            style={{
-                marginLeft:'20px',
-                border:'none',
-                background:"#D9D9D9" ,
-                color:'#000000',
-                width:'250px', 
-                description:"Old Password",
-                padding:'12px',
-                borderRadius:'10px',
-                marginBottom: '20px',
-                marginTop:'10px',
-                marginRight:'20px'}}
+                marginLeft: '20px',
+              }}
+            >
+              <strong>New Password:</strong>
+              <br />
+              <input
+                id="newPassword"
+                type="password"
+                placeholder="Enter new Password"
+                style={{
+                  marginLeft: '20px',
+                  border: 'none',
+                  background: '#D9D9D9',
+                  color: '#000000',
+                  width: '250px',
+                  description: 'Old Password',
+                  padding: '12px',
+                  borderRadius: '10px',
+                  marginBottom: '20px',
+                  marginTop: '10px',
+                  marginRight: '20px',
+                }}
                 value={newPassword}
-                onChange={(event)=>setNewPassword(event.target.value)}
-            ></input><br></br>
-            <label style={{
-                textAlign:'justify',
-                marginLeft:'20px'
-            }}>
-                <strong>Confirm New Password:</strong>
-            </label><br></br>
-            <input id='confirmNewPassword' type='password' placeholder='Re-enter New Password'
-            style={{
-                marginLeft:'20px',
-                border:'none',
-                background:"#D9D9D9" ,
-                color:'#000000',
-                width:'250px', 
-                padding:'12px',
-                borderRadius:'10px',
-                marginBottom:'20px',
-                marginTop: '10px',
-                marginRight:'15px'}}
-                value={confirmNewPassword}
-                onChange={(event)=>setConfirmNewPassword(event.target.value)}
-            ></input>
-          </form>
+                onChange={(event) => setNewPassword(event.target.value)}
+              />
+              <br />
+            </label>
 
+            <label
+              style={{
+                textAlign: 'justify',
+                marginLeft: '20px',
+              }}
+            >
+              <strong>Confirm New Password:</strong>
+              <br />
+              <input
+                id="confirmNewPassword"
+                type="password"
+                placeholder="Re-enter New Password"
+                style={{
+                  marginLeft: '20px',
+                  border: 'none',
+                  background: '#D9D9D9',
+                  color: '#000000',
+                  width: '250px',
+                  padding: '12px',
+                  borderRadius: '10px',
+                  marginBottom: '20px',
+                  marginTop: '10px',
+                  marginRight: '15px',
+                }}
+                value={confirmNewPassword}
+                onChange={(event) => setConfirmNewPassword(event.target.value)}
+              />
+            </label>
+          </form>
         </div>
 
         <button
-          type='submit'
+          type="submit"
           style={{
-            background:'#2C9612',
+            background: '#2C9612',
             border: 'none',
             padding: '0.5rem 1.5rem 0.5rem 1.5rem',
             width: '175px',
@@ -117,9 +127,9 @@ function AuthForm({onSubmit, error}){
   );
 }
 function ForgotPassword() {
-    const [isError, setError] = useState(false);
-    // const navigate = useNavigate();
-    const submitHandler = (password,newPassword)=>{
+  const [isError, setError] = useState(false);
+  // const navigate = useNavigate();
+  const submitHandler = (password, newPassword) => {
     //   updatePassword(password,newPassword)
     //   .then(()=>{
     //     navigate('/');
@@ -127,12 +137,10 @@ function ForgotPassword() {
     //   .catch(()=>{
     //       setError(true);
     //   });
-        console.log("Password Changed!")
-    };
+    console.log('Password Changed!');
+  };
 
-    return(
-        <AuthForm onSubmit={submitHandler} error={isError}/>
-    );
+  return <AuthForm onSubmit={submitHandler} error={isError} />;
 }
 
 export default ForgotPassword;
