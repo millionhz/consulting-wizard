@@ -19,7 +19,7 @@ function ViewProfile() {
         setName(data.displayName);
         setEmail(data.email);
         setMajor(data.major);
-        setYearOfGraduation(data.yearOfGraduation);
+        setYearOfGraduation(data.yearOfGraduation.toString());
         setBio(data.bio);
       });
   }, []);
@@ -55,7 +55,11 @@ function ViewProfile() {
             description={yearOfGraduation}
             setValue={setYearOfGraduation}
           />
-          <ProfileItem title="Bio" description={bio} setValue={setBio} />
+          <ProfileItem
+            title="Additional Information"
+            description={bio}
+            setValue={setBio}
+          />
           <p>
             <ChangePassword href="#"> Change Password </ChangePassword>
           </p>
