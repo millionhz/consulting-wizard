@@ -1,8 +1,10 @@
+import LogInPage from './pages/LogInPage.jsx';
+
 function App() {
   return (
     <div>
       <img src="/cwiz.svg" height={150} alt="logo" />
-      <h1>Consulting Wizard</h1>
+      <LogInPage></LogInPage>
     </div>
   );
 }
