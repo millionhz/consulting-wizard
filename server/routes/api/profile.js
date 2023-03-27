@@ -1,29 +1,57 @@
 const express = require('express');
-const { updateClient } = require('../../models/client');
-const { updateConsultant } = require('../../models/consultant');
+const { updateClient, getClientById } = require('../../models/client');
+const {
+  updateConsultant,
+  getConsultantById,
+} = require('../../models/consultant');
 const userTypes = require('../../utils/userTypes');
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  const { user } = req;
-  res.json(user);
-});
+  const { id, type, email } = req.user;
+  let retObj = { type, email };
 
-router.patch('/', (req, res) => {
-  const { uid, type } = req.user;
-  const { body } = req;
+  const packageAndSend = (userObj) => {
+    retObj = { ...userObj.toObject(), ...retObj };
+    res.json(retObj);
+  };
+
+  const send404 = () => {
+    res.sendStatus(404);
+  };
 
   if (type === userTypes.CLIENT) {
-    return updateClient(uid, body).then((userObj) => {
-      res.json(userObj.toObject());
-    });
+    return getClientById(id).then(packageAndSend).catch(send404);
   }
 
   if (type === userTypes.CONSULTANT) {
-    return updateConsultant(uid, body).then((userObj) => {
-      res.json(userObj.toObject());
-    });
+    return getConsultantById(id).then(packageAndSend).catch(send404);
+  }
+
+  return res.sendStatus(403);
+});
+
+router.patch('/', (req, res) => {
+  const { id, type, email } = req.user;
+  const { body } = req;
+  let retObj = { type, email };
+
+  const packageAndSend = (userObj) => {
+    retObj = { ...userObj.toObject(), ...retObj };
+    res.json(retObj);
+  };
+
+  const send500 = () => {
+    res.sendStatus(500);
+  };
+
+  if (type === userTypes.CLIENT) {
+    return updateClient(id, body).then(packageAndSend).catch(send500);
+  }
+
+  if (type === userTypes.CONSULTANT) {
+    return updateConsultant(id, body).then(packageAndSend).catch(send500);
   }
 
   return res.sendStatus(403);
