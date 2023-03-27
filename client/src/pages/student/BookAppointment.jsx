@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import NavBar from '../components/NavBar';
-import Footer from '../components/Footer';
-import Timeslot from '../components/Timeslot';
-import Confirmation from '../components/ConfirmationModal';
-import Calendar from '../components/Calendar';
+import NavBar from '../../components/NavBarStudent';
+import Footer from '../../components/Footer';
+import Timeslot from '../../components/Timeslot';
+import Confirmation from '../../components/ConfirmationModal';
+import Calendar from '../../components/Calendar';
 
 function BookAppointment() {
   const counselor = 'Umama Nasir Abbasi';

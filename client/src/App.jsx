@@ -1,6 +1,6 @@
 import LogInPage from './pages/LogInPage';
-import ManageProfilePage from './pages/ManageProfilePage';
-import BookAppointment from './pages/BookAppointment';
+import ManageProfilePage from './pages/counselor/ManageProfilePage';
+import BookAppointment from './pages/student/BookAppointment';
 
 function App() {
   return (
