@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import ProfileItem from '../components/ProfileItem';
 import { getProfileInfo, setProfileInfo } from '../api/backend';
 
-function ViewProfile() {
+function ManageProfilePage() {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [major, setMajor] = useState('');
@@ -130,4 +130,4 @@ const SaveButton = styled.button`
   }
 `;
 
-export default ViewProfile;
+export default ManageProfilePage;
