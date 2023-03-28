@@ -1,13 +1,11 @@
-import LogInPage from './pages/LogInPage';
-import ManageProfilePage from './pages/ManageProfilePage';
+import { useContext } from 'react';
+import { RouterProvider } from 'react-router-dom';
+import { UserContext } from './context/UserContext';
 
 function App() {
-  return (
-    <div>
-      <ManageProfilePage />
-      {/* <LogInPage /> */}
-    </div>
-  );
+  const { router } = useContext(UserContext);
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;
