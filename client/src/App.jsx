@@ -7,6 +7,7 @@ import {
   Navigate,
   Outlet,
 } from 'react-router-dom';
+import NavBar from './components/NavBar';
 import { UserContext } from './context/UserContext';
 import LogInPage from './pages/LogInPage';
 import ManageProfilePage from './pages/ManageProfilePage';
@@ -65,7 +66,7 @@ function App() {
             index
             element={
               <RoleAwareComponent
-                client={<h1>Client</h1>}
+                client={<NavBar />}
                 consultant={<h1>Consultant</h1>}
                 admin={<h1>Admin</h1>}
               />
@@ -81,11 +82,10 @@ function App() {
               />
             }
           />
-          <Route path="dashboard" element={<h1>dashboard</h1>} />
-          <Route path="about" element={<h1>about</h1>} />
         </Route>
         <Route element={<LoggedOutInterceptor redirect="/" />}>
           <Route path="login" element={<LogInPage />} />
+          <Route path="signup" element={<h1>Signup Page</h1>} />
         </Route>
       </Route>
     )
