@@ -1,20 +1,37 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'bootstrap/dist/css/bootstrap.min.css';
+import styled from 'styled-components';
 // eslint-disable-next-line prettier/prettier, import/no-extraneous-dependencies
 import Carousel from 'react-bootstrap/Carousel';
-import image1 from '../images/2.png';
-import image2 from '../images/Group1.png';
+import image1 from '../images/1.png';
+import image2 from '../images/2.png';
 // import image3 from './images/Group1.png';
+
+
+const ImageWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 100px;
+`;
+
+const Image = styled.img`
+  max-width: 100%;
+  height: auto;
+`;
 
 function Slider() {
   return (
     <Carousel>
       <Carousel.Item>
-        <img className="d-block w-100" src={image1} alt="First slide" />
+        <ImageWrapper>
+        <Image src={image2} alt="First slide" />
+        </ImageWrapper>
       </Carousel.Item>
       <Carousel.Item>
-        <img className="d-block w-100" src={image1} alt="Second slide" />
+        <ImageWrapper>
+        <Image src={image1} alt="Second slide" />
+        </ImageWrapper>
       </Carousel.Item>
     </Carousel>
   );
