@@ -1,11 +1,13 @@
 import LogInPage from './pages/LogInPage';
-import ManageProfilePage from './pages/ManageProfilePage';
+import ManageProfilePage from './pages/counselor/ManageProfilePage';
+import BookAppointment from './pages/student/BookAppointment';
 
 function App() {
   return (
     <div>
-      <ManageProfilePage />
+      {/* <ManageProfilePage /> */}
       {/* <LogInPage /> */}
+      <BookAppointment />
     </div>
   );
 }

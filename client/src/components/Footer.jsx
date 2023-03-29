@@ -2,15 +2,7 @@ import styled from '@emotion/styled';
 
 function Footer() {
   return (
-    <FooterDiv
-      style={{
-        color: '#938D8D',
-        textAlign: 'left',
-        padding: '0.2rem 3rem 0.2rem 3rem',
-        fontSize: '0.9rem',
-        borderTop: '1px solid #938D8D',
-      }}
-    >
+    <FooterDiv>
       <p>Copyright @ ConsultingWizards 2023</p>
     </FooterDiv>
   );
