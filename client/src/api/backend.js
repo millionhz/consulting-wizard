@@ -4,12 +4,11 @@ const api = axios.create({
   baseURL: '/api',
 });
 
-export const getCookie = (token) => api.post('/getCookie', { token });
+export const sessionLogIn = (token) => api.post('/logIn', { token });
 
 export const authenticate = () => api.get('/authenticate');
 
-export const updatePassword = (password, newPassword) =>
-api.patch(`/server/routes/api/user/password`, {password, newPassword});
+export const getProfileInfo = () => api.get('/profile');
 
-
+export const setProfileInfo = (attr) => api.patch('/profile', attr);
 export default api;
