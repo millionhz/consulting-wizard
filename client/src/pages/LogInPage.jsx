@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Grid, TextField } from '@mui/material';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 import { logIn } from '../api/firebaseAuth';
+import { UserContext } from '../context/UserContext';
 
 function LogInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { authenticate } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -18,8 +22,9 @@ function LogInPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     logIn(email, password)
+      .then(authenticate)
       .then(() => {
-        // window.location.reload();
+        navigate('/');
       })
       .catch((err) => {
         console.log(err);

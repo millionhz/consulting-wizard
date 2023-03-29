@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import NavBar from '../../components/NavBarStudent';
 import Footer from '../../components/Footer';
 import ProfileItem from '../../components/ProfileItem';
 import { getProfileInfo, setProfileInfo } from '../../api/backend';
 
-function ViewProfile() {
+function ManageProfilePage() {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [major, setMajor] = useState('');
@@ -42,8 +41,6 @@ function ViewProfile() {
 
   return (
     <div>
-      <NavBar page="Settings" />
-
       <Profile className="profile">
         <Title>Account Management</Title>
         <Subtitle>Manage your account details</Subtitle>
@@ -130,4 +127,4 @@ const SaveButton = styled.button`
   }
 `;
 
-export default ViewProfile;
+export default ManageProfilePage;
