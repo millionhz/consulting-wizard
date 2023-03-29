@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import NavBar from '../../components/NavBarStudent';
+import NavBar from '../../components/NavBarClient';
 import Footer from '../../components/Footer';
 import Timeslot from '../../components/Timeslot';
 import Confirmation from '../../components/ConfirmationModal';

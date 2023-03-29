@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import NavLink from './NavbarLinks';
 
-function NavBar({ page }) {
+function NavBarConsultant({ page }) {
   return (
     <NavbarDiv className="navbar">
       <div className="navbar__logo">
@@ -10,8 +9,8 @@ function NavBar({ page }) {
       </div>
       <NavbarLinks>
         <NavLink title="About" page={page} />
-        <NavLink title="Book Appointment" page={page} />
-        <NavLink title="View Appointments" page={page} />
+        <NavLink title="Mark Available Slots" page={page} />
+        <NavLink title="View Feedback" page={page} />
         <NavLink title="Settings" page={page} />
         <NavLink title="Logout" page={page} />
       </NavbarLinks>
@@ -41,4 +40,4 @@ const NavbarLinks = styled.div`
   padding: 20px;
 `;
 
-export default NavBar;
+export default NavBarConsultant;

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import NavBar from '../../components/NavBarStudent';
 import Footer from '../../components/Footer';
 import ProfileItem from '../../components/ProfileItem';
 import { getProfileInfo, setProfileInfo } from '../../api/backend';

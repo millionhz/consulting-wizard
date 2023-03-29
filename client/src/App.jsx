@@ -3,15 +3,16 @@ import {
   RouterProvider,
   createRoutesFromElements,
   Route,
-  Navigate,
 } from 'react-router-dom';
 import LoggedInInterceptor from './router/LoggedInInterceptor';
 import LoggedOutInterceptor from './router/LoggedOutInterceptor';
 import RoleAwareComponent from './router/RoleAwareComponent';
-import NavBar from './components/NavBar';
+import NavBarClient from './components/NavBarClient';
+import NavBarConsultant from './components/NavBarConsultant';
+import NavBarAdmin from './components/NavBarAdmin';
 import LogInPage from './pages/LogInPage';
-import ManageProfilePage from './pages/counselor/ManageProfilePage';
-import BookAppointment from './pages/student/BookAppointment';
+import ConsultantManageProfilePage from './pages/consultant/ManageProfilePage';
+import ClientManageProfilePage from './pages/client/ManageProfilePage';
 
 function App() {
   const router = createBrowserRouter(
@@ -22,9 +23,9 @@ function App() {
             index
             element={
               <RoleAwareComponent
-                client={<NavBar />}
-                consultant={<h1>Consultant</h1>}
-                admin={<h1>Admin</h1>}
+                client={<NavBarClient />}
+                consultant={<NavBarConsultant />}
+                admin={<NavBarAdmin />}
               />
             }
           />
@@ -32,9 +33,8 @@ function App() {
             path="manage-profile"
             element={
               <RoleAwareComponent
-                client={<ManageProfilePage />}
-                consultant={<ManageProfilePage />}
-                admin={<Navigate to="/" />}
+                client={<ClientManageProfilePage />}
+                consultant={<ConsultantManageProfilePage />}
               />
             }
           />
