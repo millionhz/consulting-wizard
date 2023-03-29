@@ -5,8 +5,7 @@ import styled from 'styled-components';
 import Carousel from './Carousel';
 import sec from '../images/Group1.png';
 import third from '../images/Group448.png';
-import Header from '../components/NavBar';
-import Footer from '../components/Footer';
+
 
 const ImageWrapper = styled.div`
   display: flex;
@@ -19,15 +18,13 @@ const Image = styled.img`
   height: auto;
 `;
 
-function LandingPageStudent() {
+
+function LandingPage() {
   return (
     <div>
       <Helmet>
         <style>{'body { background-color: #0b0b45; }'}</style>
       </Helmet>
-      <div>
-        <Header />
-      </div>
       <div>
         <Carousel />
       </div>
@@ -37,11 +34,9 @@ function LandingPageStudent() {
       <ImageWrapper>
         <Image src={third} alt="Ad_2" />;
       </ImageWrapper>
-      <div>
-        <Footer />
-      </div>
+     
     </div>
   );
 }
 
-export default LandingPageStudent;
+export default LandingPage;
