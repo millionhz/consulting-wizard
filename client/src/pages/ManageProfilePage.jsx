@@ -42,8 +42,6 @@ function ManageProfilePage() {
 
   return (
     <div>
-      <NavBar page="Settings" />
-
       <Profile className="profile">
         <Title>Account Management</Title>
         <Subtitle>Manage your account details</Subtitle>

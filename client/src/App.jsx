@@ -1,61 +1,16 @@
-import { useContext } from 'react';
 import {
   createBrowserRouter,
   RouterProvider,
   createRoutesFromElements,
   Route,
   Navigate,
-  Outlet,
 } from 'react-router-dom';
+import LoggedInInterceptor from './router/LoggedInInterceptor';
+import LoggedOutInterceptor from './router/LoggedOutInterceptor';
+import RoleAwareComponent from './router/RoleAwareComponent';
 import NavBar from './components/NavBar';
-import { UserContext } from './context/UserContext';
 import LogInPage from './pages/LogInPage';
 import ManageProfilePage from './pages/ManageProfilePage';
-import userTypes from './utils/userTypes';
-
-function LoggedInInterceptor({ redirect }) {
-  const { isAuthenticated } = useContext(UserContext);
-
-  if (isAuthenticated === false) {
-    return <Navigate to={redirect} />;
-  }
-
-  if (isAuthenticated) {
-    return <Outlet />;
-  }
-
-  return <div>Loading...</div>;
-}
-
-function LoggedOutInterceptor({ redirect }) {
-  const { isAuthenticated } = useContext(UserContext);
-
-  if (isAuthenticated === false) {
-    return <Outlet />;
-  }
-
-  if (isAuthenticated) {
-    return <Navigate to={redirect} />;
-  }
-
-  return <div>Loading...</div>;
-}
-
-function RoleAwareComponent({ client, consultant, admin }) {
-  const { type } = useContext(UserContext);
-
-  if (type === userTypes.CLIENT) {
-    return client;
-  }
-
-  if (type === userTypes.CONSULTANT) {
-    return consultant;
-  }
-
-  if (type === userTypes.ADMIN) {
-    return admin;
-  }
-}
 
 function App() {
   const router = createBrowserRouter(
