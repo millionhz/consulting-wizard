@@ -6,13 +6,14 @@ import './index.css';
 // import Login from './pages/LogInPage';
 // import CounsellorSignUp from './pages/CounsellorSignUp';
 // import StudentSignUp from './pages/StudentSignUp';
-// import LandingPage from './pages/landingPageStudent';
-import Header from './components/NavBarAdmin';
+// import LandingPage from './pages/landingPageAdmin';
+// import Header from './components/NavBarAdmin';
+import SignUp from './pages/StudentSignUp'; 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <UserContextProvider>
-      <Header/>
+      <SignUp/>
     </UserContextProvider>
   </React.StrictMode>
 );
