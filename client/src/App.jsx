@@ -10,7 +10,8 @@ import LoggedOutInterceptor from './router/LoggedOutInterceptor';
 import RoleAwareComponent from './router/RoleAwareComponent';
 import NavBar from './components/NavBar';
 import LogInPage from './pages/LogInPage';
-import ManageProfilePage from './pages/ManageProfilePage';
+import ManageProfilePage from './pages/counselor/ManageProfilePage';
+import BookAppointment from './pages/student/BookAppointment';
 
 function App() {
   const router = createBrowserRouter(
