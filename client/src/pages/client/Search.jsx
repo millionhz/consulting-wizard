@@ -4,7 +4,7 @@ import NavBar from '../../components/NavBarClient';
 import Footer from '../../components/Footer';
 import Searchbar from '../../components/SearchBar';
 import SearchResult from '../../components/SearchResults';
-import axios from 'axios';
+import { getSearchResults } from '../../api/backend';
 
 function Search() {
   const [results, setResults] = useState([]);
@@ -17,8 +17,7 @@ function Search() {
   };
 
   useEffect(() => {
-    axios
-      .post('/api/search/consultant', searchQuery)
+    getSearchResults(searchQuery)
       .then((res) => {
         const allResults = res.data.map((result) => {
           return {
