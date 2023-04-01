@@ -4,9 +4,13 @@ import styled from '@emotion/styled';
 
 function SearchResult({ name, major, year }) {
   const location = useLocation();
-  const onClick = () => {
+  const onClickBook = () => {
     const name_ = name.replace(/\s/g, '_').toLowerCase();
     window.location.href = `${location.pathname}/${name_}`;
+  };
+  const onClickProfile = () => {
+    const name_ = name.replace(/\s/g, '_').toLowerCase();
+    window.location.href = `/consultant/${name_}`;
   };
 
   return (
@@ -17,7 +21,12 @@ function SearchResult({ name, major, year }) {
         <br />
         Graduated in {year}
       </CounselorDetails>
-      <BookButton onClick={onClick}>Book Appointment</BookButton>
+      <ButtonsDiv>
+        <BookButton onClick={onClickBook}>Book Appointment</BookButton>
+        <ViewProfileButton onClick={onClickProfile}>
+          View Profile
+        </ViewProfileButton>
+      </ButtonsDiv>
     </SearchResultItem>
   );
 }
@@ -43,6 +52,14 @@ const CounselorDetails = styled.p`
   text-align: left;
 `;
 
+const ButtonsDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+`;
+
 const BookButton = styled.button`
   background-color: #2c9612;
   color: #ffffff;
@@ -50,9 +67,25 @@ const BookButton = styled.button`
   border-radius: 5px;
   font-size: 0.7rem;
   padding: 0.5rem 1rem;
+  width: 100%;
 
   &:hover {
     background-color: #2c8612;
+  }
+`;
+
+const ViewProfileButton = styled.button`
+  background-color: #bfab25;
+  color: #ffffff;
+  border: solid 1px #bfab25;
+  border-radius: 5px;
+  font-size: 0.7rem;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  margin-top: 0.5rem;
+
+  &:hover {
+    background-color: #bf9b25;
   }
 `;
 

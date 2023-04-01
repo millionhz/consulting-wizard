@@ -17,7 +17,7 @@ function BookAppointment() {
     .join(' ');
 
   const viewProfileHandler = () => {
-    console.log('View Profile');
+    window.location.href = `/consultant/${location.pathname.split('/')[2]}`;
   };
 
   const [date, setDate] = useState(new Date());

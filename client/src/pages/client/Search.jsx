@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import NavBar from '../../components/NavBarClient';
 import Footer from '../../components/Footer';
 import Searchbar from '../../components/SearchBar';
 import SearchResult from '../../components/SearchResults';
-import { getAllConsultants } from '../../api/backend';
+// import { getAllConsultants } from '../../api/backend';
 
 function Search() {
   const allResults = [
@@ -59,23 +59,23 @@ function Search() {
 
   const [results, setResults] = useState(allResults);
 
-  const setData = (data) => {
-    const newResults = data.map((result) => ({
-      name: result.displayName,
-      major: result.major,
-      year: result.yearOfGraduation,
-      placement: result.currentPlacement,
-      description: result.bio,
-    }));
-    console.log(newResults);
-    setResults(newResults);
-  };
+  // const setData = (data) => {
+  //   const newResults = data.map((result) => ({
+  //     name: result.displayName,
+  //     major: result.major,
+  //     year: result.yearOfGraduation,
+  //     placement: result.currentPlacement,
+  //     description: result.bio,
+  //   }));
+  //   console.log(newResults);
+  //   setResults(newResults);
+  // };
 
-  useEffect(() => {
-    getAllConsultants()
-      .then(({ data }) => data)
-      .then(setData);
-  }, []);
+  // useEffect(() => {
+  //   getAllConsultants()
+  //     .then(({ data }) => data)
+  //     .then(setData);
+  // }, []);
 
   return (
     <div>
