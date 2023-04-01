@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import NavBar from '../../components/NavBarClient';
 import Footer from '../../components/Footer';
 import ProfileContent from '../../components/ProfileContent';
+import { getConsultantById } from '../../api/backend';
 
 function ConsultantProfile() {
+  const { id } = useParams();
+  const [profile, setProfile] = useState({});
   const [active, setActive] = useState('profile');
+
+  useEffect(() => {
+    getConsultantById(id)
+      .then(({ data }) => setProfile(data))
+      .catch((err) => console.log(err));
+  }, [id]);
 
   return (
     <div>
@@ -26,7 +36,11 @@ function ConsultantProfile() {
             Client Feedback
           </MenuTag>
         </TagsDiv>
-        {active === 'profile' ? <ProfileContent /> : <div>Feedback</div>}
+        {active === 'profile' ? (
+          <ProfileContent {...profile} />
+        ) : (
+          <div>Feedback</div>
+        )}
       </Profile>
 
       <Footer />

@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import NavBar from '../../components/NavBarClient';
 import Footer from '../../components/Footer';
 import Searchbar from '../../components/SearchBar';
-import SearchResult from '../../components/SearchResults';
+import SearchResult from '../../components/SearchResult';
 import { getConsultants } from '../../api/backend';
 
 function Search() {
@@ -75,7 +75,8 @@ function Search() {
               year={result.yearOfGraduation}
               placement={result.currentPlacement}
               description={result.bio}
-              key={results.indexOf(result)}
+              key={result.id}
+              id={result.id}
             />
           ))}
         </SearchResultsDiv>

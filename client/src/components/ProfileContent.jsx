@@ -1,45 +1,38 @@
 import styled from '@emotion/styled';
 import ProfileItem from './ProfileItem';
 
-function ProfileContent() {
-  const userData = {
-    displayName: 'John Doe',
-    email: 'johndoe@email.com',
-    major: 'Computer Science',
-    yearOfGraduation: 2021,
-    bio: 'I am a computer science major who is passionate about helping others.',
-  };
-
+function ProfileContent({ displayName, email, major, yearOfGraduation, bio }) {
   return (
-    <ContentDiv>
-      <TitleDiv>
-        <ProfileIcon>
-          <Initial>
-            {userData.displayName
-              .split(' ')
-              .map((el) => el.charAt(0))
-              .join('')}
-          </Initial>
-        </ProfileIcon>
-        <Title>{userData.displayName}</Title>
-      </TitleDiv>
+    displayName && (
+      <ContentDiv>
+        <TitleDiv>
+          <ProfileIcon>
+            <Initial>
+              {displayName
+                .split(' ')
+                .map((el) => el.charAt(0))
+                .join('')}
+            </Initial>
+          </ProfileIcon>
+          <Title>{displayName}</Title>
+        </TitleDiv>
 
-      <Fields key={userData.email}>
-        <ProfileItem title="Name" description={userData.displayName} disabled />
-        <ProfileItem title="Email" description={userData.email} disabled />
-        <ProfileItem title="Major" description={userData.major} disabled />
-        <ProfileItem
-          title="Year of Graduation"
-          description={userData.yearOfGraduation}
-          disabled
-        />
-        <ProfileItem
-          title="Additional Information"
-          description={userData.bio}
-          disabled
-        />
-      </Fields>
-    </ContentDiv>
+        <Fields key={email}>
+          <ProfileItem title="Name" description={displayName} disabled />
+          <ProfileItem title="Major" description={major} disabled />
+          <ProfileItem
+            title="Year of Graduation"
+            description={yearOfGraduation}
+            disabled
+          />
+          <ProfileItem
+            title="Additional Information"
+            description={bio}
+            disabled
+          />
+        </Fields>
+      </ContentDiv>
+    )
   );
 }
 
