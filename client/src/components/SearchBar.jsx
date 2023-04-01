@@ -17,7 +17,7 @@ function Searchbar({ updateSearchCriteria }) {
 
   useEffect(() => {
     updateSearchCriteria(query.toLowerCase(), filterOn);
-  }, [query, filterOn]);
+  }, [query, filterOn, updateSearchCriteria]);
 
   return (
     <SearchDiv>

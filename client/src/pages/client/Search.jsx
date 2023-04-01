@@ -19,16 +19,14 @@ function Search() {
   useEffect(() => {
     getSearchResults(searchQuery)
       .then((res) => {
-        const allResults = res.data.map((result) => {
-          return {
-            id: result._id,
-            displayName: result.displayName,
-            major: result.major,
-            yearOfGraduation: result.yearOfGraduation.toString(),
-            currentPlacement: result.currentPlacement,
-            bio: result.bio,
-          };
-        });
+        const allResults = res.data.map((result) => ({
+          id: result._id,
+          displayName: result.displayName,
+          major: result.major,
+          yearOfGraduation: result.yearOfGraduation.toString(),
+          currentPlacement: result.currentPlacement,
+          bio: result.bio,
+        }));
 
         let filteredResults = [];
         switch (filter) {
