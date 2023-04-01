@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import NavBar from '../../components/NavBarClient';
 import Footer from '../../components/Footer';
 import Timeslot from '../../components/Timeslot';
 import Confirmation from '../../components/ConfirmationModal';
 import Calendar from '../../components/Calendar';
+import { getConsultantById } from '../../api/backend';
 
 function BookAppointment() {
-  const location = useLocation();
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-  const counselor = location.pathname
-    .split('/')[2]
-    .split('_')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+  const [displayName, setDisplayName] = useState('');
+
+  useEffect(() => {
+    getConsultantById(id)
+      .then(({ data }) => setDisplayName(data.displayName))
+      .catch((err) => console.log(err));
+  }, [id]);
 
   const viewProfileHandler = () => {
-    window.location.href = `/consultant/${location.pathname.split('/')[2]}`;
+    navigate(`/consultant/${id}`);
   };
 
   const [date, setDate] = useState(new Date());
@@ -65,7 +69,7 @@ function BookAppointment() {
       <NavBar page="Book Appointment" />
       <AppointmentDiv>
         <Counselor>
-          <CounselorName>Counselor: {counselor}</CounselorName>
+          <CounselorName>Counselor: {displayName}</CounselorName>
           <ViewProfile onClick={viewProfileHandler}>View Profile</ViewProfile>
         </Counselor>
 
@@ -90,7 +94,7 @@ function BookAppointment() {
       <Confirmation
         date={date}
         timeslot={selectedTimeslot}
-        counselor={counselor}
+        counselor={displayName}
         closeModal={() => closeModal()}
         isOpen={modalIsOpen}
       />

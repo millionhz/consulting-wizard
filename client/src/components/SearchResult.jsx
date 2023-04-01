@@ -1,14 +1,12 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 function SearchResult({ name, major, year, id }) {
-  const location = useLocation();
   const navigate = useNavigate();
 
   const onClickBook = () => {
-    const name_ = name.replace(/\s/g, '_').toLowerCase();
-    window.location.href = `${location.pathname}/${name_}`;
+    navigate(`/book-appointment/${id}`);
   };
   const onClickProfile = () => {
     navigate(`/consultant/${id}`);
