@@ -12,6 +12,4 @@ export const getProfileInfo = () => api.get('/profile');
 
 export const setProfileInfo = (attr) => api.patch('/profile', attr);
 
-export const getAllConsultants = () => api.get('/consultants');
-
 export default api;

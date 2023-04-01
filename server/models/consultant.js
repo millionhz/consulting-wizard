@@ -73,11 +73,8 @@ const updateConsultant = (id, attr) =>
     )
     .then((obj) => obj.save());
 
-const getAllConsultants = () => Consultant.find().exec();
-
 module.exports = {
   addConsultant,
   getConsultantById,
   updateConsultant,
-  getAllConsultants,
 };
