@@ -73,8 +73,13 @@ const updateConsultant = (id, attr) =>
     )
     .then((obj) => obj.save());
 
+const searchConsultant = (searchInput) => Consultant.find(searchInput).exec();
+
+// const filterAgeGreater = (filterInput) => Consultant.find({$query: {}, $orderby:{age:filterInput}})
+
 module.exports = {
   addConsultant,
   getConsultantById,
   updateConsultant,
+  searchConsultant,
 };

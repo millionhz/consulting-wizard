@@ -4,74 +4,85 @@ import NavBar from '../../components/NavBarClient';
 import Footer from '../../components/Footer';
 import Searchbar from '../../components/SearchBar';
 import SearchResult from '../../components/SearchResults';
+import axios from 'axios';
 
 function Search() {
-  const allResults = [
-    {
-      name: 'Umama Nasir Abbasi',
-      major: 'BS Computer Science',
-      year: '2023',
-      placement: 'Google',
-      description:
-        'I am a software engineer at Google. I have been working here for 2 years. I have a lot of experience.',
-    },
-    {
-      name: 'Ayesha Fazal',
-      major: 'BS Computer Science',
-      year: '2023',
-      placement: 'Amazon',
-      description:
-        'I am a software engineer at Amazon. I have been working here for 3 years.',
-    },
-    {
-      name: 'Eimaan Saqib',
-      major: 'BS Computer Science',
-      year: '2024',
-      placement: 'Facebook',
-      description:
-        'I am a software engineer at Facebook. I have been working here for 1 year.',
-    },
-    {
-      name: 'Hamza',
-      major: 'BS Computer Science',
-      year: '2024',
-      placement: 'Oracle',
-      description:
-        'I am a software engineer at Oracle. I have been working here for 1 and a half year.',
-    },
-    {
-      name: 'Maaz',
-      major: 'BS Computer Science',
-      year: '2024',
-      placement: 'Microsoft',
-      description:
-        'I am a software engineer at Microsoft. I have been working here for 15 months.',
-    },
-    {
-      name: 'Ahmad',
-      major: 'BS Computer Science',
-      year: '2024',
-      placement: 'Apple',
-      description: 'I am a software engineer at Apple.',
-    },
-  ];
+  const [results, setResults] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filter, setFilter] = useState('all');
 
-  const [results, setResults] = useState(allResults);
+  const updateSearchCriteria = (newSearchQuery, newFilter) => {
+    setSearchQuery(newSearchQuery);
+    setFilter(newFilter);
+  };
+
+  useEffect(() => {
+    axios
+      .post('/api/search/consultant', searchQuery)
+      .then((res) => {
+        const allResults = res.data.map((result) => {
+          return {
+            id: result._id,
+            displayName: result.displayName,
+            major: result.major,
+            yearOfGraduation: result.yearOfGraduation.toString(),
+            currentPlacement: result.currentPlacement,
+            bio: result.bio,
+          };
+        });
+
+        let filteredResults = [];
+        switch (filter) {
+          case 'major':
+            filteredResults = allResults.filter((result) =>
+              result.major.toLowerCase().includes(searchQuery)
+            );
+            break;
+          case 'graduation year':
+            filteredResults = allResults.filter((result) =>
+              result.yearOfGraduation.toLowerCase().includes(searchQuery)
+            );
+            break;
+          case 'current placement':
+            filteredResults = allResults.filter((result) =>
+              result.currentPlacement.toLowerCase().includes(searchQuery)
+            );
+            break;
+          default:
+            filteredResults = allResults.filter((result) =>
+              (
+                result.displayName +
+                result.yearOfGraduation +
+                result.major +
+                result.currentPlacement +
+                result.bio
+              )
+                .toLowerCase()
+                .includes(searchQuery)
+            );
+        }
+
+        setResults(filteredResults);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [searchQuery, filter]);
 
   return (
     <div>
       <NavBar page="Book Appointment" />
       <SearchPage>
-        <Searchbar results={allResults} setResults={setResults} />
+        <Searchbar updateSearchCriteria={updateSearchCriteria} />
         <SearchResultsDiv>
           {results.map((result) => (
             <SearchResult
-              name={result.name}
+              name={result.displayName}
               major={result.major}
-              year={result.year}
-              placement={result.placement}
-              description={result.description}
-              key={result.name + result.major + result.year}
+              year={result.yearOfGraduation}
+              placement={result.currentPlacement}
+              description={result.bio}
+              key={results.indexOf(result)}
             />
           ))}
         </SearchResultsDiv>

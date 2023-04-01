@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import DehazeOutlinedIcon from '@mui/icons-material/DehazeOutlined';
 
-function Searchbar({ results, setResults }) {
+function Searchbar({ updateSearchCriteria }) {
   const [query, setQuery] = useState('');
   const [filterMenu, setFilterMenu] = useState(false);
   const [filterOn, setFilterOn] = useState('');
@@ -16,40 +16,8 @@ function Searchbar({ results, setResults }) {
   };
 
   useEffect(() => {
-    // use switch statement to filter results
-    const query_ = query.toLowerCase();
-    let filteredResults = [];
-    switch (filterOn) {
-      case 'major':
-        filteredResults = results.filter((result) =>
-          result.major.toLowerCase().includes(query_)
-        );
-        break;
-      case 'graduation year':
-        filteredResults = results.filter((result) =>
-          result.year.toLowerCase().includes(query_)
-        );
-        break;
-      case 'current placement':
-        filteredResults = results.filter((result) =>
-          result.placement.toLowerCase().includes(query_)
-        );
-        break;
-      default:
-        filteredResults = results.filter((result) =>
-          (
-            result.name +
-            result.year +
-            result.major +
-            result.placement +
-            result.description
-          )
-            .toLowerCase()
-            .includes(query_)
-        );
-    }
-    setResults(filteredResults);
-  }, [query, filterOn, setResults, results]);
+    updateSearchCriteria(query.toLowerCase(), filterOn);
+  }, [query, filterOn]);
 
   return (
     <SearchDiv>
