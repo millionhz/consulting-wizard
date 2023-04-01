@@ -15,6 +15,7 @@ import ConsultantManageProfilePage from './pages/consultant/ManageProfilePage';
 import ClientManageProfilePage from './pages/client/ManageProfilePage';
 import ClientSearch from './pages/client/Search';
 import ClientBookAppointment from './pages/client/BookAppointment';
+import AddReview from './pages/client/AddReview';
 
 function App() {
   const router = createBrowserRouter(
@@ -47,6 +48,10 @@ function App() {
           <Route
             path="book-appointment/:id"
             element={<RoleAwareComponent client={<ClientBookAppointment />} />}
+          />
+          <Route
+            path="add-review/:id"
+            element={<RoleAwareComponent client={<AddReview />} />}
           />
         </Route>
         <Route element={<LoggedOutInterceptor redirect="/" />}>
