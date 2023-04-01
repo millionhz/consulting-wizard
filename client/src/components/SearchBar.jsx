@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import DehazeOutlinedIcon from '@mui/icons-material/DehazeOutlined';
+import { IconButton } from '@mui/material';
 
-function Searchbar({ updateSearchCriteria }) {
+function Searchbar({ updateSearchCriteria, onSearch }) {
   const [query, setQuery] = useState('');
   const [filterMenu, setFilterMenu] = useState(false);
   const [filterOn, setFilterOn] = useState('');
@@ -13,22 +14,26 @@ function Searchbar({ updateSearchCriteria }) {
     filter = filter_;
     setFilterMenu(false);
     filter === 'all' ? setFilterOn('') : setFilterOn(filter);
+    updateSearchCriteria(query, filter);
   };
 
-  useEffect(() => {
-    updateSearchCriteria(query.toLowerCase(), filterOn);
-  }, [query, filterOn, updateSearchCriteria]);
+  const onQueryChange = (e) => {
+    setQuery(e.target.value);
+    updateSearchCriteria(query, filter);
+  };
 
   return (
     <SearchDiv>
       <SearchBar>
-        <SearchIcon />
+        <IconButton onClick={onSearch}>
+          <SearchIcon />
+        </IconButton>
         <SearchInput
           type="text"
           id="header-search"
           placeholder={filterOn !== '' ? `Search by ${filterOn}` : 'Search'}
           name="s"
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={onQueryChange}
         />
         <FilterButton
           onClick={() => {

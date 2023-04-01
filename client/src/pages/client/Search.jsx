@@ -8,69 +8,65 @@ import { getConsultants } from '../../api/backend';
 
 function Search() {
   const [results, setResults] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filter, setFilter] = useState('all');
-
-  const updateSearchCriteria = (newSearchQuery, newFilter) => {
-    setSearchQuery(newSearchQuery);
-    setFilter(newFilter);
-  };
 
   useEffect(() => {
     getConsultants()
-      .then((res) => {
-        const allResults = res.data.map((result) => ({
-          id: result._id,
-          displayName: result.displayName,
-          major: result.major,
-          yearOfGraduation: result.yearOfGraduation.toString(),
-          currentPlacement: result.currentPlacement,
-          bio: result.bio,
-        }));
+      .then(({ data }) => parseConsultants(data))
+      .then((data) => setResults(data));
+  }, []);
 
-        let filteredResults = [];
-        switch (filter) {
-          case 'major':
-            filteredResults = allResults.filter((result) =>
-              result.major.toLowerCase().includes(searchQuery)
-            );
-            break;
-          case 'graduation year':
-            filteredResults = allResults.filter((result) =>
-              result.yearOfGraduation.toLowerCase().includes(searchQuery)
-            );
-            break;
-          case 'current placement':
-            filteredResults = allResults.filter((result) =>
-              result.currentPlacement.toLowerCase().includes(searchQuery)
-            );
-            break;
-          default:
-            filteredResults = allResults.filter((result) =>
-              (
-                result.displayName +
-                result.yearOfGraduation +
-                result.major +
-                result.currentPlacement +
-                result.bio
-              )
-                .toLowerCase()
-                .includes(searchQuery)
-            );
-        }
+  const parseConsultants = (data) =>
+    data.map((result) => ({
+      ...result,
+      yearOfGraduation: result.yearOfGraduation.toString(),
+    }));
 
-        setResults(filteredResults);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [searchQuery, filter]);
+  const filterResults = (searchQuery, filter) => {
+    let filteredResults = [];
+    switch (filter) {
+      case 'major':
+        filteredResults = results.filter((result) =>
+          result.major.toLowerCase().includes(searchQuery)
+        );
+        break;
+      case 'graduation year':
+        filteredResults = results.filter((result) =>
+          result.yearOfGraduation.toLowerCase().includes(searchQuery)
+        );
+        break;
+      case 'current placement':
+        filteredResults = results.filter((result) =>
+          result.currentPlacement.toLowerCase().includes(searchQuery)
+        );
+        break;
+      default:
+        filteredResults = results.filter((result) =>
+          (
+            result.displayName +
+            result.yearOfGraduation +
+            result.major +
+            result.currentPlacement +
+            result.bio
+          )
+            .toLowerCase()
+            .includes(searchQuery)
+        );
+    }
+
+    setResults(filteredResults);
+  };
+
+  const onSearch = () => {
+    getConsultants()
+      .then(({ data }) => parseConsultants(data))
+      .then((data) => setResults(data));
+  };
 
   return (
     <div>
       <NavBar page="Book Appointment" />
       <SearchPage>
-        <Searchbar updateSearchCriteria={updateSearchCriteria} />
+        <Searchbar updateSearchCriteria={filterResults} onSearch={onSearch} />
         <SearchResultsDiv>
           {results.map((result) => (
             <SearchResult
