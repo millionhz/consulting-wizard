@@ -30,6 +30,8 @@ const clientSchema = new mongoose.Schema({
   },
 });
 
+clientSchema.set('toObject', { getters: true });
+
 const Client = mongoose.model('client', clientSchema);
 
 const addClient = (
@@ -46,10 +48,10 @@ const addClient = (
       addUser(_id.toString(), email, password, userTypes.CLIENT)
     );
 
-const getClientById = (uid) => Client.findById(uid).exec();
+const getClientById = (id) => Client.findById(id).exec();
 
-const updateClient = (uid, attr) =>
-  getClientById(uid)
+const updateClient = (id, attr) =>
+  getClientById(id)
     .then((obj) =>
       obj.overwrite({
         ...obj.toObject(),

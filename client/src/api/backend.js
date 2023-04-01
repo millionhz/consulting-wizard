@@ -8,4 +8,10 @@ export const sessionLogIn = (token) => api.post('/logIn', { token });
 
 export const authenticate = () => api.get('/authenticate');
 
+export const getProfileInfo = () => api.get('/profile');
+
+export const setProfileInfo = (attr) => api.patch('/profile', attr);
+
+export const getAllConsultants = () => api.get('/consultants');
+
 export default api;

@@ -36,6 +36,8 @@ const consultantSchema = new mongoose.Schema({
   },
 });
 
+consultantSchema.set('toObject', { getters: true });
+
 const Consultant = mongoose.model('consultant', consultantSchema);
 
 const addConsultant = (
@@ -59,10 +61,10 @@ const addConsultant = (
       addUser(_id.toString(), email, password, userTypes.CONSULTANT)
     );
 
-const getConsultantById = (uid) => Consultant.findById(uid).exec();
+const getConsultantById = (id) => Consultant.findById(id).exec();
 
-const updateConsultant = (uid, attr) =>
-  getConsultantById(uid)
+const updateConsultant = (id, attr) =>
+  getConsultantById(id)
     .then((obj) =>
       obj.overwrite({
         ...obj.toObject(),
@@ -71,4 +73,11 @@ const updateConsultant = (uid, attr) =>
     )
     .then((obj) => obj.save());
 
-module.exports = { addConsultant, getConsultantById, updateConsultant };
+const getAllConsultants = () => Consultant.find().exec();
+
+module.exports = {
+  addConsultant,
+  getConsultantById,
+  updateConsultant,
+  getAllConsultants,
+};
