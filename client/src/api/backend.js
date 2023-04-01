@@ -12,7 +12,6 @@ export const getProfileInfo = () => api.get('/profile');
 
 export const setProfileInfo = (attr) => api.patch('/profile', attr);
 
-export const getSearchResults = (searchInput) =>
-  api.post('/search/consultant', searchInput);
+export const getConsultants = () => api.get('/consultant');
 
 export default api;

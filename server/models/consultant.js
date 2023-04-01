@@ -37,6 +37,7 @@ const consultantSchema = new mongoose.Schema({
 });
 
 consultantSchema.set('toObject', { getters: true });
+consultantSchema.set('toJSON', { getters: true });
 
 const Consultant = mongoose.model('consultant', consultantSchema);
 
@@ -75,11 +76,12 @@ const updateConsultant = (id, attr) =>
 
 const searchConsultant = (searchInput) => Consultant.find(searchInput).exec();
 
-// const filterAgeGreater = (filterInput) => Consultant.find({$query: {}, $orderby:{age:filterInput}})
+const getConsultants = () => Consultant.find({}).exec();
 
 module.exports = {
   addConsultant,
   getConsultantById,
   updateConsultant,
   searchConsultant,
+  getConsultants,
 };

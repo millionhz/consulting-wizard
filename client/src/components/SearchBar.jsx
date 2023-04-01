@@ -104,7 +104,6 @@ const FilterButton = styled.button`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  background-color: #ffffff;
   border: none;
   border-left: 1px solid #000000;
 `;

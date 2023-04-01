@@ -4,7 +4,7 @@ import NavBar from '../../components/NavBarClient';
 import Footer from '../../components/Footer';
 import Searchbar from '../../components/SearchBar';
 import SearchResult from '../../components/SearchResults';
-import { getSearchResults } from '../../api/backend';
+import { getConsultants } from '../../api/backend';
 
 function Search() {
   const [results, setResults] = useState([]);
@@ -17,7 +17,7 @@ function Search() {
   };
 
   useEffect(() => {
-    getSearchResults(searchQuery)
+    getConsultants()
       .then((res) => {
         const allResults = res.data.map((result) => ({
           id: result._id,
