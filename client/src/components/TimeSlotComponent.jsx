@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-function TimeSlot({ time, BookHandler }) {
+function TimeSlotComponent({ time, BookHandler }) {
   const onClickHandler = () => {
     BookHandler(time);
   };
@@ -60,4 +60,4 @@ const BookText = styled.p`
   color: #2ec309;
 `;
 
-export default TimeSlot;
+export default TimeSlotComponent;
