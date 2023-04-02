@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import NavBar from '../../components/NavBarClient';
 import Footer from '../../components/Footer';
-import TimeSlot from '../../components/TimeSlotComponent';
+import TimeSlot from '../../components/TimeSlot';
 import Confirmation from '../../components/ConfirmationModal';
 import Calendar from '../../components/Calendar';
 import { getConsultantById } from '../../api/backend';
