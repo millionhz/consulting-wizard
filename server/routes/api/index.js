@@ -7,6 +7,7 @@ const profileRouter = require('./profile');
 const consultantRouter = require('./consultant');
 const addFeedbackRouter = require('./feedback');
 const reportFeedbackRouter = require('./feedback');
+const getFeedbackbyConsultantRouter = require('./feedback');
 
 const router = express.Router();
 
@@ -21,7 +22,8 @@ router.use('/profile', profileRouter);
 router.use('/consultant', consultantRouter);
 
 router.use('/feedback', addFeedbackRouter);
-router.use('/feedback', reportFeedbackRouter)
+router.use('/feedback', reportFeedbackRouter);
+router.use('/feedback', getFeedbackbyConsultantRouter);
 
 router.get('/protected', (req, res) => {
   const { uid } = req.user;

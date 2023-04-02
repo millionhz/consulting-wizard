@@ -1,5 +1,5 @@
 const express = require('express');
-const { addFeedback, reportFeedback } = require('../../models/feedback');
+const { addFeedback, reportFeedback, getFeedbackbyConsultant} = require('../../models/feedback');
 
 const router = express.Router();
 
@@ -19,6 +19,19 @@ router.post('/report', (req, res, next) => {
   const reportedPostId = req.body;
 
   reportFeedback(reportedPostId)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch(next);
+
+});
+
+router.get('/', (req, res, next) => {
+
+  const consultantName = req.body;
+  console.log(consultantName);
+
+  getFeedbackbyConsultant(consultantName)
     .then((data) => {
       res.json(data);
     })

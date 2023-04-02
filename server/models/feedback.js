@@ -50,5 +50,7 @@ const addFeedback = (
 
 const reportFeedback = (reportedPostId) => Feedback.updateOne( reportedPostId ,{ $set:{reported: true}} ).exec();
 
-module.exports = {addFeedback, reportFeedback}
+const getFeedbackbyConsultant = (consultantName) => Feedback.find(consultantName).exec();
+
+module.exports = {addFeedback, reportFeedback, getFeedbackbyConsultant}
 
