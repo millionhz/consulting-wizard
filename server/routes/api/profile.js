@@ -8,7 +8,7 @@ const userTypes = require('../../utils/userTypes');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
   const { id, type, email } = req.user;
   let retObj = { type, email };
 
@@ -17,8 +17,9 @@ router.get('/', (req, res) => {
     res.json(retObj);
   };
 
-  const send404 = () => {
+  const send404 = (err) => {
     res.sendStatus(404);
+    next(err);
   };
 
   if (type === userTypes.CLIENT) {
@@ -32,7 +33,7 @@ router.get('/', (req, res) => {
   return res.sendStatus(403);
 });
 
-router.patch('/', (req, res) => {
+router.patch('/', (req, res, next) => {
   const { id, type, email } = req.user;
   const { body } = req;
   let retObj = { type, email };
@@ -42,8 +43,9 @@ router.patch('/', (req, res) => {
     res.json(retObj);
   };
 
-  const send500 = () => {
+  const send500 = (err) => {
     res.sendStatus(500);
+    next(err);
   };
 
   if (type === userTypes.CLIENT) {
@@ -51,6 +53,7 @@ router.patch('/', (req, res) => {
   }
 
   if (type === userTypes.CONSULTANT) {
+    delete body.appointmentTimes;
     return updateConsultant(id, body).then(packageAndSend).catch(send500);
   }
 

@@ -2,6 +2,38 @@ const mongoose = require('mongoose');
 const userTypes = require('../utils/userTypes');
 const { addUser } = require('./user');
 
+const timeSchema = new mongoose.Schema(
+  {
+    hour: {
+      type: Number,
+      required: true,
+      min: 0,
+      max: 23,
+    },
+    minute: {
+      type: Number,
+      required: true,
+      min: 0,
+      max: 59,
+    },
+  },
+  { _id: false }
+);
+
+const appointmentTimesSchema = new mongoose.Schema(
+  {
+    from: {
+      type: timeSchema,
+      required: true,
+    },
+    to: {
+      type: timeSchema,
+      required: true,
+    },
+  },
+  { _id: false }
+);
+
 const consultantSchema = new mongoose.Schema({
   displayName: {
     type: String,
@@ -28,6 +60,11 @@ const consultantSchema = new mongoose.Schema({
     required: false,
     maxLength: 255,
     default: '',
+  },
+  appointmentTimes: {
+    type: [appointmentTimesSchema],
+    required: true,
+    default: [],
   },
   reported: {
     type: Boolean,
@@ -74,6 +111,15 @@ const updateConsultant = (id, attr) =>
     )
     .then((obj) => obj.save());
 
+const setAppointmentTimes = (id, appointmentTimes) =>
+  getConsultantById(id)
+    .then((obj) => {
+      // eslint-disable-next-line no-param-reassign
+      obj.appointmentTimes = appointmentTimes;
+      return obj;
+    })
+    .then((obj) => obj.save());
+
 const searchConsultant = (searchInput) => Consultant.find(searchInput).exec();
 
 const getConsultants = () => Consultant.find({}).exec();
@@ -84,4 +130,5 @@ module.exports = {
   updateConsultant,
   searchConsultant,
   getConsultants,
+  setAppointmentTimes,
 };
