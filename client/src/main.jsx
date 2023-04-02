@@ -10,6 +10,7 @@ import ViewReportedFeedback from './pages/ViewReportedFeedback';
 import ViewDeactivationRequests from './pages/ViewDeactivationRequests';
 import ViewReportedUser from './pages/ViewReportedUser';
 import ViewReportedCounselor from './pages/ViewReportedCounselor';
+import ViewFeedbackCounselor from './pages/ViewFeedback-Counselor';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -20,8 +21,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       {/* <UpdatePassword/> */}
       {/* <ChangePassword/> */}
       {/* <ViewReportedFeedback /> */}
+      <ViewFeedbackCounselor />
       {/* <ViewDeactivationRequests /> */}
-      <ViewReportedUser />
+      {/* <ViewReportedUser /> */}
       {/* <ViewReportedCounselor /> */}
     </UserContextProvider>
   </React.StrictMode>
