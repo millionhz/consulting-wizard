@@ -35,12 +35,12 @@ const Feedback = mongoose.model('Feedback', feedbackSchema);
 
 const addFeedback = (
     reviewer,
-    reviewee,
+    respondent,
     content,
   ) =>
     Feedback({
       reviewer,
-      reviewee,
+      respondent,
       content,
       
     })
@@ -48,5 +48,7 @@ const addFeedback = (
       ;
   
 
-module.exports = {addFeedback}
+const reportFeedback = (reportedPostId) => Feedback.updateOne( reportedPostId ,{ $set:{reported: true}} ).exec();
+
+module.exports = {addFeedback, reportFeedback}
 
