@@ -3,7 +3,12 @@ import styled from '@emotion/styled';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 
-function ProfileItem({ description: description_, title, setValue, disabled }) {
+function ProfileItem({
+  description: description_,
+  title,
+  setValue = null,
+  disabled,
+}) {
   const [description, setDescription] = useState(description_);
   const editHandler = (e) => {
     setDescription(e.target.value);

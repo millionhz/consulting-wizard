@@ -1,16 +1,31 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import NavBar from '../../components/NavBarClient';
 import Footer from '../../components/Footer';
-import Timeslot from '../../components/Timeslot';
+import TimeSlot from '../../components/TimeSlotComponent';
 import Confirmation from '../../components/ConfirmationModal';
 import Calendar from '../../components/Calendar';
+import { getConsultantById } from '../../api/backend';
 
 function BookAppointment() {
-  const counselor = 'Umama Nasir Abbasi';
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const [displayName, setDisplayName] = useState('');
+  const [appointmentTimes, setAppointmentTimes] = useState([]);
+
+  useEffect(() => {
+    getConsultantById(id)
+      .then(({ data }) => {
+        setDisplayName(data.displayName);
+        setAppointmentTimes(data.appointmentTimes);
+      })
+      .catch((err) => console.log(err));
+  }, [id]);
 
   const viewProfileHandler = () => {
-    console.log('View Profile');
+    navigate(`/consultant/${id}`);
   };
 
   const [date, setDate] = useState(new Date());
@@ -33,32 +48,12 @@ function BookAppointment() {
     openModal();
   };
 
-  useEffect(() => {
-    // axios
-    //   .get('http://localhost:5000/api/timeslots', {
-    //     params: {
-    //       date: date,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     setTimeslots(res.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    setTimeslots([
-      { start: '10:00:00', end: '11:00:00' },
-      { start: '15:00:00', end: '16:00:00' },
-      { start: '17:00:00', end: '18:00:00' },
-    ]);
-  }, [date]);
-
   return (
     <div>
       <NavBar page="Book Appointment" />
       <AppointmentDiv>
         <Counselor>
-          <CounselorName>Counselor: {counselor}</CounselorName>
+          <CounselorName>Counselor: {displayName}</CounselorName>
           <ViewProfile onClick={viewProfileHandler}>View Profile</ViewProfile>
         </Counselor>
 
@@ -70,12 +65,8 @@ function BookAppointment() {
         <TimeSlots>
           <Steps>2. Choose an available time slot</Steps>
           <TimeSlotsDiv>
-            {timeslots.map((timeslot) => (
-              <Timeslot
-                timeslot={timeslot}
-                BookHandler={BookSlot}
-                key={timeslot.start}
-              />
+            {appointmentTimes.map((time, idx) => (
+              <TimeSlot time={time} BookHandler={BookSlot} key={idx} />
             ))}
           </TimeSlotsDiv>
         </TimeSlots>
@@ -83,7 +74,7 @@ function BookAppointment() {
       <Confirmation
         date={date}
         timeslot={selectedTimeslot}
-        counselor={counselor}
+        counselor={displayName}
         closeModal={() => closeModal()}
         isOpen={modalIsOpen}
       />

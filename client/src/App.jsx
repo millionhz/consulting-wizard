@@ -13,6 +13,10 @@ import NavBarAdmin from './components/NavBarAdmin';
 import LogInPage from './pages/LogInPage';
 import ConsultantManageProfilePage from './pages/consultant/ManageProfilePage';
 import ClientManageProfilePage from './pages/client/ManageProfilePage';
+import ClientSearch from './pages/client/Search';
+import ClientBookAppointment from './pages/client/BookAppointment';
+import AddReview from './pages/client/AddReview';
+import ConsultantProfile from './pages/client/ConsultantProfile';
 
 function App() {
   const router = createBrowserRouter(
@@ -23,9 +27,9 @@ function App() {
             index
             element={
               <RoleAwareComponent
-                client={<NavBarClient />}
-                consultant={<NavBarConsultant />}
-                admin={<NavBarAdmin />}
+                client={<NavBarClient page="About" />}
+                consultant={<NavBarConsultant page="About" />}
+                admin={<NavBarAdmin page="About" />}
               />
             }
           />
@@ -37,6 +41,22 @@ function App() {
                 consultant={<ConsultantManageProfilePage />}
               />
             }
+          />
+          <Route
+            path="book-appointment"
+            element={<RoleAwareComponent client={<ClientSearch />} />}
+          />
+          <Route
+            path="book-appointment/:id"
+            element={<RoleAwareComponent client={<ClientBookAppointment />} />}
+          />
+          <Route
+            path="add-review/:id"
+            element={<RoleAwareComponent client={<AddReview />} />}
+          />
+          <Route
+            path="consultant/:id"
+            element={<RoleAwareComponent client={<ConsultantProfile />} />}
           />
         </Route>
         <Route element={<LoggedOutInterceptor redirect="/" />}>
