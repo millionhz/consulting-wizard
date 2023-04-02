@@ -1,24 +1,27 @@
 import styled from '@emotion/styled';
 
-function Timeslot({ timeslot, BookHandler }) {
+function TimeSlot({ time, BookHandler }) {
   const onClickHandler = () => {
-    BookHandler(timeslot);
+    BookHandler(time);
   };
 
+  const parseTime = ({ hour, minute }) => `${hour}:${minute}`;
+
+  const start = parseTime(time.from);
+  const end = parseTime(time.to);
+
   return (
-    <TimeSlot>
-      <TimeSlotText>
-        {`${timeslot.start} ${timeslot.end} Pakistan Time (UTC +5)`}
-      </TimeSlotText>
+    <TimeSlotStyling>
+      <TimeSlotText>{`${start} - ${end} Pakistan Time (UTC +5)`}</TimeSlotText>
       <BookSlot onClick={onClickHandler}>
         <BookIcon src="../../public/book_slot.png" alt="Book" />
         <BookText>Book Slot</BookText>
       </BookSlot>
-    </TimeSlot>
+    </TimeSlotStyling>
   );
 }
 
-const TimeSlot = styled.div`
+const TimeSlotStyling = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -56,4 +59,4 @@ const BookText = styled.p`
   color: #2ec309;
 `;
 
-export default Timeslot;
+export default TimeSlot;
