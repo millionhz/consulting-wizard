@@ -9,11 +9,12 @@ import './index.css';
 // import LandingPage from './pages/landingPageAdmin';
 // import Header from './components/NavBarAdmin';
 import SignUp from './pages/StudentSignUp'; 
+import Time from './pages/SetAvailableTimeSlots'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <UserContextProvider>
-      <SignUp/>
+      <Time/>
     </UserContextProvider>
   </React.StrictMode>
 );

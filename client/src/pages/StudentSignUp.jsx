@@ -130,7 +130,7 @@ function StudentSignUp() {
           name="confirmPassword" id="confirmPassword" placeholder='Confirm Password' />
         </Div>
         {/* style={{ color: 'black'}} */}
-        {/* {!passwordsMatch && <p >Passwords do not match.</p>} */}
+        {/* {!passwordsMatch && <p>Passwords do not match.</p>} */}
         <Div > 
           <Label htmlFor="major">Major</Label>
           <Input type="text" autoComplete="off" 
