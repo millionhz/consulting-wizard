@@ -11,6 +11,7 @@ function ViewProfile() {
   const [major, setMajor] = useState('');
   const [yearOfGraduation, setYearOfGraduation] = useState('');
   const [bio, setBio] = useState('');
+  const [deactivate, setDeactivate] = useState(false)
 
   useEffect(() => {
     getProfileInfo()
@@ -38,6 +39,10 @@ function ViewProfile() {
     });
   };
 
+  const requestDeactivation = () => {
+    setDeactivate(true)
+  }
+
   return (
     <div>
       <NavBar page="Settings" />
@@ -59,6 +64,9 @@ function ViewProfile() {
           <p>
             <ChangePassword href="#"> Change Password </ChangePassword>
           </p>
+          <SaveButton variant="cancel" onClick={requestDeactivation}>
+            Request Account Deactivation
+          </SaveButton>
         </Fields>
 
         <SaveButton onClick={saveHandler}>Save Changes</SaveButton>
@@ -108,11 +116,13 @@ const SaveButton = styled.button`
   color: #ffffff;
   font-size: 1rem;
   margin-top: 4rem;
-  background: #2c9612;
-
+  background:  ${(props) =>
+    props.variant === 'cancel' ? 'red' : '#2c9612'};
+  // color: ${(props) => (props.variant === 'cancel' ? '' : 'ffffff')};
   &:hover {
-    background: #2c8612;
-  }
+    background: ${(props) =>
+      props.variant === 'cancel' ? '#5B0808' : '#2c8612'};
+      }
 `;
 
 export default ViewProfile;
