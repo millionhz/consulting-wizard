@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import NavBar from '../../components/NavBarClient';
 import Footer from '../../components/Footer';
 import ProfileContent from '../../components/ProfileContent';
+import ViewFeedbackCounselor from '../../components/ViewFeedbackCounselor';
 
 function ConsultantProfile() {
   const [active, setActive] = useState('profile');
@@ -26,7 +27,7 @@ function ConsultantProfile() {
             Client Feedback
           </MenuTag>
         </TagsDiv>
-        {active === 'profile' ? <ProfileContent /> : <div>Feedback</div>}
+        {active === 'profile' ? <ProfileContent /> : <ViewFeedbackCounselor />}
       </Profile>
 
       <Footer />
