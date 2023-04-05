@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Button, Grid, TextField, FormHelperText } from '@mui/material';
+import { Button, Grid, TextField } from '@mui/material';
 
 import styled from '@emotion/styled';
 
@@ -24,21 +24,6 @@ function LogInPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(email, password);
-    let isFormValid = true;
-    const form = e.target;
-    const formData = new FormData(form);
-    
-    for (const [name, value] of formData.entries()) {
-      const input = form.elements[name];
-
-      if (input.required && !value) {
-        input.setCustomValidity('This field is required');
-        isFormValid = false;
-      } else {
-        input.setCustomValidity('');
-      }
-    }
-
     if (!email.includes('@lums.edu.pk')) {
       setEmailError(true);
     } else {
@@ -123,10 +108,10 @@ function LogInPage() {
                 height: '25px',
               },
             }}
+            autoComplete="off"
             className="inputbox"
             id="outlined-input"
             name="email"
-            autoComplete="off"
             required
             onChange={handleEmailChange}
             error={emailError}
