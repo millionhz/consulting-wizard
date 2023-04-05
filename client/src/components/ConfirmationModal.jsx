@@ -7,6 +7,12 @@ function Confirmation({ date, timeslot, counselor, closeModal, isOpen }) {
     window.location.href = '/';
   }, []);
 
+  const parseTime = ({ hour, minute }) =>
+    minute < 10 ? `${hour}:0${minute}` : `${hour}:${minute}`;
+
+  const start = timeslot.from !== undefined ? parseTime(timeslot.from) : ``;
+  const end = timeslot.to !== undefined ? parseTime(timeslot.to) : ``;
+
   return (
     <div>
       <Modal
@@ -38,7 +44,7 @@ function Confirmation({ date, timeslot, counselor, closeModal, isOpen }) {
         <BookingTime>
           <ModalText>Date: {date.toDateString()}</ModalText>
           <ModalText>
-            Time: {timeslot.start} - {timeslot.end} Pakistan Time (UTC +5)
+            Time: {start} - {end} Pakistan Time (UTC +5)
           </ModalText>
         </BookingTime>
         <EmailNotif>

@@ -6,7 +6,8 @@ function TimeSlotComponent({ time, BookHandler }) {
     BookHandler(time);
   };
 
-  const parseTime = ({ hour, minute }) => `${hour}:${minute}`;
+  const parseTime = ({ hour, minute }) =>
+    minute < 10 ? `${hour}:0${minute}` : `${hour}:${minute}`;
 
   const start = parseTime(time.from);
   const end = parseTime(time.to);

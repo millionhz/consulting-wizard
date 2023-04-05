@@ -29,7 +29,6 @@ function BookAppointment() {
   };
 
   const [date, setDate] = useState(new Date());
-  const [timeslots, setTimeslots] = useState([]);
   const [selectedTimeslot, setSelectedTimeslot] = useState('');
 
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -42,9 +41,9 @@ function BookAppointment() {
 
   const BookSlot = (slot) => {
     setSelectedTimeslot(slot);
-    const index = timeslots.indexOf(slot);
-    timeslots.splice(index, 1);
-    setTimeslots(timeslots);
+    const index = appointmentTimes.indexOf(slot);
+    appointmentTimes.splice(index, 1);
+    setAppointmentTimes(appointmentTimes);
     openModal();
   };
 
