@@ -1,5 +1,5 @@
 // import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Background = styled.div`
   min-height: 100vh;
@@ -46,7 +46,14 @@ export const Div = styled.div`
   align: left;
   text-align: center;
 `;
-
+export const ErrorDiv = styled.div`
+  padding: 10px;
+  margin: auto;
+  align: left;
+  font-size: 13px;
+  text-align: center;
+  color: red;
+`;
 export const Button = styled.button`
   text-align: start;
   font-size: 13px;
@@ -59,6 +66,10 @@ export const Button = styled.button`
   background-color: ${(props) =>
     props.variant === 'cancel' ? '#FFFFFF' : '#0B0B45'};
   color: ${(props) => (props.variant === 'cancel' ? '#0B0B45' : '#FFFFFF')};
+  ${(props) => props.disabled && css`
+      opacity: 0.7;
+      cursor: not-allowed;
+    `}
 `;
 
 // export { Background, Input, Label, Div, Button };

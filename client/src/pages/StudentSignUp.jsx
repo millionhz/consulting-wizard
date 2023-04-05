@@ -1,9 +1,7 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
-import styled from 'styled-components';
-// import validator from "validator";
-import { Background, Input, Label, Div, Button} from '../components/StyledComponents.styles';
+import { Background, Input, Label, Div, Button, ErrorDiv} from '../components/StyledComponents.styles';
 import Header from '../components/SignUpHeader';
 
 function StudentSignUp() {
@@ -21,9 +19,10 @@ function StudentSignUp() {
 
   });
   const [profiles,setProfiles] = useState([]);
-  // const [password, setPassword] = useState('');
-  // const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [passwordError, setPasswordError] = useState('');
+  const [passwordFormat, setPasswordFormat] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [linkedInError, setlinkedInError] = useState('');
 
   const handleInput = (e) => {
     const name = e.target.name;
@@ -34,55 +33,46 @@ function StudentSignUp() {
   const handleCancel = () => {
     // clear all input fields.
     setStudentSignUp({fname :'',lname: '',email :'',password:'', confirmPassword: '', major: '',graduation :'',  linkedIn: '',addInfo: ''})
-
   };
-
-  // const validatePassword = () => {
-  //   const pass = document.getElementById('password').value;
-  //   const cPass = document.getElementById('confirmPassword').value;
-  //   const msg = document.getElementById('message')
-  //   if (pass.length !== 0)
-  //   {
-  //     if (pass === cPass)
-  //     {
-  //       msg.textContent= 'Passwords Match';
-  //       msg.style.backgroundColor = '"#3ae374';
-  //       // console.log('Psswords do not match ')
-  //     }
-  //     else{
-  //       msg.textContent = 'Passwords do not match';
-  //     msg.style.backgroundColor = '"#ff4d4d'
-
-  //     }
-  //   }
-  //   else 
-  //   {
-  //     alert('Password can not be empty');
-  //     msg.textContent = '';
-
-  //   }
-  // }
-
-
-  // const handlePasswordChange = (event) => {
-  //   setPassword(event.target.value);
-  // };
-
-  // const handleConfirmPasswordChange = (event) => {
-  //   setConfirmPassword(event.target.value);
-  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const pass = document.getElementById('password').value;
     const cPass = document.getElementById('confirmPassword').value;
+    const email = document.getElementById('email').value;
+    const linkedIn = document.getElementById('linkedIn').value; 
+    const regex = /^(ftp|http|https):\/\/[^ "]+$/;
+    
+    if (!regex.test(linkedIn)) {
+      setlinkedInError('Please input a valid link');
+    } else {
+      setlinkedInError('');
+    }
+    
+    if (pass.length < 8 ){
+      setPasswordFormat('Password must be 8 characters at least');
+    }
+    else {setPasswordFormat('');}
+
+    if (!email.includes('@lums.edu.pk')) {
+      setEmailError('Please enter a valid email address. You can only input your LUMS email ID');
+    } else {
+      setEmailError('');
+    }
+
     if (pass !== cPass) {
-      setPasswordsMatch(false);
-      alert('Passwords do not match');
-    } 
-    const newCounsellor = {...studentSignUp, id:new Date().getTime().toString()}
-    console.log(newCounsellor);
-    setProfiles([...profiles, newCounsellor]); 
+      setPasswordError('Passwords do not match!');
+    } else {
+      setPasswordError('');
+    }
+    if (!emailError && !passwordError && !passwordFormat && !linkedInError)
+    {
+      const newCounsellor = {...studentSignUp, id:new Date().getTime().toString()}
+      // console.log(newCounsellor);
+      setProfiles([...profiles, newCounsellor]); 
+      // add axios working here. 
+    }
+   
     setStudentSignUp({fname :'',lname: '',email :'',password:'',confirmPassword: '', major: '',graduation :'',  linkedIn: '',addInfo: ''})
   };
 
@@ -114,23 +104,23 @@ function StudentSignUp() {
           onChange = {handleInput}
           name="email" id="email" placeholder='Email Address' />
         </Div>
-        <Div  >
+        <ErrorDiv>{emailError}</ErrorDiv>
+        <Div>
           <Label htmlFor="password">Password</Label>
           <Input type="password" autoComplete="off" 
           value = {studentSignUp.password}         
           onChange = {handleInput}
           name="password" id="password" placeholder='Password' />
         </Div>
-
-        <Div >
+        <ErrorDiv>{passwordFormat}</ErrorDiv>
+        <Div>
           <Label htmlFor="confirmPassword">Confirm Password</Label>
           <Input type="password" autoComplete="off" 
           value = {studentSignUp.confirmPassword}         
           onChange = {handleInput}
           name="confirmPassword" id="confirmPassword" placeholder='Confirm Password' />
         </Div>
-        {/* style={{ color: 'black'}} */}
-        {/* {!passwordsMatch && <p>Passwords do not match.</p>} */}
+        <ErrorDiv>{passwordError}</ErrorDiv>
         <Div > 
           <Label htmlFor="major">Major</Label>
           <Input type="text" autoComplete="off" 
@@ -146,15 +136,14 @@ function StudentSignUp() {
           name="graduation" id="graduation" placeholder='Enter your year of graduation'/>
         </Div>
 
-
         <Div >
           <Label htmlFor="linkedIn">LinkedIn</Label>
           <Input type="url" autoComplete="off" 
           value = {studentSignUp.linkedIn}         onChange = {handleInput}
           name="linkedIn" id="linkedIn" placeholder='Link to your LinkedIn Account' />
         </Div>
-
-        <Div  >
+        <ErrorDiv>{linkedInError}</ErrorDiv>
+        <Div>
           <Label htmlFor="addInfo">Additional Information</Label>
           <Input type="text" autoComplete="off" 
           value = {studentSignUp.addInfo}
@@ -163,7 +152,7 @@ function StudentSignUp() {
         </Div>
 
         <Button variant = 'cancel' type="submit" onClick={handleCancel}>Cancel </Button>
-        <Button type="submit" onClick={handleSubmit}>
+        <Button  type="submit" onClick={handleSubmit} disabled={!studentSignUp.email || !studentSignUp.password || !studentSignUp.confirmPassword ||!studentSignUp.fname ||!studentSignUp.lname ||!studentSignUp.linkedIn ||!studentSignUp.major ||!studentSignUp.graduation}>
           Submit
         </Button>
       </form>

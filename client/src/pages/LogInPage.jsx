@@ -1,11 +1,14 @@
 import React, { useState, useContext } from 'react';
-import { Button, Grid, TextField } from '@mui/material';
+import { Button, Grid, TextField, FormHelperText } from '@mui/material';
+
 import styled from '@emotion/styled';
+
 import { UserContext } from '../context/UserContext';
 
 function LogInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState(false);
   const { logIn } = useContext(UserContext);
 
   const handleEmailChange = (e) => {
@@ -16,9 +19,31 @@ function LogInPage() {
     setPassword(e.target.value);
   };
 
+  // const emailError = !email.includes('@lums.edu.pk');
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(email, password);
+    let isFormValid = true;
+    const form = e.target;
+    const formData = new FormData(form);
+    
+    for (const [name, value] of formData.entries()) {
+      const input = form.elements[name];
+
+      if (input.required && !value) {
+        input.setCustomValidity('This field is required');
+        isFormValid = false;
+      } else {
+        input.setCustomValidity('');
+      }
+    }
+
+    if (!email.includes('@lums.edu.pk')) {
+      setEmailError(true);
+    } else {
+      setEmailError(false);
+    }
     logIn(email, password)
       .then(() => {
         window.location.reload();
@@ -101,8 +126,12 @@ function LogInPage() {
             className="inputbox"
             id="outlined-input"
             name="email"
+            autoComplete="off"
+            required
             onChange={handleEmailChange}
-          />
+            error={emailError}
+            helperText={emailError ? 'Invalid email address.' : ''}
+          />          
         </Grid>
         <Grid item xl={3} md={3} sm={3} xs={3}>
           <Grid
@@ -135,7 +164,9 @@ function LogInPage() {
               }
             }
             id="password"
+            required
             name="password"
+            type="password"
             onChange={handlePasswordChange}
           />
         </Grid>
