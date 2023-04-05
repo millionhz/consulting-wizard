@@ -16,4 +16,6 @@ export const getConsultants = () => api.get('/consultant');
 
 export const getConsultantById = (id) => api.get(`/consultant/${id}`);
 
+export const setClientReview = (review) => api.post('/feedback', review);
+
 export default api;
