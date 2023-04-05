@@ -57,13 +57,13 @@ function Search() {
     setResults(filteredResults);
   };
 
-  const onSearch = (query, filter) => {
+  const onSearch = (query_, filter_) => {
     getConsultants()
       .then(({ data }) => parseConsultants(data))
       .then((data) => {
         setResults(data);
-        setQuery(query.toLowerCase());
-        setFilter(filter.toLowerCase());
+        setQuery(query_.toLowerCase());
+        setFilter(filter_.toLowerCase());
       });
   };
 

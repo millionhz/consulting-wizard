@@ -3,9 +3,11 @@ import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import NavBar from '../../components/NavBarClient';
 import Footer from '../../components/Footer';
-import { getConsultantById } from '../../api/backend';
-import { getProfileInfo } from '../../api/backend';
-import { setClientReview } from '../../api/backend';
+import {
+  getConsultantById,
+  getProfileInfo,
+  setClientReview,
+} from '../../api/backend';
 
 function AddReview() {
   const location = useLocation();
