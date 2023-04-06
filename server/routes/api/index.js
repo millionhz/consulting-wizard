@@ -8,6 +8,7 @@ const consultantRouter = require('./consultant');
 const addFeedbackRouter = require('./feedback');
 const reportFeedbackRouter = require('./feedback');
 const getFeedbackbyConsultantRouter = require('./feedback');
+const appointmentRouter = require('./appointment');
 
 const router = express.Router();
 
@@ -18,8 +19,8 @@ router.use(authenticate);
 
 router.use('/authenticate', authenticateRouter);
 router.use('/profile', profileRouter);
-
 router.use('/consultant', consultantRouter);
+router.use('/appointment', appointmentRouter);
 
 router.use('/feedback', addFeedbackRouter);
 router.use('/feedback', reportFeedbackRouter);

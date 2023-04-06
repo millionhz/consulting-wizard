@@ -6,7 +6,11 @@ import Footer from '../../components/Footer';
 import TimeSlot from '../../components/TimeSlotComponent';
 import Confirmation from '../../components/ConfirmationModal';
 import Calendar from '../../components/Calendar';
-import { getConsultantById } from '../../api/backend';
+import {
+  bookAppointment,
+  getAvailableAppointments,
+  getConsultantById,
+} from '../../api/backend';
 
 function BookAppointment() {
   const { id } = useParams();
@@ -19,7 +23,6 @@ function BookAppointment() {
     getConsultantById(id)
       .then(({ data }) => {
         setDisplayName(data.displayName);
-        setAppointmentTimes(data.appointmentTimes);
       })
       .catch((err) => console.log(err));
   }, [id]);
@@ -29,7 +32,28 @@ function BookAppointment() {
   };
 
   const [date, setDate] = useState(new Date());
-  const [selectedTimeslot, setSelectedTimeslot] = useState('');
+  const [selectedTimeslot, setSelectedTimeslot] = useState();
+
+  useEffect(() => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const date_ = date.getDate();
+
+    getAvailableAppointments(id, year, month, date_)
+      .then(({ data }) => {
+        const processedData = data.map((slot) => ({
+          ...slot,
+          from: new Date(slot.from),
+          to: new Date(slot.to),
+        }));
+        setAppointmentTimes(processedData);
+      })
+      .catch((err) => {
+        if (err.response.status === 400) {
+          setAppointmentTimes([]);
+        }
+      });
+  }, [id, date]);
 
   const [modalIsOpen, setIsOpen] = useState(false);
   function openModal() {
@@ -41,10 +65,11 @@ function BookAppointment() {
 
   const BookSlot = (slot) => {
     setSelectedTimeslot(slot);
-    const index = appointmentTimes.indexOf(slot);
-    appointmentTimes.splice(index, 1);
-    setAppointmentTimes(appointmentTimes);
-    openModal();
+    bookAppointment(slot.id)
+      .then(openModal)
+      .then(() => {
+        setAppointmentTimes(appointmentTimes.filter((s) => s.id !== slot.id));
+      });
   };
 
   return (
@@ -64,15 +89,17 @@ function BookAppointment() {
         <TimeSlots>
           <Steps>2. Choose an available time slot</Steps>
           <TimeSlotsDiv>
-            {appointmentTimes.map((time, idx) => (
-              <TimeSlot time={time} BookHandler={BookSlot} key={idx} />
-            ))}
+            {appointmentTimes.length
+              ? appointmentTimes.map((slot, idx) => (
+                  <TimeSlot slot={slot} BookHandler={BookSlot} key={idx} />
+                ))
+              : 'No Available Time Slots'}
           </TimeSlotsDiv>
         </TimeSlots>
       </AppointmentDiv>
       <Confirmation
         date={date}
-        timeslot={selectedTimeslot}
+        slot={selectedTimeslot}
         counselor={displayName}
         closeModal={() => closeModal()}
         isOpen={modalIsOpen}
