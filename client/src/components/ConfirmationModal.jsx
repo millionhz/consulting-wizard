@@ -2,53 +2,52 @@ import styled from '@emotion/styled';
 import { useCallback } from 'react';
 import Modal from 'react-modal';
 
-function Confirmation({ date, timeslot, counselor, closeModal, isOpen }) {
+function Confirmation({ date, slot, counselor, closeModal, isOpen }) {
   const goToHome = useCallback(() => {
     window.location.href = '/';
   }, []);
 
   return (
-    <div>
-      <Modal
-        ariaHideApp={false}
-        isOpen={isOpen}
-        onRequestClose={closeModal}
-        contentLabel="Modal"
-        style={{
-          overlay: {
-            backgroundColor: 'rgba(0, 0, 0, 0.75)',
-          },
-          content: {
-            width: '18%',
-            height: '35%',
-            margin: 'auto',
-            textAlign: 'left',
-            color: '#000000',
-            padding: '1rem 2rem',
-            borderRadius: '10px',
-          },
-        }}
-      >
-        <CloseButton onClick={closeModal}>X</CloseButton>
-        <Confirmed>
-          <ModalHeading>Booking Confirmed</ModalHeading>
-          <ConfirmIcon src="../../public/green_tick.png" alt="" />
-        </Confirmed>
-        <ModalText>with {counselor}</ModalText>
-        <BookingTime>
-          <ModalText>Date: {date.toDateString()}</ModalText>
-          <ModalText>
-            Time: {timeslot.start} - {timeslot.end} Pakistan Time (UTC +5)
-          </ModalText>
-        </BookingTime>
-        <EmailNotif>
-          <InfoIcon>!</InfoIcon>
-          <ModalText>Please check your email for meeting details</ModalText>
-        </EmailNotif>
-
-        <ModalButton onClick={goToHome}>OK</ModalButton>
-      </Modal>
-    </div>
+    slot && (
+      <div>
+        <Modal
+          ariaHideApp={false}
+          isOpen={isOpen}
+          onRequestClose={closeModal}
+          contentLabel="Modal"
+          style={{
+            overlay: {
+              backgroundColor: 'rgba(0, 0, 0, 0.75)',
+            },
+            content: {
+              width: '35%',
+              height: '55%',
+              margin: 'auto',
+              textAlign: 'left',
+              color: '#000000',
+              padding: '1rem 2rem',
+              borderRadius: '10px',
+            },
+          }}
+        >
+          <CloseButton onClick={closeModal}>X</CloseButton>
+          <Confirmed>
+            <ModalHeading>Booking Confirmed</ModalHeading>
+            <ConfirmIcon src="../../public/green_tick.png" alt="" />
+          </Confirmed>
+          <ModalText>with {counselor}</ModalText>
+          <BookingTime>
+            <ModalText>Date: {date.toDateString()}</ModalText>
+            <ModalText>
+              Time: {slot.from.toLocaleTimeString()} -{' '}
+              {slot.to.toLocaleTimeString()}
+              Pakistan Time (UTC +5)
+            </ModalText>
+          </BookingTime>
+          <ModalButton onClick={goToHome}>OK</ModalButton>
+        </Modal>
+      </div>
+    )
   );
 }
 
