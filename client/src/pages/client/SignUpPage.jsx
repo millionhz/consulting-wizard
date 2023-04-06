@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import NavBarLogin from '../../components/NavBarLogin';
 import Footer from '../../components/Footer';
 import FormInputDiv from '../../components/FormInputComponent';
+import { signUpClient } from '../../api/backend';
 
 function SignUpPage() {
   const [firstName, setFirstName] = useState('');
@@ -25,7 +26,7 @@ function SignUpPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     PasswordValidate();
-    const displayName = firstName + ' ' + lastName;
+    const displayName = `${firstName} ${lastName}`;
     const data = {
       email,
       password,
@@ -35,12 +36,10 @@ function SignUpPage() {
       bio,
     };
 
-    axios
-      .post('/api/signuUp/client', data)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.error) {
-          alert(data.error);
+    signUpClient(data)
+      .then((res) => {
+        if (res.error) {
+          alert(res.error);
         } else {
           alert('Account created successfully!');
           window.location.href = '/login';

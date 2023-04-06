@@ -6,6 +6,11 @@ const api = axios.create({
 
 export const sessionLogIn = (token) => api.post('/logIn', { token });
 
+export const signUpClient = (client) => api.post('/signUp/client', client);
+
+export const signUpConsultant = (consultant) =>
+  api.post('/signUp/consultant', consultant);
+
 export const authenticate = () => api.get('/authenticate');
 
 export const getProfileInfo = () => api.get('/profile');
