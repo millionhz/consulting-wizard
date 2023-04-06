@@ -5,6 +5,7 @@ module.exports = {
   extends: ['airbnb-base', 'prettier'],
   plugins: ['prettier'],
   rules: {
+    'no-param-reassign': 0,
     'prettier/prettier': [
       'warn',
       {
