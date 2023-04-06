@@ -11,6 +11,9 @@ import NavBarClient from './components/NavBarClient';
 import NavBarConsultant from './components/NavBarConsultant';
 import NavBarAdmin from './components/NavBarAdmin';
 import LogInPage from './pages/LogInPage';
+import SignUpRole from './pages/SignUpRole';
+import SignUpPageConsultant from './pages/consultant/SignUpPage';
+import SignUpPageClient from './pages/client/SignUpPage';
 import ConsultantManageProfilePage from './pages/consultant/ManageProfilePage';
 import ClientManageProfilePage from './pages/client/ManageProfilePage';
 import ClientSearch from './pages/client/Search';
@@ -61,7 +64,9 @@ function App() {
         </Route>
         <Route element={<LoggedOutInterceptor redirect="/" />}>
           <Route path="login" element={<LogInPage />} />
-          <Route path="signup" element={<h1>Signup Page</h1>} />
+          <Route path="signup/role" element={<SignUpRole />} />
+          <Route path="signup/client" element={<SignUpPageClient />} />
+          <Route path="signup/consultant" element={<SignUpPageConsultant />} />
         </Route>
       </Route>
     )
