@@ -7,12 +7,6 @@ function Confirmation({ date, slot, counselor, closeModal, isOpen }) {
     window.location.href = '/';
   }, []);
 
-  const parseTime = ({ hour, minute }) =>
-    minute < 10 ? `${hour}:0${minute}` : `${hour}:${minute}`;
-
-  const start = timeslot.from !== undefined ? parseTime(timeslot.from) : ``;
-  const end = timeslot.to !== undefined ? parseTime(timeslot.to) : ``;
-
   return (
     slot && (
       <div>
