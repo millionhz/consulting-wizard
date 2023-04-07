@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-function TimeSlotComponent({ time, BookHandler }) {
+function TimeSlotComponent({ slot, BookHandler }) {
   const onClickHandler = () => {
-    BookHandler(time);
+    BookHandler(slot);
   };
 
-  const parseTime = ({ hour, minute }) => `${hour}:${minute}`;
+  const parseTime = (dt) => dt.toLocaleTimeString();
 
-  const start = parseTime(time.from);
-  const end = parseTime(time.to);
+  const start = parseTime(slot.from);
+  const end = parseTime(slot.to);
 
   return (
     <TimeSlotStyling>
