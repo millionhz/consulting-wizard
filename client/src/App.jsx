@@ -64,7 +64,7 @@ function App() {
         </Route>
         <Route element={<LoggedOutInterceptor redirect="/" />}>
           <Route path="login" element={<LogInPage />} />
-          <Route path="signup/role" element={<SignUpRole />} />
+          <Route path="signup" element={<SignUpRole />} />
           <Route path="signup/client" element={<SignUpPageClient />} />
           <Route path="signup/consultant" element={<SignUpPageConsultant />} />
         </Route>

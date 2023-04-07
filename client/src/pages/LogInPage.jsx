@@ -191,7 +191,7 @@ function LogInPage() {
             >
               <signUpPrompt>Don't have an account?</signUpPrompt>
               <a
-                href="/signup/role"
+                href="/signup/"
                 style={{
                   textDecoration: 'none',
                   color: '#0b0b45',
@@ -251,12 +251,6 @@ const Triangle = styled.div`
   position: relative;
   top: 110px;
   right: 20px;
-`;
-
-const signUpPrompt = styled.p``;
-
-const signUpLink = styled.a`
-  color: #0b0b45;
 `;
 
 export default LogInPage;

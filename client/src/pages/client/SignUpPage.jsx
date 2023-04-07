@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import styled from '@emotion/styled';
 import NavBarLogin from '../../components/NavBarLogin';
 import Footer from '../../components/Footer';
