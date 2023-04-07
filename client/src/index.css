@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend&family=Roboto&display=swap');
 
 :root {
   font-family: Roboto, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -15,6 +15,14 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+h1 {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+h6 {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
 h1 {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }

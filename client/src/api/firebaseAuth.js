@@ -1,6 +1,10 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  updatePassword as updatePassword_,
+} from 'firebase/auth';
+import { sessionLogIn } from './backend';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyB7pBX3wdSsMYDbhWr0s1bpGwy7TP3fxDI',
@@ -15,5 +19,12 @@ const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 
-export const getToken = (email, password) =>
-  signInWithEmailAndPassword(auth, email, password);
+export const logIn = (email, password) =>
+  signInWithEmailAndPassword(auth, email, password)
+    .then(({ user }) => user.getIdToken())
+    .then((token) => sessionLogIn(token));
+
+export const updatePassword = (email, password, newPassword) =>
+  signInWithEmailAndPassword(auth, email, password).then(({ user }) =>
+    updatePassword_(user, newPassword)
+  );

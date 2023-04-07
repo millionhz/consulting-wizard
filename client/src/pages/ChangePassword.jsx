@@ -1,20 +1,36 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import NavBar from '../components/NavBar';
+import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
-// import {useNavigate} from 'react-router-dom';
-// import { updatePassword } from '../api/backend';
+
+import { updatePassword } from '../api/firebaseAuth';
 
 function AuthForm({ onSubmit, error }) {
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [passwordFormatError, setPasswordFormatError] = useState('');
+
   const submitHandler = (event) => {
     event.preventDefault();
-    onSubmit(password, newPassword);
+    if (newPassword.length < 8) {
+      setPasswordFormatError('Password must be 8 characters at least');
+    } else {
+      setPasswordFormatError('');
+    }
+
+    if (newPassword !== confirmNewPassword) {
+      setPasswordError('Passwords do not match!');
+    } else {
+      setPasswordError('');
+    }
+    if (!passwordError && !passwordFormatError) {
+      onSubmit(password, newPassword);
+    }
   };
+
   return (
     <div>
-      <NavBar />
       <div
         className="background"
         style={{
@@ -89,17 +105,63 @@ function AuthForm({ onSubmit, error }) {
                   borderRadius: '10px',
                   marginBottom: '20px',
                   marginTop: '10px',
-                  marginRight: '15px',
+                  marginRight: '30px',
                 }}
                 value={newPassword}
                 onChange={(event) => setNewPassword(event.target.value)}
               />
             </label>
+            <div
+              style={{
+                color: 'red',
+                marginLeft: '20px',
+              }}
+            >
+              {passwordFormatError}
+            </div>
+
+            <label
+              style={{
+                textAlign: 'right',
+                marginLeft: '20px',
+              }}
+            >
+              <strong>Confirm New Password:</strong>
+              <br />
+              <input
+                id="confirmNewPassword"
+                type="password"
+                placeholder="Confirm New Password"
+                style={{
+                  marginLeft: '20px',
+                  border: 'none',
+                  background: '#D9D9D9',
+                  color: '#000000',
+                  width: '250px',
+                  padding: '12px',
+                  borderRadius: '10px',
+                  marginBottom: '20px',
+                  marginTop: '10px',
+                  marginRight: '15px',
+                }}
+                value={confirmNewPassword}
+                onChange={(event) => setConfirmNewPassword(event.target.value)}
+              />
+            </label>
+            <div
+              style={{
+                color: 'red',
+                marginLeft: '20px',
+              }}
+            >
+              {passwordError}
+            </div>
           </form>
         </div>
 
         <button
-          type="submit"
+          onClick={submitHandler}
+          type="button"
           style={{
             background: '#2C9612',
             border: 'none',
@@ -118,18 +180,18 @@ function AuthForm({ onSubmit, error }) {
     </div>
   );
 }
+
 function ChangePassword() {
   const [isError, setError] = useState(false);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const submitHandler = (password, newPassword) => {
-    //   updatePassword(password,newPassword)
-    //   .then(()=>{
-    //     navigate('/');
-    // })
-    //   .catch(()=>{
-    //       setError(true);
-    //   });
-    console.log('Password Changed!');
+    updatePassword(password, newPassword)
+      .then(() => {
+        navigate('/');
+      })
+      .catch((err) => {
+        setError(true);
+      });
   };
 
   return <AuthForm onSubmit={submitHandler} error={isError} />;
