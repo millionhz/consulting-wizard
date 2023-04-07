@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { UserContext } from '../context/UserContext';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 
 import { updatePassword } from '../api/firebaseAuth';
@@ -7,10 +7,26 @@ import { updatePassword } from '../api/firebaseAuth';
 function AuthForm({ onSubmit, error }) {
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [passwordFormatError, setPasswordFormatError] = useState('');
 
   const submitHandler = (event) => {
     event.preventDefault();
-    onSubmit(password, newPassword);
+    if (newPassword.length < 8) {
+      setPasswordFormatError('Password must be 8 characters at least');
+    } else {
+      setPasswordFormatError('');
+    }
+
+    if (newPassword !== confirmNewPassword) {
+      setPasswordError('Passwords do not match!');
+    } else {
+      setPasswordError('');
+    }
+    if (!passwordError && !passwordFormatError) {
+      onSubmit(password, newPassword);
+    }
   };
 
   return (
@@ -89,12 +105,57 @@ function AuthForm({ onSubmit, error }) {
                   borderRadius: '10px',
                   marginBottom: '20px',
                   marginTop: '10px',
-                  marginRight: '15px',
+                  marginRight: '30px',
                 }}
                 value={newPassword}
                 onChange={(event) => setNewPassword(event.target.value)}
               />
             </label>
+            <div
+              style={{
+                color: 'red',
+                marginLeft: '20px',
+              }}
+            >
+              {passwordFormatError}
+            </div>
+
+            <label
+              style={{
+                textAlign: 'right',
+                marginLeft: '20px',
+              }}
+            >
+              <strong>Confirm New Password:</strong>
+              <br />
+              <input
+                id="confirmNewPassword"
+                type="password"
+                placeholder="Confirm New Password"
+                style={{
+                  marginLeft: '20px',
+                  border: 'none',
+                  background: '#D9D9D9',
+                  color: '#000000',
+                  width: '250px',
+                  padding: '12px',
+                  borderRadius: '10px',
+                  marginBottom: '20px',
+                  marginTop: '10px',
+                  marginRight: '15px',
+                }}
+                value={confirmNewPassword}
+                onChange={(event) => setConfirmNewPassword(event.target.value)}
+              />
+            </label>
+            <div
+              style={{
+                color: 'red',
+                marginLeft: '20px',
+              }}
+            >
+              {passwordError}
+            </div>
           </form>
         </div>
 
@@ -122,15 +183,13 @@ function AuthForm({ onSubmit, error }) {
 
 function ChangePassword() {
   const [isError, setError] = useState(false);
-  const { email } = useContext(UserContext);
-
+  const navigate = useNavigate();
   const submitHandler = (password, newPassword) => {
-    updatePassword(email, password, newPassword)
+    updatePassword(password, newPassword)
       .then(() => {
-        console.log('Password Changed!');
+        navigate('/');
       })
       .catch((err) => {
-        console.log(err);
         setError(true);
       });
   };
