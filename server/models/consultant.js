@@ -2,6 +2,38 @@ const mongoose = require('mongoose');
 const userTypes = require('../utils/userTypes');
 const { addUser } = require('./user');
 
+const timeSchema = new mongoose.Schema(
+  {
+    hours: {
+      type: Number,
+      required: true,
+      min: 0,
+      max: 23,
+    },
+    minutes: {
+      type: Number,
+      required: true,
+      min: 0,
+      max: 59,
+    },
+  },
+  { _id: false }
+);
+
+const appointmentTimesSchema = new mongoose.Schema(
+  {
+    from: {
+      type: timeSchema,
+      required: true,
+    },
+    to: {
+      type: timeSchema,
+      required: true,
+    },
+  },
+  { _id: false }
+);
+
 const consultantSchema = new mongoose.Schema({
   displayName: {
     type: String,
@@ -29,6 +61,11 @@ const consultantSchema = new mongoose.Schema({
     maxLength: 255,
     default: '',
   },
+  appointmentTimes: {
+    type: [appointmentTimesSchema],
+    required: true,
+    default: [],
+  },
   reported: {
     type: Boolean,
     required: true,
@@ -37,6 +74,7 @@ const consultantSchema = new mongoose.Schema({
 });
 
 consultantSchema.set('toObject', { getters: true });
+consultantSchema.set('toJSON', { getters: true });
 
 const Consultant = mongoose.model('consultant', consultantSchema);
 
@@ -73,4 +111,27 @@ const updateConsultant = (id, attr) =>
     )
     .then((obj) => obj.save());
 
-module.exports = { addConsultant, getConsultantById, updateConsultant };
+const setAppointmentTimes = (id, appointmentTimes) =>
+  getConsultantById(id)
+    .then((obj) => {
+      obj.appointmentTimes = appointmentTimes;
+      return obj;
+    })
+    .then((obj) => obj.save());
+
+const getAppointmentTimes = (id) =>
+  getConsultantById(id).then((obj) => obj.appointmentTimes);
+
+const searchConsultant = (searchInput) => Consultant.find(searchInput).exec();
+
+const getConsultants = () => Consultant.find({}).exec();
+
+module.exports = {
+  addConsultant,
+  getConsultantById,
+  updateConsultant,
+  searchConsultant,
+  getConsultants,
+  setAppointmentTimes,
+  getAppointmentTimes,
+};

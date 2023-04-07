@@ -8,10 +8,14 @@ function NavBarClient({ page }) {
         <Logo src="/logo.png" alt="logo" />
       </div>
       <NavbarLinks>
-        <NavLink title="About" page={page} />
-        <NavLink title="Book Appointment" page={page} />
+        <NavLink title="About" page={page} link="/" />
+        <NavLink
+          title="Book Appointment"
+          page={page}
+          link="/book-appointment"
+        />
         <NavLink title="View Appointments" page={page} />
-        <NavLink title="Settings" page={page} />
+        <NavLink title="Settings" page={page} link="/manage-profile" />
         <NavLink title="Logout" page={page} />
       </NavbarLinks>
     </NavbarDiv>

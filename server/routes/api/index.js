@@ -4,6 +4,8 @@ const logInRouter = require('./logIn');
 const signUpRouter = require('./signUp');
 const authenticateRouter = require('./authenticate');
 const profileRouter = require('./profile');
+const consultantRouter = require('./consultant');
+const appointmentRouter = require('./appointment');
 
 const router = express.Router();
 
@@ -14,6 +16,8 @@ router.use(authenticate);
 
 router.use('/authenticate', authenticateRouter);
 router.use('/profile', profileRouter);
+router.use('/consultant', consultantRouter);
+router.use('/appointment', appointmentRouter);
 
 router.get('/protected', (req, res) => {
   const { uid } = req.user;

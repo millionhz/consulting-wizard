@@ -1,17 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 
-function NavLink({ title, page }) {
-  const [isHover, setHover] = useState(false);
-  const handleHover = () => {
-    setHover(!isHover);
-  };
-
+function NavLink({ title, page, link = '/' }) {
   return (
     <StyledNavLink
-      href="#"
-      onMouseEnter={handleHover}
-      onMouseLeave={handleHover}
+      href={link}
       style={{
         color: title === page ? '#bfab25' : '',
       }}

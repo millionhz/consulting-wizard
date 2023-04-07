@@ -11,4 +11,15 @@ export const authenticate = () => api.get('/authenticate');
 export const getProfileInfo = () => api.get('/profile');
 
 export const setProfileInfo = (attr) => api.patch('/profile', attr);
+
+export const getConsultants = () => api.get('/consultant');
+
+export const getConsultantById = (id) => api.get(`/consultant/${id}`);
+
+export const getAvailableAppointments = (consultant, year, month, date) =>
+  api.get(`/appointment/`, { params: { consultant, year, month, date } });
+
+export const bookAppointment = (appointmentId) =>
+  api.post(`/appointment`, { appointmentId });
+
 export default api;

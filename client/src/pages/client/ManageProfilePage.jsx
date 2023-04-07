@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
+import NavBar from '../../components/NavBarClient';
 import Footer from '../../components/Footer';
 import ProfileItem from '../../components/ProfileItem';
 import { getProfileInfo, setProfileInfo } from '../../api/backend';
@@ -41,6 +42,8 @@ function ManageProfilePage() {
 
   return (
     <div>
+      <NavBar page="Settings" />
+
       <Profile className="profile">
         <Title>Account Management</Title>
         <Subtitle>Manage your account details</Subtitle>
