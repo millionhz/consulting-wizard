@@ -1,20 +1,20 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
-import NavBar from '../components/NavBar';
+import React, { useState, useContext } from 'react';
+import { UserContext } from '../context/UserContext';
 import Footer from '../components/Footer';
-// import {useNavigate} from 'react-router-dom';
-// import { updatePassword } from '../api/backend';
+
+import { updatePassword } from '../api/firebaseAuth';
 
 function AuthForm({ onSubmit, error }) {
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+
   const submitHandler = (event) => {
     event.preventDefault();
     onSubmit(password, newPassword);
   };
+
   return (
     <div>
-      <NavBar />
       <div
         className="background"
         style={{
@@ -99,7 +99,8 @@ function AuthForm({ onSubmit, error }) {
         </div>
 
         <button
-          type="submit"
+          onClick={submitHandler}
+          type="button"
           style={{
             background: '#2C9612',
             border: 'none',
@@ -118,18 +119,20 @@ function AuthForm({ onSubmit, error }) {
     </div>
   );
 }
+
 function ChangePassword() {
   const [isError, setError] = useState(false);
-  // const navigate = useNavigate();
+  const { email } = useContext(UserContext);
+
   const submitHandler = (password, newPassword) => {
-    //   updatePassword(password,newPassword)
-    //   .then(()=>{
-    //     navigate('/');
-    // })
-    //   .catch(()=>{
-    //       setError(true);
-    //   });
-    console.log('Password Changed!');
+    updatePassword(email, password, newPassword)
+      .then(() => {
+        console.log('Password Changed!');
+      })
+      .catch((err) => {
+        console.log(err);
+        setError(true);
+      });
   };
 
   return <AuthForm onSubmit={submitHandler} error={isError} />;
