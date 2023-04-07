@@ -25,6 +25,24 @@ router.get('/dummy-feedbacks', (req, res) => {
   });
 
 
+router.delete('/deleteFeedback/:id', async (req,res)=>{
+  try{
+    const requiredFeedback = await Feedback.findById(req.params.id)
+    if(!requiredFeedback){
+      return res.sendStatus(404).json({message: "The desired feedback doesn't exist"})
+    }
+    await requiredFeedback.remove()
+    res.json({message: "Feedback deleted successfully"})
+  }
+
+  catch(error){
+    console.log(error)
+    res.sendStatus(500).json({message: "Server error"})
+  }
+  
+})
+
+
 
 module.exports = router
 
