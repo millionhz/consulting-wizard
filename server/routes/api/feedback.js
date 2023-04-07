@@ -8,8 +8,8 @@ const {
 const router = express.Router();
 
 router.post('/', (req, res, next) => {
-  const { reviewer, respondent, content } = req.body;
-  console.log(reviewer, respondent, content);
+  const reviewer = req.user;
+  const { respondent, content } = req.body;
   addFeedback(reviewer, respondent, content)
     .then((data) => {
       res.json(data);
@@ -28,9 +28,7 @@ router.post('/report', (req, res, next) => {
 });
 
 router.get('/', (req, res, next) => {
-  const consultantName = req.body;
-  console.log(consultantName);
-
+  const consultantName = req.user;
   getFeedbackbyConsultant(consultantName)
     .then((data) => {
       res.json(data);
