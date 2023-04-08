@@ -44,4 +44,7 @@ const reportFeedback = (reportedPostId) =>
 const getFeedbackbyConsultant = (consultantName) =>
   Feedback.find(consultantName).exec();
 
-module.exports = { addFeedback, reportFeedback, getFeedbackbyConsultant };
+const viewReportedFeedback = () => 
+  Feedback.find({reported: true}).exec();
+
+module.exports = { addFeedback, reportFeedback, getFeedbackbyConsultant, viewReportedFeedback };

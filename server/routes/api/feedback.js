@@ -3,6 +3,7 @@ const {
   addFeedback,
   reportFeedback,
   getFeedbackbyConsultant,
+  viewReportedFeedback,
 } = require('../../models/feedback');
 
 const router = express.Router();
@@ -34,6 +35,12 @@ router.get('/', (req, res, next) => {
       res.json(data);
     })
     .catch(next);
+});
+
+router.get('/view', (req, res, next) => {
+  viewReportedFeedback().then((data) => {
+    res.json(data);
+  }).catch(next);
 });
 
 module.exports = router;
