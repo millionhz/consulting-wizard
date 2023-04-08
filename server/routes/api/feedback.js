@@ -5,6 +5,7 @@ const {
   getFeedbackbyConsultant,
   viewReportedFeedback,
   deleteFeedback,
+  falseReport
 } = require('../../models/feedback');
 
 const router = express.Router();
@@ -45,6 +46,16 @@ router.get('/view', (req, res, next) => {
     })
     .catch(next);
 });
+
+router.get('/ignore/:id', (req,res,next) => {
+  const feedbackId = req.params.id;
+  falseReport(feedbackId)
+  .then((data) => {
+    res.json(data);
+  })
+  .catch(next);
+})
+
 
 router.delete('/delete/:id', (req, res, next) => {
   const feedbackId = req.params.id;
