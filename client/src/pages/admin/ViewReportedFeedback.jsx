@@ -36,7 +36,7 @@ function ViewReportedFeedback() {
             <TextReport>Posted by: {reportFeedback.respondent}</TextReport>
             <TextReport>{reportFeedback.content}</TextReport>
             <TextReport>Reported by: {reportFeedback.reviewer}</TextReport>
-            <div align="right">
+            <div>
               <IgnoreIcon
                 onClick={() => {
                   removeFeedback(reportFeedback._id);
