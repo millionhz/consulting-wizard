@@ -20,6 +20,7 @@ import ClientSearch from './pages/client/Search';
 import ClientBookAppointment from './pages/client/BookAppointment';
 import AddReview from './pages/client/AddReview';
 import ConsultantProfile from './pages/client/ConsultantProfile';
+import ViewReportedFeedback from './pages/admin/ViewReportedFeedback';
 
 function App() {
   const router = createBrowserRouter(

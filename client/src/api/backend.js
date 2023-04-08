@@ -29,4 +29,6 @@ export const getAvailableAppointments = (consultant, year, month, date) =>
 export const bookAppointment = (appointmentId) =>
   api.post(`/appointment`, { appointmentId });
 
+export const viewReportedFeedback = () => api.get('/feedback/view');
+
 export default api;
