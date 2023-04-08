@@ -60,7 +60,6 @@ const updateClient = (id, attr) =>
     )
     .then((obj) => obj.save());
 
+const getReportedClients = () => Client.find({ reported: true }).exec();
 
-const getReportedClients = () => Client.find({reported: true}).exec();
-
-module.exports = { addClient, getClientById, updateClient, getReportedClients};
+module.exports = { addClient, getClientById, updateClient, getReportedClients };

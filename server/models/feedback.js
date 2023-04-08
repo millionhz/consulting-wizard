@@ -7,7 +7,6 @@ const feedbackSchema = new mongoose.Schema({
     required: true,
   },
   respondent: {
-    
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Consultant',
     required: true,
@@ -44,12 +43,16 @@ const reportFeedback = (reportedPostId) =>
 const getFeedbackbyConsultant = (consultantName) =>
   Feedback.find(consultantName).exec();
 
-const viewReportedFeedback = () => 
-  Feedback.find({reported: true}).exec();
-
+const viewReportedFeedback = () => Feedback.find({ reported: true }).exec();
 
 const deleteFeedback = (id) => {
   Feedback.findByIdAndDelete(id).exec();
-}
+};
 
-module.exports = { addFeedback, reportFeedback, getFeedbackbyConsultant, viewReportedFeedback, deleteFeedback};
+module.exports = {
+  addFeedback,
+  reportFeedback,
+  getFeedbackbyConsultant,
+  viewReportedFeedback,
+  deleteFeedback,
+};
