@@ -32,3 +32,6 @@ router.get('/deactivatedUsers', (req,res,next) => {
         res.json(data)
     }).catch(next)
 })
+
+
+module.exports = router
