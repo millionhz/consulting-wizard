@@ -4,13 +4,13 @@ const { addUser } = require('./user');
 
 const timeSchema = new mongoose.Schema(
   {
-    hour: {
+    hours: {
       type: Number,
       required: true,
       min: 0,
       max: 23,
     },
-    minute: {
+    minutes: {
       type: Number,
       required: true,
       min: 0,
@@ -114,11 +114,13 @@ const updateConsultant = (id, attr) =>
 const setAppointmentTimes = (id, appointmentTimes) =>
   getConsultantById(id)
     .then((obj) => {
-      // eslint-disable-next-line no-param-reassign
       obj.appointmentTimes = appointmentTimes;
       return obj;
     })
     .then((obj) => obj.save());
+
+const getAppointmentTimes = (id) =>
+  getConsultantById(id).then((obj) => obj.appointmentTimes);
 
 const searchConsultant = (searchInput) => Consultant.find(searchInput).exec();
 
@@ -131,4 +133,5 @@ module.exports = {
   searchConsultant,
   getConsultants,
   setAppointmentTimes,
+  getAppointmentTimes,
 };

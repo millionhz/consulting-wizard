@@ -2,11 +2,13 @@ const mongoose = require('mongoose');
 
 const feedbackSchema = new mongoose.Schema({
   reviewer: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Client',
     required: true,
   },
   respondent: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Consultant',
     required: true,
   },
   content: {
