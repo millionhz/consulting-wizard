@@ -1,22 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import NavBar from '../../components/NavBarClient';
 import Footer from '../../components/Footer';
+import {
+  getConsultantById,
+  getProfileInfo,
+  setClientReview,
+} from '../../api/backend';
 
 function AddReview() {
   const location = useLocation();
+  const [profile, setProfile] = useState({});
+  const id = location.pathname.split('/')[2];
+  const [reviewer, setReviewer] = useState({});
 
-  const counselor = location.pathname
-    .split('/')[2]
-    .split('_')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+  useEffect(() => {
+    getConsultantById(id)
+      .then(({ data }) => setProfile(data))
+      .catch((err) => console.log(err));
+  }, [id]);
+
+  useEffect(() => {
+    getProfileInfo()
+      .then(({ data }) => setReviewer(data))
+      .catch((err) => console.log(err));
+  }, []);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
     const reviewText = e.target[0].value;
-    console.log('Review Submitted:', reviewText);
+    const reviewData = {
+      reviewer: reviewer._id,
+      respondent: profile._id,
+      content: reviewText,
+    };
+
+    setClientReview(reviewData)
+      .then(({ data }) => console.log(data))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -25,7 +47,7 @@ function AddReview() {
       <ReviewPage>
         <ReviewDiv onSubmit={onSubmitHandler}>
           <ReviewTitle>Add Review</ReviewTitle>
-          <ReviewLabel>Leave a review for {counselor}</ReviewLabel>
+          <ReviewLabel>Leave a review for {profile.displayName}</ReviewLabel>
           <ReviewInput
             type="text"
             as="textarea"
