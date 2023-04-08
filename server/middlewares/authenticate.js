@@ -17,17 +17,21 @@ const getUserByToken = (token) => {
       retObj = { ...retObj, ...userObj.toObject() };
       const { uid, type } = retObj;
 
+      if (type === userTypes.ADMIN) {
+        return {};
+      }
+
       if (type === userTypes.CONSULTANT) {
-        return getConsultantById(uid);
+        return getConsultantById(uid).then((userObj_) => userObj_.toObject());
       }
 
       if (type === userTypes.CLIENT) {
-        return getClientById(uid);
+        return getClientById(uid).then((userObj_) => userObj_.toObject());
       }
 
       throw new Error('Invalid user type');
     })
-    .then((userObj) => ({ ...retObj, ...userObj.toObject() }));
+    .then((userObj) => ({ ...retObj, ...userObj }));
 };
 
 const authenticate = (req, res, next) => {
@@ -43,8 +47,9 @@ const authenticate = (req, res, next) => {
       req.user = userObj;
       next();
     })
-    .catch(() => {
+    .catch((err) => {
       res.sendStatus(401);
+      next(err);
     });
 };
 
