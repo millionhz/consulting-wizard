@@ -22,9 +22,13 @@ const createSessionCookie = (token, expiresIn) =>
 
 const verifySessionToken = (cookie) => auth.verifySessionCookie(cookie);
 
+const generateVerificationLink = (email) =>
+  auth.generateEmailVerificationLink(email);
+
 module.exports = {
   createUser,
   deleteUser,
   createSessionCookie,
   verifySessionToken,
+  generateVerificationLink,
 };
