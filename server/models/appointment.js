@@ -4,12 +4,12 @@ const { getAppointmentTimes } = require('./consultant');
 const appointmentSchema = mongoose.Schema({
   consultant: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Consultant',
+    ref: 'consultant',
     required: true,
   },
   client: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Client',
+    ref: 'client',
   },
   from: {
     type: Date,
@@ -92,8 +92,24 @@ const bookAppointmentById = (appointmentId, client) =>
     return appointment.save();
   });
 
+// TODO: The semantics are correct the logic needs to reworked
+const viewPastAppointments = () =>
+  Appointment.find({ from: { $gt: Date.now() } })
+    .populate('client')
+    .populate('consultant')
+    .exec();
+
+// TODO: The semantics are correct the logic needs to reworked
+const viewUpcomingAppointments = () =>
+  Appointment.find({ to: { $lt: Date.now() } })
+    .populate('client')
+    .populate('consultant')
+    .exec();
+
 module.exports = {
   bootstrapAppointments,
   getAvailableAppointments,
   bookAppointmentById,
+  viewPastAppointments,
+  viewUpcomingAppointments,
 };

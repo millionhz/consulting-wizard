@@ -3,6 +3,8 @@ const {
   addFeedback,
   reportFeedback,
   getFeedbackbyConsultant,
+  viewReportedFeedback,
+  deleteFeedback,
 } = require('../../models/feedback');
 
 const router = express.Router();
@@ -30,6 +32,23 @@ router.post('/report', (req, res, next) => {
 router.get('/', (req, res, next) => {
   const consultantName = req.user;
   getFeedbackbyConsultant(consultantName)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch(next);
+});
+
+router.get('/view', (req, res, next) => {
+  viewReportedFeedback()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch(next);
+});
+
+router.delete('/delete/:id', (req, res, next) => {
+  const feedbackId = req.params.id;
+  deleteFeedback(feedbackId)
     .then((data) => {
       res.json(data);
     })
