@@ -4,7 +4,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import DehazeOutlinedIcon from '@mui/icons-material/DehazeOutlined';
 import { IconButton } from '@mui/material';
 
-function Searchbar({ updateSearchCriteria, onSearch }) {
+function Searchbar({ onSearch }) {
   const [query, setQuery] = useState('');
   const [filterMenu, setFilterMenu] = useState(false);
   const [filterOn, setFilterOn] = useState('');
@@ -14,20 +14,19 @@ function Searchbar({ updateSearchCriteria, onSearch }) {
     filter = filter_;
     setFilterMenu(false);
     filter === 'all' ? setFilterOn('') : setFilterOn(filter);
-    updateSearchCriteria(query, filter);
   };
 
   const onQueryChange = (e) => {
     setQuery(e.target.value);
-    updateSearchCriteria(query, filter);
+  };
+
+  const onSearchHandler = () => {
+    onSearch(query, filterOn);
   };
 
   return (
     <SearchDiv>
       <SearchBar>
-        <IconButton onClick={onSearch}>
-          <SearchIcon />
-        </IconButton>
         <SearchInput
           type="text"
           id="header-search"
@@ -35,6 +34,9 @@ function Searchbar({ updateSearchCriteria, onSearch }) {
           name="s"
           onChange={onQueryChange}
         />
+        <SearchIconButton onClick={onSearchHandler}>
+          <SearchIcon />
+        </SearchIconButton>
         <FilterButton
           onClick={() => {
             setFilterMenu(!filterMenu);
@@ -79,6 +81,10 @@ const SearchBar = styled.div`
   background-color: #ffffff;
   border-radius: 5px;
   padding: 0;
+`;
+
+const SearchIconButton = styled(IconButton)`
+  border-radius: 0;
 `;
 
 const SearchIcon = styled(SearchOutlinedIcon)`
