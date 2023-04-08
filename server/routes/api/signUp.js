@@ -1,6 +1,7 @@
 const express = require('express');
 const { addClient } = require('../../models/client');
 const { addConsultant } = require('../../models/consultant');
+const { sendVerificationEmail } = require('../../utils/mailer');
 
 const router = express.Router();
 
@@ -9,11 +10,10 @@ router.post('/client', (req, res, next) => {
     req.body;
 
   addClient(email, password, displayName, major, yearOfGraduation, bio)
-    .then((data) => {
-      // TODO: Send 200
-      // TODO: Send verification email
-      res.json(data);
+    .then(() => {
+      res.sendStatus(200);
     })
+    .then(() => sendVerificationEmail(email))
     .catch(next);
 });
 
@@ -37,11 +37,10 @@ router.post('/consultant', (req, res, next) => {
     currentPlacement,
     bio
   )
-    .then((data) => {
-      // TODO: Send 200
-      // TODO: Send verification email
-      res.json(data);
+    .then(() => {
+      res.sendStatus(200);
     })
+    .then(() => sendVerificationEmail(email))
     .catch(next);
 });
 

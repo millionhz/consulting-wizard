@@ -2,6 +2,8 @@ const express = require('express');
 const {
   getAvailableAppointments,
   bookAppointmentById,
+  viewPastAppointments,
+  viewUpcomingAppointments,
 } = require('../../models/appointment');
 const onlyClient = require('../../middlewares/onlyClient');
 
@@ -35,6 +37,24 @@ router.post('/', (req, res, next) => {
       res.sendStatus(500);
       next(err);
     });
+});
+
+// TODO: Redo the logic
+router.get('/past', (req, res, next) => {
+  viewPastAppointments()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch(next);
+});
+
+// TODO: Redo the logic
+router.get('/upcoming', (req, res, next) => {
+  viewUpcomingAppointments()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch(next);
 });
 
 module.exports = router;
