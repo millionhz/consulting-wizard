@@ -83,24 +83,24 @@ const ModalHeading = styled.p`
   margin-bottom: 0;
 `;
 
-const EmailNotif = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-`;
+// const EmailNotif = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: flex-start;
+//   align-items: center;
+// `;
 
-const InfoIcon = styled.p`
-  color: #efe611;
-  border: solid 2px #efe611;
-  border-radius: 100%;
-  width: 15px;
-  height: 15px;
-  text-align: center;
-  font-size: 0.7rem;
-  font-weight: 800;
-  margin-right: 0.5rem;
-`;
+// const InfoIcon = styled.p`
+//   color: #efe611;
+//   border: solid 2px #efe611;
+//   border-radius: 100%;
+//   width: 15px;
+//   height: 15px;
+//   text-align: center;
+//   font-size: 0.7rem;
+//   font-weight: 800;
+//   margin-right: 0.5rem;
+// `;
 
 const ModalText = styled.p`
   margin-top: 0;
