@@ -92,8 +92,19 @@ const bookAppointmentById = (appointmentId, client) =>
     return appointment.save();
   });
 
+  const viewPastAppointments = () => {
+    Appointment.find({from: {$gt:Date.now()}}).populate('client').populate('consultant').exec();
+  }
+
+  const viewUpcomingAppointments = () => {
+    Appointment.find({to: {$lt: Date.now()}}).populate('client').populate('consultant').exec();
+  }
+
+
 module.exports = {
   bootstrapAppointments,
   getAvailableAppointments,
   bookAppointmentById,
+  viewPastAppointments,
+  viewUpcomingAppointments
 };
