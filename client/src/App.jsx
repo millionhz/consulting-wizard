@@ -63,6 +63,10 @@ function App() {
             element={<RoleAwareComponent client={<ConsultantProfile />} />}
           />
         </Route>
+        <Route
+          path="reported-feedback"
+          element={<RoleAwareComponent admin={<ViewReportedFeedback />} />}
+        />
         <Route element={<LoggedOutInterceptor redirect="/" />}>
           <Route path="login" element={<LogInPage />} />
           <Route path="signup" element={<SignUpRole />} />

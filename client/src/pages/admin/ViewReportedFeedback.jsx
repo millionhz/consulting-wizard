@@ -3,49 +3,52 @@ import styled from '@emotion/styled';
 import DelIcon from '@mui/icons-material/Delete';
 import NavBarAdmin from '../../components/NavBarAdmin';
 import Footer from '../../components/Footer';
-import { viewReportedFeedback } from '../../api/backend';
-
+import {
+  viewReportedFeedback,
+  deleteFeedback,
+  falseReport,
+} from '../../api/backend';
 
 function ViewReportedFeedback() {
   const [reportList, setReportList] = useState([]);
   useEffect(() => {
-    viewReportedFeedback().then((data) => setReportList(data));
+    viewReportedFeedback().then((data) => setReportList(data.data));
   }, []);
   function removeFeedback(id) {
-    const newReportList = reportList.filter((review) => review.id !== id);
+    const newReportList = reportList.filter((review) => review._id !== id);
     setReportList(newReportList);
   }
   function deleteHandler(id) {
-    // send delete request to backend.Need the format in which the request needs to be sent
+    deleteFeedback(id);
     removeFeedback(id);
   }
   function ignoreHandler(id) {
-    // send unflag request to backend. Need the format in which the request needs to be sent
+    falseReport(id);
     removeFeedback(id);
   }
   return (
     <div>
-        {console.log(reportList)}
-      {/* <NavBarAdmin page="Reported Feedback" />
+      {console.log(reportList)}
+      <NavBarAdmin page="Reported Feedback" />
       <Background>
         {reportList.map((reportFeedback) => (
           <>
-            <TextReport>Posted by: {reportFeedback.reportedUser}</TextReport>
-            <TextReport>{reportFeedback.feedback}</TextReport>
-            <TextReport>Reported by: {reportFeedback.reportedBy}</TextReport>
+            <TextReport>Posted by: {reportFeedback.respondent}</TextReport>
+            <TextReport>{reportFeedback.content}</TextReport>
+            <TextReport>Reported by: {reportFeedback.reviewer}</TextReport>
             <div align="right">
               <IgnoreIcon
                 onClick={() => {
-                  removeFeedback(reportFeedback.id);
-                  ignoreHandler(reportFeedback.id);
+                  removeFeedback(reportFeedback._id);
+                  ignoreHandler(reportFeedback._id);
                 }}
               >
                 <TextReport>Ignore</TextReport>
               </IgnoreIcon>
               <DeleteIcon
                 onClick={() => {
-                  removeFeedback(reportFeedback.id);
-                  deleteHandler(reportFeedback.id);
+                  removeFeedback(reportFeedback._id);
+                  deleteHandler(reportFeedback._id);
                 }}
               >
                 <DelIcon />
@@ -56,7 +59,7 @@ function ViewReportedFeedback() {
           </>
         ))}
       </Background>
-      <Footer /> */}
+      <Footer />
     </div>
   );
 }

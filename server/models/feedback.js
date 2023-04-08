@@ -48,10 +48,14 @@ const viewReportedFeedback = () => Feedback.find({ reported: true }).exec();
 
 const deleteFeedback = (id) => Feedback.findByIdAndDelete(id).exec();
 
+const falseReport = (reportedPostId) =>
+  Feedback.updateOne(reportedPostId, { $set: { reported: false } }).exec();
+
 module.exports = {
   addFeedback,
   reportFeedback,
   getFeedbackbyConsultant,
   viewReportedFeedback,
   deleteFeedback,
+  falseReport,
 };
