@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 const feedbackSchema = new mongoose.Schema({
   reviewer: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Client',
+    ref: 'client',
     required: true,
   },
   respondent: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Consultant',
+    ref: 'consultant',
     required: true,
   },
   content: {
@@ -37,6 +37,7 @@ const addFeedback = (reviewer, respondent, content) =>
     respondent,
     content,
   }).save();
+
 const reportFeedback = (reportedPostId) =>
   Feedback.updateOne(reportedPostId, { $set: { reported: true } }).exec();
 
@@ -45,9 +46,7 @@ const getFeedbackbyConsultant = (consultantName) =>
 
 const viewReportedFeedback = () => Feedback.find({ reported: true }).exec();
 
-const deleteFeedback = (id) => {
-  Feedback.findByIdAndDelete(id).exec();
-};
+const deleteFeedback = (id) => Feedback.findByIdAndDelete(id).exec();
 
 module.exports = {
   addFeedback,
