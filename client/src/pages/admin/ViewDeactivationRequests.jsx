@@ -2,25 +2,22 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import NavBarAdmin from '../components/NavBarAdmin';
-import Footer from '../components/Footer';
+import NavBarAdmin from '../../components/NavBarAdmin';
+import Footer from '../../components/Footer';
 
-function ViewReportedUser() {
+function ViewDeactivationRequests() {
   const [userList, setuserList] = useState([
     {
       id: 1,
       reportedUser: 'Ayesha Fazal Lashkarwala',
-      link: 'http://127.0.0.1:5173',
     },
     {
       id: 2,
       reportedUser: 'Ayesha Fazal Lashkarwala',
-      link: 'http://127.0.0.1:5173',
     },
     {
       id: 3,
       reportedUser: 'Ayesha Fazal Lashkarwala',
-      link: 'http://127.0.0.1:5173',
     },
   ]);
   function removeUser(id) {
@@ -37,14 +34,11 @@ function ViewReportedUser() {
   }
   return (
     <div>
-      <NavBarAdmin page="Reported User" />
+      <NavBarAdmin page="Deactivation Requests" />
       <Background>
         {userList.map((userDeactivation) => (
           <>
             <TextReport>Name: {userDeactivation.reportedUser}</TextReport>
-            <ProfileLink href={userDeactivation.link}>
-              <TextReport>View Profile</TextReport>
-            </ProfileLink>
             <div align="right">
               <IgnoreIcon
                 onClick={() => {
@@ -96,11 +90,6 @@ const SeparatingLine = styled.div`
   font-size: 0.8rem;
   font-weight: 500;
 `;
-const ProfileLink = styled.a`
-  color: #000000;
-  text-align: left;
-  font-weight: 0.5rem;
-`;
 const TextReport = styled.p`
   text-align: left;
   font-weight: 500;
@@ -121,4 +110,4 @@ const IgnoreIcon = styled.button`
   padding: 0rem 0rem 0rem 0rem;
 `;
 
-export default ViewReportedUser;
+export default ViewDeactivationRequests;

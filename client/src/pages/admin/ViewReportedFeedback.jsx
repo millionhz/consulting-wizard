@@ -2,60 +2,69 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import NavBarAdmin from '../components/NavBarAdmin';
-import Footer from '../components/Footer';
+import DelIcon from '@mui/icons-material/Delete';
+import NavBarAdmin from '../../components/NavBarAdmin';
+import Footer from '../../components/Footer';
 
-function ViewDeactivationRequests() {
-  const [userList, setuserList] = useState([
+function ViewReportedFeedback() {
+  const [reportList, setReportList] = useState([
     {
       id: 1,
       reportedUser: 'Ayesha Fazal Lashkarwala',
+      feedback: 'This is stupidd',
+      reportedBy: 'Umama Nasir Abbasi',
     },
     {
       id: 2,
       reportedUser: 'Ayesha Fazal Lashkarwala',
+      feedback: 'This is stupidd',
+      reportedBy: 'Umama Nasir Abbasi',
     },
     {
       id: 3,
       reportedUser: 'Ayesha Fazal Lashkarwala',
+      feedback: 'This is stupidd',
+      reportedBy: 'Umama Nasir Abbasi',
     },
   ]);
-  function removeUser(id) {
-    const newList = userList.filter((user) => user.id !== id);
-    setuserList(newList);
+  function removeFeedback(id) {
+    const newReportList = reportList.filter((review) => review.id !== id);
+    setReportList(newReportList);
   }
-  function deactivationHandler(id) {
+  function deleteHandler(id) {
     // send delete request to backend.Need the format in which the request needs to be sent
-    removeUser(id);
+    removeFeedback(id);
   }
   function ignoreHandler(id) {
     // send unflag request to backend. Need the format in which the request needs to be sent
-    removeUser(id);
+    removeFeedback(id);
   }
   return (
     <div>
-      <NavBarAdmin page="Deactivation Requests" />
+      <NavBarAdmin page="Reported Feedback" />
       <Background>
-        {userList.map((userDeactivation) => (
+        {reportList.map((reportFeedback) => (
           <>
-            <TextReport>Name: {userDeactivation.reportedUser}</TextReport>
+            <TextReport>Posted by: {reportFeedback.reportedUser}</TextReport>
+            <TextReport>{reportFeedback.feedback}</TextReport>
+            <TextReport>Reported by: {reportFeedback.reportedBy}</TextReport>
             <div align="right">
               <IgnoreIcon
                 onClick={() => {
-                  removeUser(userDeactivation.id);
-                  ignoreHandler(userDeactivation.id);
+                  removeFeedback(reportFeedback.id);
+                  ignoreHandler(reportFeedback.id);
                 }}
               >
                 <TextReport>Ignore</TextReport>
               </IgnoreIcon>
-              <DeactIcon
+              <DeleteIcon
                 onClick={() => {
-                  removeUser(userDeactivation.id);
-                  deactivationHandler(userDeactivation.id);
+                  removeFeedback(reportFeedback.id);
+                  deleteHandler(reportFeedback.id);
                 }}
               >
-                <TextReport>Deactivate</TextReport>
-              </DeactIcon>
+                <DelIcon />
+              </DeleteIcon>
             </div>
 
             <SeparatingLine />
@@ -95,7 +104,7 @@ const TextReport = styled.p`
   font-weight: 500;
   font-size: 0.8rem;
 `;
-const DeactIcon = styled.button`
+const DeleteIcon = styled.button`
   margin-left: 20px;
   color: #fb1e1e;
   background: #ffffff;
@@ -110,4 +119,4 @@ const IgnoreIcon = styled.button`
   padding: 0rem 0rem 0rem 0rem;
 `;
 
-export default ViewDeactivationRequests;
+export default ViewReportedFeedback;

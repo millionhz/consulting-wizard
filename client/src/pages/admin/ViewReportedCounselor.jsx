@@ -2,8 +2,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import NavBarAdmin from '../components/NavBarAdmin';
-import Footer from '../components/Footer';
+import NavBarAdmin from '../../components/NavBarAdmin';
+import Footer from '../../components/Footer';
 
 function ViewReportedCounselor() {
   const [userList, setuserList] = useState([

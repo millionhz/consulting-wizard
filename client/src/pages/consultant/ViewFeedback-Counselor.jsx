@@ -1,4 +1,4 @@
-import ViewFeedbackCounselor from '../components/ViewFeedbackCounselor';
+import ViewFeedbackCounselor from '../../components/ViewFeedbackCounselor';
 
 function ViewFeedbackConsultant() {
   return <ViewFeedbackCounselor />;
