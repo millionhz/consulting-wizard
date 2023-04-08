@@ -47,4 +47,9 @@ const getFeedbackbyConsultant = (consultantName) =>
 const viewReportedFeedback = () => 
   Feedback.find({reported: true}).exec();
 
-module.exports = { addFeedback, reportFeedback, getFeedbackbyConsultant, viewReportedFeedback };
+
+const deleteFeedback = (id) => {
+  Feedback.findByIdAndDelete(id).exec();
+}
+
+module.exports = { addFeedback, reportFeedback, getFeedbackbyConsultant, viewReportedFeedback, deleteFeedback};

@@ -5,6 +5,7 @@ const { createUser } = require('../utils/firebaseAuth');
 const userSchema = new mongoose.Schema({
   type: { type: String, required: true, enum: Object.values(userTypes) },
   createdTime: { type: Date, required: true, default: Date.now },
+  isDeactivated: {type: Boolean, required: true, default: false}
 });
 
 userSchema.set('toObject', { getters: true });
@@ -18,4 +19,7 @@ const addUser = (id, email, password, type) =>
 
 const getUserById = (uid) => User.findById(uid).exec();
 
-module.exports = { addUser, getUserById };
+
+const getDeactivatedUsers = () => User.find({isDeactivated: true}).exec();
+
+module.exports = { addUser, getUserById, getDeactivatedUsers };

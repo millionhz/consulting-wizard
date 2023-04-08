@@ -4,6 +4,7 @@ const {
   reportFeedback,
   getFeedbackbyConsultant,
   viewReportedFeedback,
+  deleteFeedback
 } = require('../../models/feedback');
 
 const router = express.Router();
@@ -42,5 +43,13 @@ router.get('/view', (req, res, next) => {
     res.json(data);
   }).catch(next);
 });
+
+
+router.delete('/delete/:id',(req,res,next) => {
+  const feedbackId = req.params.id
+  deleteFeedback(feedbackId).then((data) => {
+    res.json(data)
+  }).catch(next)
+})
 
 module.exports = router;
