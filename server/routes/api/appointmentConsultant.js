@@ -1,15 +1,33 @@
 const express = require('express');
 const {
   createAppointment,
+  getAppointmentByConsultantAndDate,
   viewPastAppointmentsConsultant,
   viewUpcomingAppointmentsConsultant,
   deleteAppointment,
 } = require('../../models/appointment');
 const onlyConsultant = require('../../middlewares/onlyConsultant');
+const { getDate, getNextDate } = require('../../utils/dateTime');
 
 const router = express.Router();
 
 router.use(onlyConsultant);
+
+router.get('/:date', (req, res, next) => {
+  // INFO: Get all appointments available on a certain date
+  const { id } = req.user;
+  const { date } = req.params;
+  // INFO: date is in ISO format
+
+  const from = getDate(date);
+  const to = getNextDate(from);
+
+  getAppointmentByConsultantAndDate(id, from, to)
+    .then((appointments) => {
+      res.json(appointments);
+    })
+    .catch(next);
+});
 
 router.post('/', (req, res, next) => {
   const { id } = req.user;

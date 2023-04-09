@@ -58,6 +58,17 @@ const getAppointmentsByConsultant = (consultant, date) =>
     },
   });
 
+const getAppointmentByConsultantAndDate = (consultant, from, to) =>
+  Appointment.find({
+    consultant,
+    from: {
+      $gte: from,
+    },
+    to: {
+      $lte: to,
+    },
+  }).exec();
+
 const getAppointmentsByClientID = (client) =>
   Appointment.find({
     client,
@@ -150,4 +161,5 @@ module.exports = {
   viewUpcomingAppointmentsConsultant,
   createAppointment,
   deleteAppointment,
+  getAppointmentByConsultantAndDate,
 };
