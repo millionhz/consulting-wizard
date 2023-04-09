@@ -20,8 +20,8 @@ function Confirmation({ date, slot, counselor, closeModal, isOpen }) {
               backgroundColor: 'rgba(0, 0, 0, 0.75)',
             },
             content: {
-              width: '20%',
-              height: '30%',
+              width: '25%',
+              height: '35%',
               margin: 'auto',
               textAlign: 'left',
               color: '#000000',
@@ -60,6 +60,7 @@ const Confirmed = styled.div`
   font-size: 1.2rem;
   padding: 0;
   margin-bottom: 0;
+  margin-top: 1.5rem;
 `;
 
 const CloseButton = styled.button`
