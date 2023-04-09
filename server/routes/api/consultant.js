@@ -44,7 +44,7 @@ router.get('/reported', (req, res, next) => {
     .catch(next);
 });
 
-router.post('/report', (req, res, next) => {
+router.post('/reportConsultant', (req, res, next) => {
   const reportedId = req.body;
 
   reportConsultants(reportedId).then((data) => {

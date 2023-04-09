@@ -23,7 +23,7 @@ router.use('/consultant', consultantRouter);
 router.use('/appointment', appointmentRouter);
 router.use('/feedback', feedbackRouter);
 router.use('/admin', adminRouter);
-router.use('/client', clientRouter)
+router.use('/client', clientRouter);
 
 router.get('/protected', (req, res) => {
   const { uid } = req.user;

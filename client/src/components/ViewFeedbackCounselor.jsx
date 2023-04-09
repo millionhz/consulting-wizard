@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import NavBarConsultant from './NavBarConsultant';
 import Footer from './Footer';
-import { getFeedback, reportFeedback } from '../api/backend';
+import { getFeedback, reportFeedback, reportClient } from '../api/backend';
 
 function ViewFeedbackCounselor() {
   const [feedbackList, setFeedbackList] = useState([]);
@@ -14,11 +14,11 @@ function ViewFeedbackCounselor() {
     setFeedbackList(newList);
   }
   function reportUserHandler(id) {
-    reportFeedback(id);
+    reportClient(id);
     removeFeedback(id);
   }
   function reportFeedbackHandler(id) {
-    // send report request to backend. Need the format in which the request needs to be sent
+    reportFeedback(id);
     removeFeedback(id);
   }
   return (

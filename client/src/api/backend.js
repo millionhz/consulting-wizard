@@ -33,4 +33,6 @@ export const getAvailableAppointments = (consultant, year, month, date) =>
 export const bookAppointment = (appointmentId) =>
   api.post(`/appointment`, { appointmentId });
 
+export const reportClient = (id) => api.post(`/client/${id}`);
+
 export default api;
