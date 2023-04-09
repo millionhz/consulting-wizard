@@ -4,11 +4,11 @@ import 'react-calendar/dist/Calendar.css';
 import TimePicker from 'react-time-picker';
 import Calendar from '../../components/Calendar';
 
-
 function SetTimeSlots() {
   const [date, setDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState(null);
   const [timeList, setTimeList] = useState([]);
+  // const [timeError, setTimeError] = useState('');
 
   const removeElement = (index) => {
     const newTimes = timeList.filter((_, i) => i !== index);
@@ -19,11 +19,19 @@ function SetTimeSlots() {
     e.preventDefault();
   };
   const handleTimeChange = (newTime) => {
+    // if (!newTime.meridiem) {
+    //   setTimeError('Error: Please input hour, minute and meridiem');
+    // } else {
+    //   setTimeError('');
+    // }
     setSelectedTime(newTime);
   };
   const handleAddTime = () => {
+    // if (timeError === '') {
+      
+    // }
     setTimeList([...timeList, selectedTime]);
-    setSelectedTime(null);
+      setSelectedTime(null);
   };
 
   return (
@@ -51,15 +59,19 @@ function SetTimeSlots() {
           <Button variant="cancel" type="button" onClick={handleAddTime}>
             Add Time
           </Button>
+          {/* <ErrorDiv>{timeError}{ setTimeError('')}</ErrorDiv> */}
           {timeList.length > 0 && (
             <ul>
               {timeList.map((time, index) => (
-                <li key={index}>
-                  {time}
-                  <DeleteButton type="button" onClick={() => removeElement(index)}>
+                <StyledLi key={index}>
+                  {time} Pakistan Time
+                  <DeleteButton
+                    type="button"
+                    onClick={() => removeElement(index)}
+                  >
                     Delete
                   </DeleteButton>
-                </li>
+                </StyledLi>
               ))}
             </ul>
           )}
@@ -72,7 +84,6 @@ function SetTimeSlots() {
     </Div>
   );
 }
-
 
 const Button = styled.button`
   text-align: start;
@@ -88,20 +99,17 @@ const Button = styled.button`
   color: ${(props) => (props.variant === 'cancel' ? '#0B0B45' : '#FFFFFF')};
 `;
 
-
 const DeleteButton = styled.button`
   text-align: start;
   font-size: 13px;
-  background-color:white;
+  background-color: white;
   color: red;
   text-align: center;
   width: 10%;
   border-radius: 13px;
   padding: 10px;
-  margin: 10px;
-  
+  margin-left: 5rem;
 `;
-
 
 const Div = styled.div`
   padding: 10px;
@@ -110,6 +118,12 @@ const Div = styled.div`
   text-align: center;
 `;
 
+const StyledLi = styled.li`
+  font-size: 20px;
+  color: white;
+  list-style: none;
+  padding: 1rem;
+`;
 const CalenderDiv = styled.div`
   max-width: 600px;
   margin: auto;
@@ -131,34 +145,21 @@ const StyledTime = styled(TimePicker)`
   border-radius: 4px;
   color: #fffffff;
 
-  //   & > div {
-  //     display: flex;
-  //     align-items: center;
-  //     justify-content: center;
-  //   }
-
-  //   & input {
-  //     background-color: white;
-  //     border: none;
-  //     text-align: center;
-  //     font-size: 20px;
-  //     padding: 20px;
-  //     color: black;
-  //   }
-
   & input {
-    background-color:white;
+    background-color: white;
     width: 100%;
     font-size: 18px;
-    font-weight:500;
-    color:blue;
+    font-weight: 500;
+    color: blue;
     padding: 30px;
     border: 1px solid #ccc;
     border-radius: 5px;
   }
-  
 `;
-
-
-
+export const ErrorDiv = styled.div`
+  margin-left: 10rem;
+  margin-bottom: 10px;
+  font-size: 11px;
+  color: red;
+`;
 export default SetTimeSlots;
