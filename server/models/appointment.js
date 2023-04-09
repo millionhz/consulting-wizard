@@ -58,6 +58,20 @@ const getAppointmentsByConsultant = (consultant, date) =>
     },
   });
 
+const getAppointmentsByClientID = (client) =>
+  Appointment.find({
+    client,
+  })
+    .populate('consultant')
+    .exec();
+
+const getAppointmentsByConsultantID = (consultant) =>
+  Appointment.find({
+    consultant,
+  })
+    .populate('client')
+    .exec();
+
 const getAvailableAppointments = (consultant, date) =>
   getAppointmentsByConsultant(consultant, date).then((appointments) => {
     const filter = (appointment) =>
@@ -92,24 +106,36 @@ const bookAppointmentById = (appointmentId, client) =>
     return appointment.save();
   });
 
-// TODO: The semantics are correct the logic needs to reworked
-const viewPastAppointments = () =>
-  Appointment.find({ from: { $gt: Date.now() } })
-    .populate('client')
-    .populate('consultant')
-    .exec();
+const viewPastAppointmentsClient = (client) =>
+  getAppointmentsByClientID(client).then((appointments) => {
+    const filter = (appointment) => appointment.from < new Date();
+    return appointments.filter(filter);
+  });
 
-// TODO: The semantics are correct the logic needs to reworked
-const viewUpcomingAppointments = () =>
-  Appointment.find({ to: { $lt: Date.now() } })
-    .populate('client')
-    .populate('consultant')
-    .exec();
+const viewUpcomingAppointmentsClient = (client) =>
+  getAppointmentsByClientID(client).then((appointments) => {
+    const filter = (appointment) => appointment.from > new Date();
+    return appointments.filter(filter);
+  });
+
+const viewPastAppointmentsConsultant = (consultant) =>
+  getAppointmentsByConsultantID(consultant).then((appointments) => {
+    const filter = (appointment) => appointment.from < new Date();
+    return appointments.filter(filter);
+  });
+
+const viewUpcomingAppointmentsConsultant = (consultant) =>
+  getAppointmentsByConsultantID(consultant).then((appointments) => {
+    const filter = (appointment) => appointment.from > new Date();
+    return appointments.filter(filter);
+  });
 
 module.exports = {
   bootstrapAppointments,
   getAvailableAppointments,
   bookAppointmentById,
-  viewPastAppointments,
-  viewUpcomingAppointments,
+  viewPastAppointmentsClient,
+  viewUpcomingAppointmentsClient,
+  viewPastAppointmentsConsultant,
+  viewUpcomingAppointmentsConsultant,
 };
