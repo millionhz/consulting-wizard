@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import Carousel from '../Carousel';
-import sec from '../../images/Group1.png';
-import third from '../../images/Group448.png';
+import Carousel from '../../components/Carousel';
+import card_1 from '../../assets/services-card-1.png';
+import card_2 from '../../assets/services-card-2.png';
 import Header from '../../components/NavBarClient';
 import Footer from '../../components/Footer';
 
@@ -15,8 +14,9 @@ const ImageWrapper = styled.div`
 `;
 
 const Image = styled.img`
-  max-width: 100%;
+  max-width: 80%;
   height: auto;
+  margin: 0 auto;
 `;
 
 function LandingPageStudent() {
@@ -25,17 +25,15 @@ function LandingPageStudent() {
       <Helmet>
         <style>{'body { background-color: #0b0b45; }'}</style>
       </Helmet>
-      <div>
-        <Header />
-      </div>
+      <Header page="About" />
       <div>
         <Carousel />
       </div>
       <ImageWrapper>
-        <Image src={sec} alt="Ad_1" />;
+        <Image src={card_1} alt="services_1" />;
       </ImageWrapper>
       <ImageWrapper>
-        <Image src={third} alt="Ad_2" />;
+        <Image src={card_2} alt="services_2" />;
       </ImageWrapper>
       <div>
         <Footer />
