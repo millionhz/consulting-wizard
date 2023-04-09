@@ -12,34 +12,40 @@ import {
 function ViewReportedFeedback() {
   const [reportList, setReportList] = useState([]);
   useEffect(() => {
-    viewReportedFeedback().then((data) => setReportList(data.data));
+    viewReportedFeedback().then(({ data }) => setReportList(data));
   }, []);
+
   function removeFeedback(id) {
     const newReportList = reportList.filter((review) => review._id !== id);
     setReportList(newReportList);
   }
+
   function deleteHandler(id) {
     deleteFeedback(id);
     removeFeedback(id);
   }
+
   function ignoreHandler(id) {
     falseReport(id);
     removeFeedback(id);
   }
+
   return (
     <div>
-      {console.log(reportList)}
       <NavBarAdmin page="Reported Feedback" />
       <Background>
-        {reportList.map((reportFeedback) => (
-          <>
-            <TextReport>Posted by: {reportFeedback.respondent}</TextReport>
+        {reportList.map((reportFeedback, idx) => (
+          <div key={idx}>
+            <TextReport>
+              Posted by: {reportFeedback.reviewer.displayName}
+            </TextReport>
+            <TextReport>
+              Posted to: {reportFeedback.respondent.displayName}
+            </TextReport>
             <TextReport>{reportFeedback.content}</TextReport>
-            <TextReport>Reported by: {reportFeedback.reviewer}</TextReport>
             <div>
               <IgnoreIcon
                 onClick={() => {
-                  removeFeedback(reportFeedback._id);
                   ignoreHandler(reportFeedback._id);
                 }}
               >
@@ -47,7 +53,6 @@ function ViewReportedFeedback() {
               </IgnoreIcon>
               <DeleteIcon
                 onClick={() => {
-                  removeFeedback(reportFeedback._id);
                   deleteHandler(reportFeedback._id);
                 }}
               >
@@ -56,7 +61,7 @@ function ViewReportedFeedback() {
             </div>
 
             <SeparatingLine />
-          </>
+          </div>
         ))}
       </Background>
       <Footer />
