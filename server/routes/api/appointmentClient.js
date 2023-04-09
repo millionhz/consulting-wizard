@@ -23,7 +23,8 @@ router.get('/', (req, res, next) => {
   getAppointmentByConsultantAndDate(id, from, to)
     .then((data) => {
       const filteredData = data.filter(
-        (appointment) => appointment.client === undefined
+        (appointment) =>
+          appointment.client === undefined && appointment.from > new Date()
       );
       res.json(filteredData);
     })
