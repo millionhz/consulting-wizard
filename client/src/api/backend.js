@@ -35,4 +35,8 @@ export const deleteFeedback = (id) => api.delete(`/feedback/delete/${id}`);
 
 export const falseReport = (id) => api.post(`/feedback/ignore/${id}`);
 
+export const getReportedClients = () => api.get('/admin/reportedClients');
+
+export const getReportedCounsultants = () => api.get('/admin/reportedConsultants');
+
 export default api;

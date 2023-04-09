@@ -22,6 +22,8 @@ import AddReview from './pages/client/AddReview';
 import ConsultantProfile from './pages/client/ConsultantProfile';
 import ViewReportedFeedback from './pages/admin/ViewReportedFeedback';
 import ChangePassword from './pages/ChangePassword';
+import ViewReportedUser from './pages/admin/ViewReportedUser';
+import ViewReportedCounselor from './pages/admin/ViewReportedCounselor';
 
 function App() {
   const router = createBrowserRouter(
@@ -68,6 +70,14 @@ function App() {
         <Route
           path="reported-feedback"
           element={<RoleAwareComponent admin={<ViewReportedFeedback />} />}
+        />
+        <Route
+          path="reported-clients"
+          element={<RoleAwareComponent admin={<ViewReportedUser />} />}
+        />
+        <Route
+          path="reported-counselor"
+          element={<RoleAwareComponent admin={<ViewReportedCounselor />} />}
         />
         <Route element={<LoggedOutInterceptor redirect="/" />}>
           <Route path="login" element={<LogInPage />} />

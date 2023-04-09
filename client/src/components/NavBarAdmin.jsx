@@ -10,8 +10,16 @@ function NavBarAdmin({ page }) {
       <NavbarLinks>
         <NavLinksRow>
           <NavLink title="About" page={page} />
-          <NavLink title="Reported Clients" page={page} />
-          <NavLink title="Reported Counselors" page={page} />
+          <NavLink
+            title="Reported Clients"
+            page={page}
+            link="/reported-clients"
+          />
+          <NavLink
+            title="Reported Counselors"
+            page={page}
+            link="/reported-counselor"
+          />
           <NavLink
             title="Reported Feedback"
             page={page}
