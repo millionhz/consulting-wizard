@@ -33,6 +33,6 @@ export const viewReportedFeedback = () => api.get('/feedback/view');
 
 export const deleteFeedback = (id) => api.delete(`/feedback/delete/${id}`);
 
-export const falseReport = (id) => api.post(`/feedback/ignore/${id}`);
+export const falseReport = (id) => api.updateOne(`/feedback/ignore/${id}`);
 
 export default api;
