@@ -28,10 +28,10 @@ function SetTimeSlots() {
   };
   const handleAddTime = () => {
     // if (timeError === '') {
-      
+
     // }
     setTimeList([...timeList, selectedTime]);
-      setSelectedTime(null);
+    setSelectedTime(null);
   };
 
   return (
