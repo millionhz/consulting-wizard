@@ -20,6 +20,9 @@ import ClientSearch from './pages/client/Search';
 import ClientBookAppointment from './pages/client/BookAppointment';
 import AddReview from './pages/client/AddReview';
 import ConsultantProfile from './pages/client/ConsultantProfile';
+import ConsultantLanding from './pages/consultant/LandingPage'; 
+import AdminLanding from './pages/admin/LandingPage';
+import ClientLanding from './pages/client/LandingPage';
 
 function App() {
   const router = createBrowserRouter(
@@ -45,6 +48,18 @@ function App() {
               />
             }
           />
+
+           <Route
+            path="main-page"
+            element={
+              <RoleAwareComponent
+                client={<ClientLanding />}
+                consultant={<ConsultantLanding />}
+                admin={<AdminLanding />}
+              />
+            }
+          />
+          
           <Route
             path="book-appointment"
             element={<RoleAwareComponent client={<ClientSearch />} />}
