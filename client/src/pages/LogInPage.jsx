@@ -10,6 +10,8 @@ import Footer from '../components/Footer';
 function LogInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState(false);
+
   const { authenticate } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -23,6 +25,11 @@ function LogInPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!email.includes('@lums.edu.pk')) {
+      setEmailError(true);
+    } else {
+      setEmailError(false);
+    }
     logIn(email, password)
       .then(authenticate)
       .then(() => {
@@ -113,6 +120,8 @@ function LogInPage() {
               name="email"
               type="email"
               onChange={handleEmailChange}
+              error={emailError}
+              helperText={emailError ? 'Invalid email address' : ''}
             />
           </Grid>
           <Grid item xl={3} md={3} sm={3} xs={3}>
@@ -166,7 +175,9 @@ function LogInPage() {
                   borderColor: '#0b0b45',
                 },
               }}
+
               onClick={handleSubmit}
+              // disabled={!password || !email}
               style={{
                 height: 25,
                 width: 190,
@@ -178,6 +189,42 @@ function LogInPage() {
             >
               Log In
             </Button>
+
+            <Grid
+              item
+              display="flex"
+              direction="row"
+              justifyContent="center"
+              alignItems="left"
+              marginTop={2}
+              fontSize={9}
+              color="#5E5858"
+              fontWeight={600}
+            >
+              <a
+                href="#"
+                style={{
+                  textDecoration: 'none',
+                  color: '#0b0b45',
+                  paddingLeft: 5,
+                  marginRight: 15,
+                }}
+              >
+                Forgot Password
+              </a>
+              <a
+                href="#"
+                style={{
+                  textDecoration: 'none',
+                  color: '#0b0b45',
+                  paddingLeft: 5,
+                  marginLeft: 15,
+                }}
+              >
+                Change Password
+              </a>
+            </Grid>
+
             <Grid
               item
               display="flex"
