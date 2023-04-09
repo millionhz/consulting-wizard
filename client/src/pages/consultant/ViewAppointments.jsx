@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
-import NavBarClient from '../../components/NavBarClient';
+import NavBar from '../../components/NavBarConsultant';
 import Footer from '../../components/Footer';
 import AppointmentItem from '../../components/AppointmentItem';
 import {
@@ -54,7 +54,7 @@ function ViewAppointments() {
 
   return (
     <div>
-      <NavBarClient page="View Appointments" />
+      <NavBar page="View Appointments" />
 
       <Appointments className="appointments">
         <TagsDiv>
