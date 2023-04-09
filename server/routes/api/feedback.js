@@ -22,7 +22,7 @@ router.post('/', (req, res, next) => {
 
 router.post('/report', (req, res, next) => {
   const reportedPostId = req.body;
-
+  console.log(reportedPostId)
   reportFeedback(reportedPostId)
     .then((data) => {
       res.json(data);
