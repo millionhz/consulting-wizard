@@ -15,28 +15,22 @@ function ViewAppointments() {
   const [pastAppointments, setPastAppointments] = useState([]);
   const [futureAppointments, setFutureAppointments] = useState([]);
 
-  const parseAppointment = async (appointment) => {
-    try {
-      const { data } = await getClientById(appointment.client);
-      return {
-        name: data.displayName,
-        major: data.major,
-        year: data.yearOfGraduation,
-        clientID: appointment.client,
-        from: appointment.from,
-        to: appointment.to,
-        _id: appointment._id,
-      };
-    } catch (err) {
-      return console.log(err);
-    }
+  const parseAppointment = (appointment) => {
+    const data = appointment.client;
+    return {
+      name: data.displayName,
+      major: data.major,
+      year: data.yearOfGraduation,
+      clientID: data.id,
+      from: appointment.from,
+      to: appointment.to,
+      _id: appointment._id,
+    };
   };
 
   useEffect(() => {
     viewPastAppointmentsConsultant()
-      .then(({ data }) =>
-        Promise.all(data.map((appointment) => parseAppointment(appointment)))
-      )
+      .then(({ data }) => data.map(parseAppointment))
       .then((processedDataPast) => {
         const dataPast = processedDataPast.map((slot) => ({
           ...slot,
@@ -47,9 +41,7 @@ function ViewAppointments() {
       });
 
     viewUpcomingAppointmentsConsultant()
-      .then(({ data }) =>
-        Promise.all(data.map((appointment) => parseAppointment(appointment)))
-      )
+      .then(({ data }) => data.map(parseAppointment))
       .then((processedDataFuture) => {
         const dataFuture = processedDataFuture.map((slot) => ({
           ...slot,
