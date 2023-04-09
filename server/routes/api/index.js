@@ -9,6 +9,7 @@ const clientRouter = require('./client');
 const feedbackRouter = require('./feedback');
 const appointmentRouter = require('./appointment');
 const adminRouter = require('./admin');
+const logoutRouter = require('./logout');
 
 const router = express.Router();
 
@@ -17,6 +18,7 @@ router.use('/logIn', logInRouter);
 
 router.use(authenticate);
 
+router.use('/logout', logoutRouter);
 router.use('/authenticate', authenticateRouter);
 router.use('/profile', profileRouter);
 router.use('/consultant', consultantRouter);

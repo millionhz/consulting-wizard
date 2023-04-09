@@ -17,7 +17,7 @@ function NavBarAdmin({ page }) {
             page={page}
             link="/reported-feedback"
           />
-          <NavLink title="Logout" page={page} />
+          <NavLink title="Logout" page={page} link="/logout" />
         </NavLinksRow>
       </NavbarLinks>
     </NavbarDiv>
@@ -25,7 +25,7 @@ function NavBarAdmin({ page }) {
 }
 
 const NavbarDiv = styled.div`
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -34,6 +34,7 @@ const NavbarDiv = styled.div`
   position: sticky;
   top: 0;
   background-color: #0b0b45;
+  z-index: 1000;
 `;
 
 const Logo = styled.img`

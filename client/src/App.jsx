@@ -7,9 +7,6 @@ import {
 import LoggedInInterceptor from './router/LoggedInInterceptor';
 import LoggedOutInterceptor from './router/LoggedOutInterceptor';
 import RoleAwareComponent from './router/RoleAwareComponent';
-import NavBarClient from './components/NavBarClient';
-import NavBarConsultant from './components/NavBarConsultant';
-import NavBarAdmin from './components/NavBarAdmin';
 import LogInPage from './pages/LogInPage';
 import SignUpRole from './pages/SignUpRole';
 import SignUpPageConsultant from './pages/consultant/SignUpPage';
@@ -23,8 +20,12 @@ import ConsultantProfile from './pages/client/ConsultantProfile';
 import ClientProfile from './pages/consultant/ClientProfile';
 import ClientViewAppointments from './pages/client/ViewAppointments';
 import ConsultantViewAppointments from './pages/consultant/ViewAppointments';
+import ConsultantLanding from './pages/consultant/LandingPage';
+import AdminLanding from './pages/admin/LandingPage';
+import ClientLanding from './pages/client/LandingPage';
 import ViewReportedFeedback from './pages/admin/ViewReportedFeedback';
 import ChangePassword from './pages/ChangePassword';
+import LogoutPage from './pages/LogoutPage';
 
 function App() {
   const router = createBrowserRouter(
@@ -35,9 +36,9 @@ function App() {
             index
             element={
               <RoleAwareComponent
-                client={<NavBarClient page="About" />}
-                consultant={<NavBarConsultant page="About" />}
-                admin={<NavBarAdmin page="About" />}
+                client={<ClientLanding />}
+                consultant={<ConsultantLanding />}
+                admin={<AdminLanding />}
               />
             }
           />
@@ -50,7 +51,9 @@ function App() {
               />
             }
           />
+
           <Route path="change-password" element={<ChangePassword />} />
+
           <Route
             path="book-appointment"
             element={<RoleAwareComponent client={<ClientSearch />} />}
@@ -80,11 +83,13 @@ function App() {
             path="client/:id"
             element={<RoleAwareComponent consultant={<ClientProfile />} />}
           />
+          <Route
+            path="reported-feedback"
+            element={<RoleAwareComponent admin={<ViewReportedFeedback />} />}
+          />
+          <Route path="logout" element={<LogoutPage />} />
         </Route>
-        <Route
-          path="reported-feedback"
-          element={<RoleAwareComponent admin={<ViewReportedFeedback />} />}
-        />
+
         <Route element={<LoggedOutInterceptor redirect="/" />}>
           <Route path="login" element={<LogInPage />} />
           <Route path="signup" element={<SignUpRole />} />
