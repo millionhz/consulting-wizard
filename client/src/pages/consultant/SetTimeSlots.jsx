@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import Calendar from 'react-calendar';
 import styled from 'styled-components';
 import 'react-calendar/dist/Calendar.css';
 import TimePicker from 'react-time-picker';
+import Calendar from '../../components/Calendar';
 
-function TimeSlots() {
+
+function SetTimeSlots() {
   const [date, setDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState(null);
   const [timeList, setTimeList] = useState([]);
@@ -39,7 +40,7 @@ function TimeSlots() {
       </Div>
       <Div>
         <h4>Choose a new timeslot </h4>
-        <div>
+        <Div>
           <StyledTime
             value={selectedTime}
             onChange={handleTimeChange}
@@ -55,14 +56,14 @@ function TimeSlots() {
               {timeList.map((time, index) => (
                 <li key={index}>
                   {time}
-                  <button type="button" onClick={() => removeElement(index)}>
+                  <DeleteButton type="button" onClick={() => removeElement(index)}>
                     Delete
-                  </button>
+                  </DeleteButton>
                 </li>
               ))}
             </ul>
           )}
-        </div>
+        </Div>
       </Div>
 
       <Button variant="cancel" type="submit" onChange={onSubmitHandler}>
@@ -71,6 +72,7 @@ function TimeSlots() {
     </Div>
   );
 }
+
 
 const Button = styled.button`
   text-align: start;
@@ -85,6 +87,22 @@ const Button = styled.button`
     props.variant === 'cancel' ? '#FFFFFF' : '#0B0B45'};
   color: ${(props) => (props.variant === 'cancel' ? '#0B0B45' : '#FFFFFF')};
 `;
+
+
+const DeleteButton = styled.button`
+  text-align: start;
+  font-size: 13px;
+  background-color:white;
+  color: red;
+  text-align: center;
+  width: 10%;
+  border-radius: 13px;
+  padding: 10px;
+  margin: 10px;
+  
+`;
+
+
 const Div = styled.div`
   padding: 10px;
   margin: auto;
@@ -106,42 +124,41 @@ const StyledCalender = styled(Calendar)`
   width: 100%;
 `;
 const StyledTime = styled(TimePicker)`
-//   display: inline-flex;
-//   font-size: 16px;
-//   padding: 8px;
-//   border: 2px solid #ccc;
-//   border-radius: 4px;
-//   color: #fffffff;
+  display: inline-flex;
+  font-size: 16px;
+  padding: 8px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  color: #fffffff;
 
-//   & > div {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//   }
+  //   & > div {
+  //     display: flex;
+  //     align-items: center;
+  //     justify-content: center;
+  //   }
 
-//   & input {
-//     background-color: white;
-//     border: none;
-//     text-align: center;
-//     font-size: 20px;
-//     padding: 20px;
-//     color: black;
-//   }
+  //   & input {
+  //     background-color: white;
+  //     border: none;
+  //     text-align: center;
+  //     font-size: 20px;
+  //     padding: 20px;
+  //     color: black;
+  //   }
 
   & input {
-    width: 50px;
-    font-size: 20px;
-    padding: 1.8rem;
+    background-color:white;
+    width: 100%;
+    font-size: 18px;
+    font-weight:500;
+    color:blue;
+    padding: 30px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    // margin-right: 1rem;
-    border: none; 
-   
   }
   
-  
-
-
 `;
 
-export default TimeSlots;
+
+
+export default SetTimeSlots;
