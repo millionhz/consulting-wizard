@@ -9,7 +9,7 @@ function NavBarConsultant({ page }) {
       </div>
       <NavbarLinks>
         <NavLink title="About" page={page} link="/" />
-        <NavLink title="Mark Available Slots" page={page} />
+        <NavLink title="Mark Available Slots" page={page} link="set-slots" />
         <NavLink
           title="View Appointments"
           page={page}

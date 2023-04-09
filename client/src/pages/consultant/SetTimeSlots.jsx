@@ -1,165 +1,137 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import 'react-calendar/dist/Calendar.css';
-import TimePicker from 'react-time-picker';
 import Calendar from '../../components/Calendar';
+import TimePickerModal from '../../components/TimePickerModal';
+import TimeSlot from '../../components/NewTimeSlot';
+import NavBar from '../../components/NavBarConsultant';
+import Footer from '../../components/Footer';
 
 function SetTimeSlots() {
+  const [timePickerOpen, setTimePickerOpen] = useState(false);
   const [date, setDate] = useState(new Date());
-  const [selectedTime, setSelectedTime] = useState(null);
   const [timeList, setTimeList] = useState([]);
-  // const [timeError, setTimeError] = useState('');
 
-  const removeElement = (index) => {
-    const newTimes = timeList.filter((_, i) => i !== index);
+  const removeHandler = (index) => {
     setTimeList(newTimes);
   };
 
-  const onSubmitHandler = (e) => {
-    e.preventDefault();
+  const handleClick = () => {
+    setTimePickerOpen(true);
   };
-  const handleTimeChange = (newTime) => {
-    // if (!newTime.meridiem) {
-    //   setTimeError('Error: Please input hour, minute and meridiem');
-    // } else {
-    //   setTimeError('');
-    // }
-    setSelectedTime(newTime);
-  };
-  const handleAddTime = () => {
-    // if (timeError === '') {
 
-    // }
-    setTimeList([...timeList, selectedTime]);
-    setSelectedTime(null);
+  const handleAddTime = (slot) => {
+    slot.$d.setDate(date.getDate());
+    slot.$d.setMonth(date.getMonth());
+    slot.$d.setFullYear(date.getFullYear());
+
+    const end = new Date(slot.$d);
+    if (end.getHours() > 22) {
+      end.setDate(end.getDate() + 1);
+    }
+    end.setHours(end.getHours() < 22 ? end.getHours() + 1 : 0);
+    setTimeList([...timeList, { from: slot.$d, to: end }]);
+    setTimePickerOpen(false);
+  };
+
+  const handleClose = () => {
+    setTimePickerOpen(false);
   };
 
   return (
     <Div className="app">
-      <Div>
-        <h4>1. Pick a date to view the timeslots</h4>
-      </Div>
-      <CalenderDiv>
-        <StyledCalender onChange={setDate} value={date} />
-      </CalenderDiv>
+      <NavBar page="Mark Available Slots" />
+      <AppointmentsDiv>
+        <Dates>
+          <Steps>1. Pick a date to view the time slots</Steps>
+          <Calendar setDate={setDate} date={date} />
+        </Dates>
 
-      <Div>
-        <h4>2. Add or remove timeslots</h4>
-      </Div>
-      <Div>
-        <h4>Choose a new timeslot </h4>
-        <Div>
-          <StyledTime
-            value={selectedTime}
-            onChange={handleTimeChange}
-            clockIcon={null}
-            clearIcon={null}
-          />
-
-          <Button variant="cancel" type="button" onClick={handleAddTime}>
-            Add Time
-          </Button>
-          {/* <ErrorDiv>{timeError}{ setTimeError('')}</ErrorDiv> */}
-          {timeList.length > 0 && (
-            <ul>
-              {timeList.map((time, index) => (
-                <StyledLi key={index}>
-                  {time} Pakistan Time
-                  <DeleteButton
-                    type="button"
-                    onClick={() => removeElement(index)}
-                  >
-                    Delete
-                  </DeleteButton>
-                </StyledLi>
-              ))}
-            </ul>
-          )}
-        </Div>
-      </Div>
-
-      <Button variant="cancel" type="submit" onChange={onSubmitHandler}>
-        Save Changes
-      </Button>
+        <TimeSlots>
+          <Steps>2. Add or remove time slots</Steps>
+          <AddSlotButtonDiv>
+            <AddSlotButton onClick={handleClick}>
+              choose a new time slot
+            </AddSlotButton>
+          </AddSlotButtonDiv>
+          <TimeSlotsDiv>
+            {timeList.length
+              ? timeList.map((slot, idx) => (
+                  <TimeSlot
+                    slot={slot}
+                    removeHandler={removeHandler}
+                    key={idx}
+                  />
+                ))
+              : 'No Available Time Slots'}
+          </TimeSlotsDiv>
+        </TimeSlots>
+      </AppointmentsDiv>
+      <TimePickerModal
+        isOpen={timePickerOpen}
+        handleAddTime={handleAddTime}
+        handleClose={handleClose}
+      />
+      <Footer />
     </Div>
   );
 }
 
-const Button = styled.button`
-  text-align: start;
-  font-size: 13px;
-  color: white;
-  text-align: center;
-  width: 10%;
-  border-radius: 13px;
-  padding: 10px;
-  margin: 10px;
-  background-color: ${(props) =>
-    props.variant === 'cancel' ? '#FFFFFF' : '#0B0B45'};
-  color: ${(props) => (props.variant === 'cancel' ? '#0B0B45' : '#FFFFFF')};
-`;
-
-const DeleteButton = styled.button`
-  text-align: start;
-  font-size: 13px;
-  background-color: white;
-  color: red;
-  text-align: center;
-  width: 10%;
-  border-radius: 13px;
-  padding: 10px;
-  margin-left: 5rem;
-`;
-
 const Div = styled.div`
-  padding: 10px;
   margin: auto;
   align: left;
   text-align: center;
 `;
 
-const StyledLi = styled.li`
-  font-size: 20px;
-  color: white;
-  list-style: none;
-  padding: 1rem;
+const AppointmentsDiv = styled.div`
+  padding: 1rem 5rem 1rem 5rem;
+  text-align: left;
+  color: #ffffff;
+  width: 75%;
+  margin: 0 auto;
 `;
-const CalenderDiv = styled.div`
-  max-width: 600px;
-  margin: auto;
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #0b0b45;
-`;
-const StyledCalender = styled(Calendar)`
-  display: inline-flex;
-  justify-content: center;
-  background-color: #0b0b45;
-  width: 100%;
-`;
-const StyledTime = styled(TimePicker)`
-  display: inline-flex;
-  font-size: 16px;
-  padding: 8px;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  color: #fffffff;
 
-  & input {
-    background-color: white;
-    width: 100%;
-    font-size: 18px;
-    font-weight: 500;
-    color: blue;
-    padding: 30px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+const Dates = styled.div`
+  margin-top: 2.5rem;
+`;
+
+const Steps = styled.p`
+  font-weight: 300;
+  font-size: 1.1rem;
+`;
+
+const TimeSlots = styled.div`
+  margin-top: 3.5rem;
+`;
+
+const TimeSlotsDiv = styled.div`
+  background-color: #ffffff;
+  color: #000000;
+  width: 50%;
+  margin: 2rem auto;
+  padding: 2rem 2rem 3rem 2rem;
+  border-radius: 10px;
+  min-height: 300px;
+`;
+
+const AddSlotButtonDiv = styled.div`
+  width: 100%;
+  text-align: center;
+`;
+
+const AddSlotButton = styled.button`
+  margin: auto;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  background-color: #bfab25;
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 0.9rem;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #b0a020;
   }
 `;
-export const ErrorDiv = styled.div`
-  margin-left: 10rem;
-  margin-bottom: 10px;
-  font-size: 11px;
-  color: red;
-`;
+
 export default SetTimeSlots;
