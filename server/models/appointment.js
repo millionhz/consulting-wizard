@@ -58,6 +58,17 @@ const getAppointmentsByConsultant = (consultant, date) =>
     },
   });
 
+const getAppointmentByConsultantAndDate = (consultant, from, to) =>
+  Appointment.find({
+    consultant,
+    from: {
+      $gte: from,
+    },
+    to: {
+      $lte: to,
+    },
+  }).exec();
+
 const getAppointmentsByClientID = (client) =>
   Appointment.find({
     client,
@@ -130,6 +141,16 @@ const viewUpcomingAppointmentsConsultant = (consultant) =>
     return appointments.filter(filter);
   });
 
+const createAppointment = (consultant, from, to) =>
+  Appointment({
+    consultant,
+    from,
+    to,
+  }).save();
+
+const deleteAppointment = (id, consultant) =>
+  Appointment.deleteOne({ _id: id, consultant }).exec();
+
 module.exports = {
   bootstrapAppointments,
   getAvailableAppointments,
@@ -138,4 +159,7 @@ module.exports = {
   viewUpcomingAppointmentsClient,
   viewPastAppointmentsConsultant,
   viewUpcomingAppointmentsConsultant,
+  createAppointment,
+  deleteAppointment,
+  getAppointmentByConsultantAndDate,
 };
