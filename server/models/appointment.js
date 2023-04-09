@@ -61,7 +61,9 @@ const getAppointmentsByConsultant = (consultant, date) =>
 const getAppointmentsByClientID = (client) =>
   Appointment.find({
     client,
-  });
+  })
+    .populate('consultant')
+    .exec();
 
 const getAppointmentsByConsultantID = (consultant) =>
   Appointment.find({
@@ -101,20 +103,6 @@ const bookAppointmentById = (appointmentId, client) =>
     appointment.client = client;
     return appointment.save();
   });
-
-// TODO: The semantics are correct the logic needs to reworked
-// const viewPastAppointments = () =>
-//   Appointment.find({ from: { $gt: Date.now() } })
-//     .populate('client')
-//     .populate('consultant')
-//     .exec();
-
-// TODO: The semantics are correct the logic needs to reworked
-// const viewUpcomingAppointments = () =>
-//   Appointment.find({ to: { $lt: Date.now() } })
-//     .populate('client')
-//     .populate('consultant')
-//     .exec();
 
 const viewPastAppointmentsClient = (client) =>
   getAppointmentsByClientID(client).then((appointments) => {
