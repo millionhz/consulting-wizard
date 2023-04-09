@@ -42,5 +42,10 @@ export const viewPastAppointmentsConsultant = () =>
 
 export const viewUpcomingAppointmentsConsultant = () =>
   api.get('/appointmentConsultant/upcoming');
+export const viewReportedFeedback = () => api.get('/feedback');
+
+export const deleteFeedback = (id) => api.delete(`/feedback/delete/${id}`);
+
+export const falseReport = (id) => api.post(`/feedback/ignore/${id}`);
 
 export default api;

@@ -23,6 +23,8 @@ import ConsultantProfile from './pages/client/ConsultantProfile';
 import ClientProfile from './pages/consultant/ClientProfile';
 import ClientViewAppointments from './pages/client/ViewAppointments';
 import ConsultantViewAppointments from './pages/consultant/ViewAppointments';
+import ViewReportedFeedback from './pages/admin/ViewReportedFeedback';
+import ChangePassword from './pages/ChangePassword';
 
 function App() {
   const router = createBrowserRouter(
@@ -48,6 +50,7 @@ function App() {
               />
             }
           />
+          <Route path="change-password" element={<ChangePassword />} />
           <Route
             path="book-appointment"
             element={<RoleAwareComponent client={<ClientSearch />} />}
@@ -78,6 +81,10 @@ function App() {
             element={<RoleAwareComponent consultant={<ClientProfile />} />}
           />
         </Route>
+        <Route
+          path="reported-feedback"
+          element={<RoleAwareComponent admin={<ViewReportedFeedback />} />}
+        />
         <Route element={<LoggedOutInterceptor redirect="/" />}>
           <Route path="login" element={<LogInPage />} />
           <Route path="signup" element={<SignUpRole />} />
