@@ -1,13 +1,38 @@
 const express = require('express');
 const {
+  createAppointment,
   viewPastAppointmentsConsultant,
   viewUpcomingAppointmentsConsultant,
+  deleteAppointment,
 } = require('../../models/appointment');
 const onlyConsultant = require('../../middlewares/onlyConsultant');
 
 const router = express.Router();
 
 router.use(onlyConsultant);
+
+router.post('/', (req, res, next) => {
+  const { id } = req.user;
+  const { from, to } = req.body;
+  // INFO: from and to are in ISO format
+
+  createAppointment(id, from, to)
+    .then((appointment) => {
+      res.json(appointment);
+    })
+    .catch(next);
+});
+
+router.delete('/:appointmentId', (req, res, next) => {
+  const { id } = req.user;
+  const { appointmentId } = req.params;
+
+  deleteAppointment(id, appointmentId)
+    .then((out) => {
+      res.json(out);
+    })
+    .catch(next);
+});
 
 router.get('/past', (req, res, next) => {
   const { id } = req.user;

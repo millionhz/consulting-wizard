@@ -130,6 +130,16 @@ const viewUpcomingAppointmentsConsultant = (consultant) =>
     return appointments.filter(filter);
   });
 
+const createAppointment = (consultant, from, to) =>
+  Appointment({
+    consultant,
+    from,
+    to,
+  }).save();
+
+const deleteAppointment = (id, consultant) =>
+  Appointment.deleteOne({ _id: id, consultant }).exec();
+
 module.exports = {
   bootstrapAppointments,
   getAvailableAppointments,
@@ -138,4 +148,6 @@ module.exports = {
   viewUpcomingAppointmentsClient,
   viewPastAppointmentsConsultant,
   viewUpcomingAppointmentsConsultant,
+  createAppointment,
+  deleteAppointment,
 };
