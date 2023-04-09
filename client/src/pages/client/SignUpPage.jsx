@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import { css } from 'styled-components';
 import NavBarLogin from '../../components/NavBarLogin';
 import Footer from '../../components/Footer';
 import FormInputDiv from '../../components/FormInputComponent';
@@ -10,6 +11,10 @@ function SignUpPage() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [passwordFormat, setPasswordFormat] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [linkedInError, setlinkedInError] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [major, setMajor] = useState('');
   const [yearOfGraduation, setGraduationYear] = useState('');
@@ -18,35 +23,58 @@ function SignUpPage() {
 
   const PasswordValidate = () => {
     if (confirmPassword !== password) {
-      alert('Passwords do not match!');
+      setPasswordError('Password and confirm password do not match!');
+    } else {
+      setPasswordError('');
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     PasswordValidate();
-    const displayName = `${firstName} ${lastName}`;
-    const data = {
-      email,
-      password,
-      displayName,
-      major,
-      yearOfGraduation,
-      bio,
-    };
+    const regex = /^(ftp|http|https):\/\/[^ "]+$/;
+    if (!regex.test(linkedin)) {
+      setlinkedInError('Please input a valid link');
+    } else {
+      setlinkedInError('');
+    }
+    if (password.length < 8) {
+      setPasswordFormat('Password must be 8 characters at least');
+    } else {
+      setPasswordFormat('');
+    }
 
-    signUpClient(data)
-      .then((res) => {
-        if (res.error) {
-          alert(res.error);
-        } else {
-          alert('Account created successfully!');
-          window.location.href = '/login';
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (!email.includes('@lums.edu.pk')) {
+      setEmailError(
+        'Please enter a valid email address. You can only input your LUMS email ID'
+      );
+    } else {
+      setEmailError('');
+    }
+    if (!emailError && !passwordError && !passwordFormat && !linkedInError) {
+      const displayName = `${firstName} ${lastName}`;
+      const data = {
+        email,
+        password,
+        displayName,
+        major,
+        yearOfGraduation,
+        bio,
+      };
+
+      signUpClient(data)
+        .then((res) => {
+          if (res.error) {
+            alert(res.error);
+          } else {
+            alert('Account created successfully!');
+            window.location.href = '/login';
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
@@ -76,6 +104,8 @@ function SignUpPage() {
             placeholder="Enter your LUMS email"
             setValue={setEmail}
           />
+          <ErrorDiv>{emailError}</ErrorDiv>
+
           <FormInputDiv
             label="Password"
             type="password"
@@ -83,6 +113,7 @@ function SignUpPage() {
             placeholder="Enter your password"
             setValue={setPassword}
           />
+          <ErrorDiv> {passwordFormat} </ErrorDiv>
           <FormInputDiv
             label="Confirm Password"
             type="password"
@@ -90,6 +121,8 @@ function SignUpPage() {
             placeholder="Confirm Password"
             setValue={setConfirmPassword}
           />
+          <ErrorDiv> {passwordError} </ErrorDiv>
+
           <FormInputDiv
             label="Major"
             type="text"
@@ -111,6 +144,8 @@ function SignUpPage() {
             placeholder="Enter the link to your LinkedIn account"
             setValue={setLinkedin}
           />
+          <ErrorDiv>{linkedInError} </ErrorDiv>
+
           <FormInputDiv
             label="Additional Information"
             type="text"
@@ -128,7 +163,20 @@ function SignUpPage() {
             >
               Cancel
             </CancelButton>
-            <SubmitButton type="submit" onClick={handleSubmit}>
+            <SubmitButton
+              type="submit"
+              onClick={handleSubmit}
+              disabled={
+                !password ||
+                !email ||
+                !firstName ||
+                !lastName ||
+                !confirmPassword ||
+                !yearOfGraduation ||
+                !major ||
+                !linkedin
+              }
+            >
               Submit
             </SubmitButton>
           </ButtonsDiv>
@@ -182,6 +230,11 @@ const SubmitButton = styled.button`
   &:hover {
     cursor: pointer;
   }
+  ${(props) =>
+    props.disabled &&
+    css`
+      opacity: 0.7;
+      cursor: not-allowed;`}
 `;
 
 const CancelButton = styled.button`
@@ -196,6 +249,12 @@ const CancelButton = styled.button`
   &:hover {
     cursor: pointer;
   }
+`;
+export const ErrorDiv = styled.div`
+  margin-left: 10rem;
+  margin-bottom: 1.3rem;
+  font-size: 11px;
+  color: red;
 `;
 
 export default SignUpPage;
