@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 
 import { updatePassword } from '../api/firebaseAuth';
+import { UserContext } from '../context/UserContext';
 
 function AuthForm({ onSubmit, error }) {
   const [password, setPassword] = useState('');
@@ -13,17 +14,16 @@ function AuthForm({ onSubmit, error }) {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    if (newPassword.length < 8) {
-      setPasswordFormatError('Password must be 8 characters at least');
-    } else {
-      setPasswordFormatError('');
+    if (newPassword.length < 6) {
+      return setPasswordFormatError('Password must be 6 characters at least');
     }
+    setPasswordFormatError('');
 
     if (newPassword !== confirmNewPassword) {
-      setPasswordError('Passwords do not match!');
-    } else {
-      setPasswordError('');
+      return setPasswordError('Passwords do not match!');
     }
+    setPasswordError('');
+
     if (!passwordError && !passwordFormatError) {
       onSubmit(password, newPassword);
     }
@@ -182,14 +182,16 @@ function AuthForm({ onSubmit, error }) {
 }
 
 function ChangePassword() {
+  const { email } = useContext(UserContext);
   const [isError, setError] = useState(false);
   const navigate = useNavigate();
   const submitHandler = (password, newPassword) => {
-    updatePassword(password, newPassword)
+    updatePassword(email, password, newPassword)
       .then(() => {
         navigate('/');
       })
       .catch((err) => {
+        console.log(err);
         setError(true);
       });
   };
