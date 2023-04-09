@@ -9,17 +9,11 @@ function ViewFeedbackCounselor() {
   useEffect(() => {
     getFeedback().then((data) => setFeedbackList(data.data));
   }, []);
-  function removeFeedback(id) {
-    const newList = feedbackList.filter((user) => user.id !== id);
-    setFeedbackList(newList);
-  }
   function reportUserHandler(id) {
     reportClient(id);
-    removeFeedback(id);
   }
   function reportFeedbackHandler(id) {
     reportFeedback(id);
-    removeFeedback(id);
   }
   return (
     <div>
@@ -33,7 +27,7 @@ function ViewFeedbackCounselor() {
                 <TextReport>{userFeedback.reviewer}</TextReport>
                 <ReportButton
                   onClick={() => {
-                    reportUserHandler(userFeedback._id);
+                    reportUserHandler(userFeedback.reviewer);
                   }}
                 >
                   <ButtonText>Report User</ButtonText>
@@ -46,6 +40,7 @@ function ViewFeedbackCounselor() {
                 <ReportButton
                   onClick={() => {
                     reportFeedbackHandler(userFeedback._id);
+                    window.location.reload(true)
                   }}
                 >
                   <ButtonText>Report Feedback</ButtonText>

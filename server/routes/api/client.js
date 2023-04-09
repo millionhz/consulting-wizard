@@ -3,9 +3,10 @@ const { reportClient } = require('../../models/client');
 
 const router = express.Router();
 
-router.post('/reportClient', (req, res, next) => {
-  const reportedId = req.body;
-
+router.post('/:id', (req, res, next) => {
+  const reportedPostId = req.params.id;
+  console.log(reportedPostId)
+  const reportedId = { _id: reportedPostId.toString() };
   reportClient(reportedId)
     .then((data) => {
       res.json(data);
