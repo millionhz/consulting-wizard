@@ -12,9 +12,7 @@ function SetTimeSlots() {
   const [date, setDate] = useState(new Date());
   const [timeList, setTimeList] = useState([]);
 
-  const removeHandler = (index) => {
-    setTimeList(newTimes);
-  };
+  const removeHandler = () => {};
 
   const handleClick = () => {
     setTimePickerOpen(true);

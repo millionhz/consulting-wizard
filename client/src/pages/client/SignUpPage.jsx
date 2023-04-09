@@ -234,7 +234,8 @@ const SubmitButton = styled.button`
     props.disabled &&
     css`
       opacity: 0.7;
-      cursor: not-allowed;`}
+      cursor: not-allowed;
+    `}
 `;
 
 const CancelButton = styled.button`
