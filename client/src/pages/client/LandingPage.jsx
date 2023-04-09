@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import Carousel from '../Carousel';
 import sec from '../../images/Group1.png';
 import third from '../../images/Group448.png';
