@@ -24,7 +24,7 @@ function ReportedFeedback({
       <div>
         <IgnoreIcon
           onClick={() => {
-            ignoreHandler(_id);
+            ignoreHandler(id);
           }}
         >
           <TextReport>Ignore</TextReport>
