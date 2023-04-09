@@ -2,29 +2,36 @@ import React from 'react';
 import styled from '@emotion/styled';
 import DelIcon from '@mui/icons-material/Delete';
 
-function ReportedFeedback(feedback = {}, ignoreHandler, deleteHandler) {
+function ReportedFeedback({
+  reviewerName,
+  respondentName,
+  content,
+  id,
+  ignoreHandler,
+  deleteHandler,
+}) {
   return (
     <div>
       <TextReport>
-        Posted by: <p>{feedback.reviewer.displayName}</p>
+        Posted by: <p>{reviewerName}</p>
       </TextReport>
       <TextReport>
-        Posted to: <p>{feedback.respondent.displayName}</p>
+        Posted to: <p>{respondentName}</p>
       </TextReport>
       <TextReport>
-        Feedback: <p>{feedback.content}</p>
+        Feedback: <p>{content}</p>
       </TextReport>
       <div>
         <IgnoreIcon
           onClick={() => {
-            ignoreHandler(feedback._id);
+            ignoreHandler(_id);
           }}
         >
           <TextReport>Ignore</TextReport>
         </IgnoreIcon>
         <DeleteIcon
           onClick={() => {
-            deleteHandler(feedback._id);
+            deleteHandler(id);
           }}
         >
           <DelIcon />

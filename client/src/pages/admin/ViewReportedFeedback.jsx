@@ -21,15 +21,15 @@ function ViewReportedFeedback() {
     setReportList(newReportList);
   }
 
-  function deleteHandler(id) {
+  const deleteHandler = (id) => {
     deleteFeedback(id);
     removeFeedback(id);
-  }
+  };
 
-  function ignoreHandler(id) {
+  const ignoreHandler = (id) => {
     falseReport(id);
     removeFeedback(id);
-  }
+  };
 
   return (
     <div>
@@ -38,7 +38,10 @@ function ViewReportedFeedback() {
         {reportList.map((reportFeedback, idx) => (
           <ReportedFeedbackItem
             key={idx}
-            {...reportFeedback}
+            reviewerName={reportFeedback.reviewer.displayName}
+            respondentName={reportFeedback.respondent.displayName}
+            content={reportFeedback.content}
+            id={reportFeedback._id}
             ignoreHandler={ignoreHandler}
             deleteHandler={deleteHandler}
           />
