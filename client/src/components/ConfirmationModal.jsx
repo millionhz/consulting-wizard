@@ -20,8 +20,8 @@ function Confirmation({ date, slot, counselor, closeModal, isOpen }) {
               backgroundColor: 'rgba(0, 0, 0, 0.75)',
             },
             content: {
-              width: '35%',
-              height: '55%',
+              width: '20%',
+              height: '35%',
               margin: 'auto',
               textAlign: 'left',
               color: '#000000',
@@ -40,10 +40,13 @@ function Confirmation({ date, slot, counselor, closeModal, isOpen }) {
             <ModalText>Date: {date.toDateString()}</ModalText>
             <ModalText>
               Time: {slot.from.toLocaleTimeString()} -{' '}
-              {slot.to.toLocaleTimeString()}
-              Pakistan Time (UTC +5)
+              {slot.to.toLocaleTimeString()} Pakistan Time (UTC +5)
             </ModalText>
           </BookingTime>
+          <EmailNotif>
+            <InfoIcon>!</InfoIcon>
+            <ModalText>Please check your email for meeting details</ModalText>
+          </EmailNotif>
           <ModalButton onClick={goToHome}>OK</ModalButton>
         </Modal>
       </div>
@@ -76,7 +79,7 @@ const ConfirmIcon = styled.img`
   width: 20px;
   height: auto;
   margin-left: 1.1rem;
-  margin-bottom: 0;
+  margin-bottom: 5px;
 `;
 
 const ModalHeading = styled.p`
@@ -119,7 +122,7 @@ const ModalButton = styled.button`
   border: solid 1px #2c9612;
   border-radius: 5px;
   color: #ffffff;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);
