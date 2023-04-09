@@ -60,10 +60,15 @@ const updateClient = (id, attr) =>
     )
     .then((obj) => obj.save());
 
-
 const reportClient = (reportedId) =>
-  Client.updateOne(reportedId, { $set:{ reported: true }}).exec();
+  Client.updateOne(reportedId, { $set: { reported: true } }).exec();
 
 const getReportedClients = () => Client.find({ reported: true }).exec();
 
-module.exports = { addClient, getClientById, updateClient, getReportedClients, reportClient };
+module.exports = {
+  addClient,
+  getClientById,
+  updateClient,
+  getReportedClients,
+  reportClient,
+};
