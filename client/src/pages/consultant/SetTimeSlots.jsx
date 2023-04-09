@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import 'react-calendar/dist/Calendar.css';
 import Calendar from '../../components/Calendar';
 import TimePickerModal from '../../components/TimePickerModal';
