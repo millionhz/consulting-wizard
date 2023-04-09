@@ -5,6 +5,7 @@ const {
   getFeedbackbyConsultant,
   viewReportedFeedback,
   deleteFeedback,
+  getFeedback,
 } = require('../../models/feedback');
 
 const router = express.Router();
@@ -32,6 +33,14 @@ router.post('/report', (req, res, next) => {
 router.get('/', (req, res, next) => {
   const consultantName = req.user;
   getFeedbackbyConsultant(consultantName)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch(next);
+});
+
+router.get('/all-feedback', (req, res, next) => {
+  getFeedback()
     .then((data) => {
       res.json(data);
     })

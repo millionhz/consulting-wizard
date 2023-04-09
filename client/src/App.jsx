@@ -20,6 +20,7 @@ import ClientSearch from './pages/client/Search';
 import ClientBookAppointment from './pages/client/BookAppointment';
 import AddReview from './pages/client/AddReview';
 import ConsultantProfile from './pages/client/ConsultantProfile';
+import ViewFeedbackConsultant from './pages/consultant/ViewFeedbackConsultant';
 
 function App() {
   const router = createBrowserRouter(
@@ -62,6 +63,12 @@ function App() {
             element={<RoleAwareComponent client={<ConsultantProfile />} />}
           />
         </Route>
+        <Route
+          path="viewfeedback"
+          element={
+            <RoleAwareComponent consultant={<ViewFeedbackConsultant />} />
+          }
+        />
         <Route element={<LoggedOutInterceptor redirect="/" />}>
           <Route path="login" element={<LogInPage />} />
           <Route path="signup" element={<SignUpRole />} />
