@@ -10,14 +10,14 @@ function NavBarAdmin({ page }) {
       <NavbarLinks>
         <NavLinksRow>
           <NavLink title="About" page={page} />
-          <NavLink title="Settings" page={page} />
+          <NavLink title="Reported Clients" page={page} />
+          <NavLink title="Reported Counselors" page={page} />
+          <NavLink
+            title="Reported Feedback"
+            page={page}
+            link="/reported-feedback"
+          />
           <NavLink title="Logout" page={page} />
-        </NavLinksRow>
-        <NavLinksRow>
-          <NavLink title="Reported Accounts" page={page} />
-          <NavLink title="Reported Feedback" page={page} />
-          <NavLink title="Deactivation Requests" page={page} />
-          <NavLink title="Reactivation Requests" page={page} />
         </NavLinksRow>
       </NavbarLinks>
     </NavbarDiv>
