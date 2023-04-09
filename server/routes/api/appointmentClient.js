@@ -2,8 +2,8 @@ const express = require('express');
 const {
   getAvailableAppointments,
   bookAppointmentById,
-  viewPastAppointments,
-  viewUpcomingAppointments,
+  viewPastAppointmentsClient,
+  viewUpcomingAppointmentsClient,
 } = require('../../models/appointment');
 const onlyClient = require('../../middlewares/onlyClient');
 
@@ -39,20 +39,26 @@ router.post('/', (req, res, next) => {
     });
 });
 
-// TODO: Redo the logic
 router.get('/past', (req, res, next) => {
-  viewPastAppointments()
+  const { id } = req.user;
+  viewPastAppointmentsClient(id)
     .then((data) => {
-      res.json(data);
+      const filteredData = data.filter(
+        (appointment) => appointment.client !== undefined
+      );
+      res.json(filteredData);
     })
     .catch(next);
 });
 
-// TODO: Redo the logic
 router.get('/upcoming', (req, res, next) => {
-  viewUpcomingAppointments()
+  const { id } = req.user;
+  viewUpcomingAppointmentsClient(id)
     .then((data) => {
-      res.json(data);
+      const filteredData = data.filter(
+        (appointment) => appointment.client !== undefined
+      );
+      res.json(filteredData);
     })
     .catch(next);
 });

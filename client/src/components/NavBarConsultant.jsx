@@ -10,6 +10,11 @@ function NavBarConsultant({ page }) {
       <NavbarLinks>
         <NavLink title="About" page={page} link="/" />
         <NavLink title="Mark Available Slots" page={page} />
+        <NavLink
+          title="View Appointments"
+          page={page}
+          link="/view-appointments"
+        />
         <NavLink title="View Feedback" page={page} />
         <NavLink title="Settings" page={page} link="/manage-profile" />
         <NavLink title="Logout" page={page} />
