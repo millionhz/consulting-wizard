@@ -43,10 +43,6 @@ function Confirmation({ date, slot, counselor, closeModal, isOpen }) {
               {slot.to.toLocaleTimeString()} Pakistan Time (UTC +5)
             </ModalText>
           </BookingTime>
-          <EmailNotif>
-            <InfoIcon>!</InfoIcon>
-            <ModalText>Please check your email for meeting details</ModalText>
-          </EmailNotif>
           <ModalButton onClick={goToHome}>OK</ModalButton>
         </Modal>
       </div>
