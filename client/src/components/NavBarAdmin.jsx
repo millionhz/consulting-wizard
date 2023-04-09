@@ -17,7 +17,7 @@ function NavBarAdmin({ page }) {
             page={page}
             link="/reported-feedback"
           />
-          <NavLink title="Logout" page={page} />
+          <NavLink title="Logout" page={page} link="/logout" />
         </NavLinksRow>
       </NavbarLinks>
     </NavbarDiv>
