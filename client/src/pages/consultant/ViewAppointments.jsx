@@ -34,11 +34,9 @@ function ViewAppointments() {
 
   useEffect(() => {
     viewPastAppointmentsConsultant()
-      .then(({ data }) => {
-        return Promise.all(
-          data.map((appointment) => parseAppointment(appointment))
-        );
-      })
+      .then(({ data }) =>
+        Promise.all(data.map((appointment) => parseAppointment(appointment)))
+      )
       .then((processedDataPast) => {
         const dataPast = processedDataPast.map((slot) => ({
           ...slot,
@@ -49,11 +47,9 @@ function ViewAppointments() {
       });
 
     viewUpcomingAppointmentsConsultant()
-      .then(({ data }) => {
-        return Promise.all(
-          data.map((appointment) => parseAppointment(appointment))
-        );
-      })
+      .then(({ data }) =>
+        Promise.all(data.map((appointment) => parseAppointment(appointment)))
+      )
       .then((processedDataFuture) => {
         const dataFuture = processedDataFuture.map((slot) => ({
           ...slot,

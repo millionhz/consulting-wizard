@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import NavBarClient from '../../components/NavBarClient';
 import Footer from '../../components/Footer';
@@ -34,11 +33,9 @@ function ViewAppointments() {
 
   useEffect(() => {
     viewPastAppointmentsClient()
-      .then(({ data }) => {
-        return Promise.all(
-          data.map((appointment) => parseAppointment(appointment))
-        );
-      })
+      .then(({ data }) =>
+        Promise.all(data.map((appointment) => parseAppointment(appointment)))
+      )
       .then((processedDataPast) => {
         const dataPast = processedDataPast.map((slot) => ({
           ...slot,
@@ -49,11 +46,9 @@ function ViewAppointments() {
       });
 
     viewUpcomingAppointmentsClient()
-      .then(({ data }) => {
-        return Promise.all(
-          data.map((appointment) => parseAppointment(appointment))
-        );
-      })
+      .then(({ data }) =>
+        Promise.all(data.map((appointment) => parseAppointment(appointment)))
+      )
       .then((processedDataFuture) => {
         const dataFuture = processedDataFuture.map((slot) => ({
           ...slot,
@@ -88,16 +83,12 @@ function ViewAppointments() {
             ? pastAppointments.map((appointment) => (
                 <AppointmentItem
                   {...appointment}
-                  reviewButton={true}
+                  reviewButton
                   key={appointment._id}
                 />
               ))
             : futureAppointments.map((appointment) => (
-                <AppointmentItem
-                  {...appointment}
-                  reviewButton={false}
-                  key={appointment._id}
-                />
+                <AppointmentItem {...appointment} key={appointment._id} />
               ))}
         </ContentDiv>
       </Appointments>
