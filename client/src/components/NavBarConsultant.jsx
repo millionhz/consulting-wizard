@@ -19,7 +19,7 @@ function NavBarConsultant({ page }) {
 }
 
 const NavbarDiv = styled.div`
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;

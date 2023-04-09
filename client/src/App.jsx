@@ -7,8 +7,6 @@ import {
 import LoggedInInterceptor from './router/LoggedInInterceptor';
 import LoggedOutInterceptor from './router/LoggedOutInterceptor';
 import RoleAwareComponent from './router/RoleAwareComponent';
-import NavBarClient from './components/NavBarClient';
-import NavBarConsultant from './components/NavBarConsultant';
 import NavBarAdmin from './components/NavBarAdmin';
 import LogInPage from './pages/LogInPage';
 import SignUpRole from './pages/SignUpRole';
@@ -22,6 +20,9 @@ import AddReview from './pages/client/AddReview';
 import ConsultantProfile from './pages/client/ConsultantProfile';
 import ViewReportedFeedback from './pages/admin/ViewReportedFeedback';
 import ChangePassword from './pages/ChangePassword';
+import ClientLanding from './pages/client/LandingPage';
+import ConsultantLanding from './pages/consultant/LandingPage';
+import AdminLanding from './pages/admin/LandingPage';
 
 function App() {
   const router = createBrowserRouter(
@@ -32,9 +33,9 @@ function App() {
             index
             element={
               <RoleAwareComponent
-                client={<NavBarClient page="About" />}
-                consultant={<NavBarConsultant page="About" />}
-                admin={<NavBarAdmin page="About" />}
+                client={<ClientLanding />}
+                consultant={<ConsultantLanding />}
+                admin={<AdminLanding />}
               />
             }
           />
