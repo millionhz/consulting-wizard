@@ -15,7 +15,11 @@ function NavBarAdmin({ page }) {
         </NavLinksRow>
         <NavLinksRow>
           <NavLink title="Reported Accounts" page={page} />
-          <NavLink title="Reported Feedback" page={page} />
+          <NavLink
+            title="Reported Feedback"
+            page={page}
+            link="/reported-feedback"
+          />
           <NavLink title="Deactivation Requests" page={page} />
           <NavLink title="Reactivation Requests" page={page} />
         </NavLinksRow>

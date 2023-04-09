@@ -1,5 +1,9 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  updatePassword as updatePassword_,
+} from 'firebase/auth';
 import { sessionLogIn } from './backend';
 
 const firebaseConfig = {
@@ -19,3 +23,8 @@ export const logIn = (email, password) =>
   signInWithEmailAndPassword(auth, email, password)
     .then(({ user }) => user.getIdToken())
     .then((token) => sessionLogIn(token));
+
+export const updatePassword = (email, password, newPassword) =>
+  signInWithEmailAndPassword(auth, email, password).then(({ user }) =>
+    updatePassword_(user, newPassword)
+  );
