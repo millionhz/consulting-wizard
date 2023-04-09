@@ -19,7 +19,7 @@ function NavBarConsultant({ page }) {
 }
 
 const NavbarDiv = styled.div`
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -28,6 +28,7 @@ const NavbarDiv = styled.div`
   position: sticky;
   top: 0;
   background-color: #0b0b45;
+  z-index: 1000;
 `;
 
 const Logo = styled.img`
