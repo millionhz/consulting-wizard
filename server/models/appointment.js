@@ -148,8 +148,8 @@ const createAppointment = (consultant, from, to) =>
     to,
   }).save();
 
-const deleteAppointment = (id, consultant) =>
-  Appointment.deleteOne({ _id: id, consultant }).exec();
+const deleteAppointment = (consultant, appointment) =>
+  Appointment.deleteOne({ _id: appointment, consultant }).exec();
 
 module.exports = {
   bootstrapAppointments,

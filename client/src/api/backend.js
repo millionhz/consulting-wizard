@@ -50,4 +50,13 @@ export const falseReport = (id) => api.post(`/feedback/ignore/${id}`);
 
 export const logout = () => api.post('/logout');
 
+export const addAppointmentTime = (from, to) =>
+  api.post('/appointment/consultant', { from, to });
+
+export const getAppointmentsByDate = (date) =>
+  api.get(`/appointment/consultant/${date}`);
+
+export const deleteAppointment = (id) =>
+  api.delete(`/appointment/consultant/${id}`);
+
 export default api;

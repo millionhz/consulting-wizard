@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import 'react-calendar/dist/Calendar.css';
 import Calendar from '../../components/Calendar';
@@ -6,13 +6,45 @@ import TimePickerModal from '../../components/TimePickerModal';
 import TimeSlot from '../../components/NewTimeSlot';
 import NavBar from '../../components/NavBarConsultant';
 import Footer from '../../components/Footer';
+import {
+  addAppointmentTime,
+  deleteAppointment,
+  getAppointmentsByDate,
+} from '../../api/backend';
 
 function SetTimeSlots() {
   const [timePickerOpen, setTimePickerOpen] = useState(false);
   const [date, setDate] = useState(new Date());
   const [timeList, setTimeList] = useState([]);
 
-  const removeHandler = () => {};
+  const refreshTimeList = useCallback(() => {
+    getAppointmentsByDate(date.toISOString())
+      .then(({ data }) => {
+        const processedData = data.map((slot) => {
+          const from = new Date(slot.from);
+          const to = new Date(slot.to);
+          return { ...slot, from, to };
+        });
+        setTimeList(processedData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [date]);
+
+  useEffect(() => {
+    refreshTimeList();
+  }, [refreshTimeList]);
+
+  const removeHandler = ({ id }) => {
+    deleteAppointment(id)
+      .then(() => {
+        refreshTimeList();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const handleClick = () => {
     setTimePickerOpen(true);
@@ -28,8 +60,19 @@ function SetTimeSlots() {
       end.setDate(end.getDate() + 1);
     }
     end.setHours(end.getHours() < 22 ? end.getHours() + 1 : 0);
-    setTimeList([...timeList, { from: slot.$d, to: end }]);
-    setTimePickerOpen(false);
+
+    const from = slot.$d;
+    const to = end;
+
+    addAppointmentTime(from.toISOString(), to.toISOString())
+      .then(() => {
+        refreshTimeList();
+        // setTimeList([...timeList, { from: slot.$d, to: end }]);
+        setTimePickerOpen(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleClose = () => {
@@ -41,7 +84,7 @@ function SetTimeSlots() {
       <NavBar page="Mark Available Slots" />
       <AppointmentsDiv>
         <Dates>
-          <Steps>1. Pick a date to view the time slots</Steps>
+          <Steps>1. Pick a date for the time slots</Steps>
           <Calendar setDate={setDate} date={date} />
         </Dates>
 
@@ -49,7 +92,7 @@ function SetTimeSlots() {
           <Steps>2. Add or remove time slots</Steps>
           <AddSlotButtonDiv>
             <AddSlotButton onClick={handleClick}>
-              choose a new time slot
+              Choose a new time slot
             </AddSlotButton>
           </AddSlotButtonDiv>
           <TimeSlotsDiv>

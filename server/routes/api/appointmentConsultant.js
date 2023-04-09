@@ -42,10 +42,10 @@ router.post('/', (req, res, next) => {
 });
 
 router.delete('/:appointmentId', (req, res, next) => {
-  const { id } = req.user;
+  const { id: consultantId } = req.user;
   const { appointmentId } = req.params;
 
-  deleteAppointment(id, appointmentId)
+  deleteAppointment(consultantId, appointmentId)
     .then((out) => {
       res.json(out);
     })
