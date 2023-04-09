@@ -53,8 +53,8 @@ function LogInPage() {
         alignContent
         padding={5}
         margin="auto"
-        marginTop={5}
-        marginBottom={5}
+        marginTop={6}
+        marginBottom={7}
       >
         <Grid
           container
