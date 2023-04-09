@@ -35,4 +35,6 @@ export const deleteFeedback = (id) => api.delete(`/feedback/delete/${id}`);
 
 export const falseReport = (id) => api.post(`/feedback/ignore/${id}`);
 
+export const logout = () => api.post('/logout');
+
 export default api;

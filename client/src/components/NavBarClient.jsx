@@ -16,7 +16,7 @@ function NavBarClient({ page }) {
         />
         <NavLink title="View Appointments" page={page} />
         <NavLink title="Settings" page={page} link="/manage-profile" />
-        <NavLink title="Logout" page={page} />
+        <NavLink title="Logout" page={page} link="/logout" />
       </NavbarLinks>
     </NavbarDiv>
   );

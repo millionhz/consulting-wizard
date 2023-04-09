@@ -12,7 +12,7 @@ function NavBarConsultant({ page }) {
         <NavLink title="Mark Available Slots" page={page} />
         <NavLink title="View Feedback" page={page} />
         <NavLink title="Settings" page={page} link="/manage-profile" />
-        <NavLink title="Logout" page={page} />
+        <NavLink title="Logout" page={page} link="/logout" />
       </NavbarLinks>
     </NavbarDiv>
   );
