@@ -68,7 +68,9 @@ const getAppointmentsByClientID = (client) =>
 const getAppointmentsByConsultantID = (consultant) =>
   Appointment.find({
     consultant,
-  }).populate('client');
+  })
+    .populate('client')
+    .exec();
 
 const getAvailableAppointments = (consultant, date) =>
   getAppointmentsByConsultant(consultant, date).then((appointments) => {
