@@ -28,6 +28,11 @@ const clientSchema = new mongoose.Schema({
     required: true,
     default: false,
   },
+  deactivated: {
+    type: Boolean,
+    required: true,
+    default: false
+  }
 });
 
 clientSchema.set('toObject', { getters: true });
@@ -60,6 +65,18 @@ const updateClient = (id, attr) =>
     )
     .then((obj) => obj.save());
 
-const getReportedClients = () => Client.find({ reported: true }).exec();
+const getReportedClients = () => Client.find({ reported: true }).populate('displayName').exec();
 
-module.exports = { addClient, getClientById, updateClient, getReportedClients };
+const falseReportOfClient = (reportedClientId) => 
+  Client.updateOne(
+    { _id: reportedClientId },
+    { $set: {reported: false} }
+).exec();
+
+const deactivateClient = (clientId) => 
+  Client.updateOne(
+  { _id: clientId },
+  { $set: {deactivated: true} }
+).exec();
+
+module.exports = { addClient, getClientById, updateClient, getReportedClients, deactivateClient, falseReportOfClient };

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import NavBarAdmin from '../../components/NavBarAdmin';
 import Footer from '../../components/Footer';
-import { getReportedClients } from '../../api/backend';
+import { getReportedClients, falseReportOfClient, deactivateClient} from '../../api/backend';
 
 function ViewReportedUser() {
   const [userList, setuserList] = useState([]);
@@ -10,15 +10,17 @@ function ViewReportedUser() {
     getReportedClients().then(({ data }) => setuserList(data));
   }, []);
   function removeUser(id) {
-    const newList = userList.filter((user) => user.id !== id);
-    setuserList(newList);
+    //const newList = userList.filter((user) => user._id !== id);
+    setuserList(newList => newList.filter(user => user._id !== id));
   }
-  function deactivationHandler(id) {
+  async function deactivationHandler(id) {
     // send delete request to backend.Need the format in which the request needs to be sent
+    await deactivateClient(id);
     removeUser(id);
   }
-  function ignoreHandler(id) {
+  async function ignoreHandler(id) {
     // send unflag request to backend. Need the format in which the request needs to be sent
+    await falseReportOfClient(id);
     removeUser(id);
   }
   return (
@@ -90,6 +92,7 @@ const DeactIcon = styled.button`
   color: #fb1e1e;
   background: #ffffff;
   border: 2px #fb1e1e;
+  cursor: pointer;
   padding: 0.5rem 0.3rem 0.3rem 0.3rem;
 `;
 
@@ -97,6 +100,7 @@ const IgnoreIcon = styled.button`
   color: #2ec309;
   background: #ffffff;
   border: 2px #2ec309;
+  cursor: pointer;
   padding: 0rem 0rem 0rem 0rem;
 `;
 

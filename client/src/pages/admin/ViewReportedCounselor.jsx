@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import NavBarAdmin from '../../components/NavBarAdmin';
 import Footer from '../../components/Footer';
-import { getReportedCounsultants } from '../../api/backend';
+import { getReportedCounsultants, falseReportOfConsultant, deactivateConsultant} from '../../api/backend';
 
 function ViewReportedCounselor() {
   const [userList, setuserList] = useState([]);
@@ -15,10 +15,12 @@ function ViewReportedCounselor() {
   }
   function deactivationHandler(id) {
     // send delete request to backend.Need the format in which the request needs to be sent
+    deactivateConsultant(id);
     removeUser(id);
   }
   function ignoreHandler(id) {
     // send unflag request to backend. Need the format in which the request needs to be sent
+    falseReportOfConsultant(id);
     removeUser(id);
   }
   return (
@@ -89,6 +91,7 @@ const DeactIcon = styled.button`
   color: #fb1e1e;
   background: #ffffff;
   border: 2px #fb1e1e;
+  cursor: pointer;
   padding: 0.5rem 0.3rem 0.3rem 0.3rem;
 `;
 
@@ -96,6 +99,7 @@ const IgnoreIcon = styled.button`
   color: #2ec309;
   background: #ffffff;
   border: 2px #2ec309;
+  cursor: pointer;
   padding: 0rem 0rem 0rem 0rem;
 `;
 

@@ -39,4 +39,13 @@ export const getReportedClients = () => api.get('/admin/reportedClients');
 
 export const getReportedCounsultants = () => api.get('/admin/reportedConsultants');
 
+export const falseReportOfClient = (id) => api.post(`/admin/ignoreClient/${id}`);
+
+export const falseReportOfConsultant = (id) => api.post(`/admin/ignoreConsultant/${id}`);
+
+export const deactivateClient = (id) => api.post(`/admin/deactivateClient/${id}`);
+
+export const deactivateConsultant = (id) => api.post(`/admin/deactivateConsultant/${id}`);
+
+
 export default api;

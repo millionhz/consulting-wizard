@@ -71,6 +71,11 @@ const consultantSchema = new mongoose.Schema({
     required: true,
     default: false,
   },
+  deactivated: {
+    type: Boolean,
+    required: true,
+    default: false,
+  }
 });
 
 consultantSchema.set('toObject', { getters: true });
@@ -126,7 +131,19 @@ const searchConsultant = (searchInput) => Consultant.find(searchInput).exec();
 
 const getConsultants = () => Consultant.find({}).exec();
 
-const getReportedConsultants = () => Consultant.find({ reported: true }).exec();
+const getReportedConsultants = () => Consultant.find({ reported: true }).populate('displayName').exec();
+
+const falseReportOfConsultant = (reportedConsultantId) => 
+  Consultant.updateOne(
+    { _id: reportedConsultantId },
+    { $set: {reported: false} }
+).exec();
+
+const deactivateConsultant = (consultantId) => 
+  Consultant.updateOne(
+  { _id: consultantId },
+  { $set: {deactivated: true} }
+).exec();
 
 module.exports = {
   addConsultant,
@@ -137,4 +154,6 @@ module.exports = {
   setAppointmentTimes,
   getAppointmentTimes,
   getReportedConsultants,
+  falseReportOfConsultant,
+  deactivateConsultant
 };
