@@ -37,10 +37,10 @@ function ViewReportedFeedback() {
         {reportList.map((reportFeedback, idx) => (
           <div key={idx}>
             <TextReport>
-              Posted by: {reportFeedback.reviewer.displayName}
+              Posted by: {reportFeedback.reviewer ? reportFeedback.reviewer.displayName : 'Unknown'}
             </TextReport>
             <TextReport>
-              Posted to: {reportFeedback.respondent.displayName}
+              Posted to: {reportFeedback.respondent ? reportFeedback.respondent.displayName : 'Unknown'}
             </TextReport>
             <TextReport>{reportFeedback.content}</TextReport>
             <div>
