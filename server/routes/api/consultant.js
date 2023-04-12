@@ -36,9 +36,11 @@ router.get('/reported', (req, res, next) => {
 router.post('/reportConsultant', (req, res, next) => {
   const reportedId = req.body;
 
-  reportConsultants(reportedId).then((data) => {
-    res.json(data);
-  }).catch(next);
-})
+  reportConsultants(reportedId)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch(next);
+});
 
 module.exports = router;
