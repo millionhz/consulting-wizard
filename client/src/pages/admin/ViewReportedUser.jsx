@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import NavBarAdmin from '../../components/NavBarAdmin';
 import Footer from '../../components/Footer';
-import { getReportedClients, falseReportOfClient, deactivateClient} from '../../api/backend';
+import {
+  getReportedClients,
+  falseReportOfClient,
+  deactivateClient,
+} from '../../api/backend';
 
 function ViewReportedUser() {
   const [userList, setuserList] = useState([]);
@@ -10,8 +14,8 @@ function ViewReportedUser() {
     getReportedClients().then(({ data }) => setuserList(data));
   }, []);
   function removeUser(id) {
-    //const newList = userList.filter((user) => user._id !== id);
-    setuserList(newList => newList.filter(user => user._id !== id));
+    // const newList = userList.filter((user) => user._id !== id);
+    setuserList((newList) => newList.filter((user) => user._id !== id));
   }
   async function deactivationHandler(id) {
     // send delete request to backend.Need the format in which the request needs to be sent
