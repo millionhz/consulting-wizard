@@ -1,5 +1,5 @@
 const express = require('express');
-const { reportClient } = require('../../models/client');
+const { reportClient, getClientById } = require('../../models/client');
 
 const router = express.Router();
 
@@ -8,6 +8,10 @@ router.post('/:id', (req, res, next) => {
   console.log(reportedPostId)
   const reportedId = { _id: reportedPostId.toString() };
   reportClient(reportedId)
+
+router.get('/:id', (req, res, next) => {
+  const { id } = req.params;
+  getClientById(id)
     .then((data) => {
       res.json(data);
     })

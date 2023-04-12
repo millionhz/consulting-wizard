@@ -10,14 +10,14 @@ function NavBarAdmin({ page }) {
       <NavbarLinks>
         <NavLinksRow>
           <NavLink title="About" page={page} />
-          <NavLink title="Settings" page={page} />
-          <NavLink title="Logout" page={page} />
-        </NavLinksRow>
-        <NavLinksRow>
-          <NavLink title="Reported Accounts" page={page} />
-          <NavLink title="Reported Feedback" page={page} />
-          <NavLink title="Deactivation Requests" page={page} />
-          <NavLink title="Reactivation Requests" page={page} />
+          <NavLink title="Reported Clients" page={page} />
+          <NavLink title="Reported Counselors" page={page} />
+          <NavLink
+            title="Reported Feedback"
+            page={page}
+            link="/reported-feedback"
+          />
+          <NavLink title="Logout" page={page} link="/logout" />
         </NavLinksRow>
       </NavbarLinks>
     </NavbarDiv>
@@ -25,7 +25,7 @@ function NavBarAdmin({ page }) {
 }
 
 const NavbarDiv = styled.div`
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -34,6 +34,7 @@ const NavbarDiv = styled.div`
   position: sticky;
   top: 0;
   background-color: #0b0b45;
+  z-index: 1000;
 `;
 
 const Logo = styled.img`

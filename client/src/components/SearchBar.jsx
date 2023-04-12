@@ -117,6 +117,10 @@ const FilterButton = styled.button`
   align-items: center;
   border: none;
   border-left: 1px solid #000000;
+
+  p {
+    margin: 0;
+  }
 `;
 
 const MenuIcon = styled(DehazeOutlinedIcon)`

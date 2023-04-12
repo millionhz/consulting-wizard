@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBarClient';
 import Footer from '../../components/Footer';
 import ProfileItem from '../../components/ProfileItem';
@@ -11,6 +12,8 @@ function ManageProfilePage() {
   const [major, setMajor] = useState('');
   const [yearOfGraduation, setYearOfGraduation] = useState('');
   const [bio, setBio] = useState('');
+
+  const navigate = useNavigate();
 
   const setProfileData = (data) => {
     setDisplayName(data.displayName);
@@ -71,9 +74,16 @@ function ManageProfilePage() {
             description={bio}
             setValue={setBio}
           />
-          <p>
-            <ChangePassword href="#"> Change Password </ChangePassword>
-          </p>
+          <ChangePassword
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate('/change-password');
+            }}
+          >
+            {' '}
+            Change Password{' '}
+          </ChangePassword>
         </Fields>
 
         <SaveButton onClick={saveHandler}>Save Changes</SaveButton>

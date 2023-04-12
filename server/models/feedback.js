@@ -46,15 +46,26 @@ const getFeedbackbyConsultant = (consultantName) =>
 
 const getFeedback = () => Feedback.find({reported: false}).exec();
 
-const viewReportedFeedback = () => Feedback.find({ reported: true }).exec();
+const viewReportedFeedback = () =>
+  Feedback.find({ reported: true })
+    .populate('respondent')
+    .populate('reviewer')
+    .exec();
 
 const deleteFeedback = (id) => Feedback.findByIdAndDelete(id).exec();
+
+const falseReport = (reportedPostId) =>
+  Feedback.updateOne(
+    { _id: reportedPostId },
+    { $set: { reported: false } }
+  ).exec();
 
 module.exports = {
   addFeedback,
   reportFeedback,
   getFeedbackbyConsultant,
-  viewReportedFeedback,
+  getReportedFeedback,
   deleteFeedback,
   getFeedback,
+  falseReport,
 };
