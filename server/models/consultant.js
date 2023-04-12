@@ -86,14 +86,13 @@ const searchConsultant = (searchInput) => Consultant.find(searchInput).exec();
 
 const getConsultants = () => Consultant.find({}).exec();
 
-const reportConsultant = (reportedId) =>
+const reportConsultant = (reportedId) => {
   Consultant.updateOne(reportedId, { $set: { reported: true } }).exec();
+  
+}
 
-
-const getReportedConsultants = () => Consultant.find({ reported: true }).exec();
-
-// const getReportedConsultants = () =>
-//   Consultant.find({ reported: true }).populate('displayName').exec();
+const getReportedConsultants = () =>
+  Consultant.find({ reported: true }).populate('displayName').exec();
 
 const falseReportOfConsultant = (reportedConsultantId) =>
   Consultant.updateOne(

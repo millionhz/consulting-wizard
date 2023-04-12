@@ -118,6 +118,7 @@ const MenuTag = styled.button`
   padding: 0.8rem 0;
   border-bottom: 1px solid #000000;
   border-right: 1px solid #000000;
+  color: #0b0b45;
 
   &.last {
     border-right-color: transparent;

@@ -45,7 +45,6 @@ function AddReview() {
   };
 
   function reportCounsellorHandler(rid) {
-    // console.log('Report Counsellor', rid);
     reportConsultant(rid);
   }
 
@@ -67,8 +66,8 @@ function AddReview() {
 
           <ReportButton
             onClick={() => {
-              reportCounsellorHandler(reviewer.id);
-              // console.log("done");
+              reportCounsellorHandler(profile.id);
+              alert('Counsellor has been reported to admin!');
             }}
           >
             <ButtonText>Report Counsellor</ButtonText>
@@ -121,6 +120,9 @@ const ReportButton = styled.button`
   margin-top:1rem;
   text-decoration: underline;
   padding: 0rem 0rem 0rem 0rem;
+  &:hover {
+    color: #8b0000;
+  }
 `;
 
 const ReviewLabel = styled.p`
