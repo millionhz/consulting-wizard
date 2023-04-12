@@ -31,8 +31,8 @@ const clientSchema = new mongoose.Schema({
   deactivated: {
     type: Boolean,
     required: true,
-    default: false
-  }
+    default: false,
+  },
 });
 
 clientSchema.set('toObject', { getters: true });
@@ -69,19 +69,24 @@ const updateClient = (id, attr) =>
 const reportClient = (reportedId) =>
   Client.updateOne(reportedId, { $set: { reported: true } }).exec();
 
-const getReportedClients = () => Client.find({ reported: true }).populate('displayName').exec();
+const getReportedClients = () =>
+  Client.find({ reported: true }).populate('displayName').exec();
 
-const falseReportOfClient = (reportedClientId) => 
+const falseReportOfClient = (reportedClientId) =>
   Client.updateOne(
     { _id: reportedClientId },
-    { $set: {reported: false} }
-).exec();
+    { $set: { reported: false } }
+  ).exec();
 
-const deactivateClient = (clientId) => 
-  Client.updateOne(
-  { _id: clientId },
-  { $set: {deactivated: true} }
-).exec();
+const deactivateClient = (clientId) =>
+  Client.updateOne({ _id: clientId }, { $set: { deactivated: true } }).exec();
 
-module.exports = { addClient, getClientById, updateClient, getReportedClients, deactivateClient, falseReportOfClient, reportClient, };
-
+module.exports = {
+  addClient,
+  getClientById,
+  updateClient,
+  getReportedClients,
+  deactivateClient,
+  falseReportOfClient,
+  reportClient,
+};

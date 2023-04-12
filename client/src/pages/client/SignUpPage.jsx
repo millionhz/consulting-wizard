@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { css } from 'styled-components';
+import { css } from '@emotion/react';
 import NavBarLogin from '../../components/NavBarLogin';
 import Footer from '../../components/Footer';
 import FormInputDiv from '../../components/FormInputComponent';

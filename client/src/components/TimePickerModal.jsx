@@ -1,8 +1,6 @@
-// import styled from '@emotion/styled';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { StaticTimePicker } from '@mui/x-date-pickers/StaticTimePicker';
-// import dayjs from 'dayjs';
 import Modal from 'react-modal';
 
 function TimePickerModal({ isOpen, handleAddTime, handleClose }) {

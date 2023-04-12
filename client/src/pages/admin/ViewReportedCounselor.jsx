@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import NavBarAdmin from '../../components/NavBarAdmin';
 import Footer from '../../components/Footer';
-import { getReportedCounsultants, falseReportOfConsultant, deactivateConsultant} from '../../api/backend';
+import {
+  getReportedCounsultants,
+  falseReportOfConsultant,
+  deactivateConsultant,
+} from '../../api/backend';
 
 function ViewReportedCounselor() {
   const [userList, setuserList] = useState([]);

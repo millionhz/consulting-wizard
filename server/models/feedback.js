@@ -41,7 +41,7 @@ const addFeedback = (reviewer, respondent, content) =>
 const reportFeedback = (reportedPostId) =>
   Feedback.updateOne(reportedPostId, { $set: { reported: true } }).exec();
 
-const getFeedback = () => Feedback.find({reported: false}).exec();
+const getFeedback = () => Feedback.find({ reported: false }).exec();
 
 const viewReportedFeedback = () =>
   Feedback.find({ reported: true })

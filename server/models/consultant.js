@@ -38,7 +38,7 @@ const consultantSchema = new mongoose.Schema({
     type: Boolean,
     required: true,
     default: false,
-  }
+  },
 });
 
 consultantSchema.set('toObject', { getters: true });
@@ -89,19 +89,20 @@ const getConsultants = () => Consultant.find({}).exec();
 const reportConsultants = (reportedId) =>
   Consultant.updateOne(reportedId, { $set: { reported: true } }).exec();
 
-const getReportedConsultants = () => Consultant.find({ reported: true }).populate('displayName').exec();
+const getReportedConsultants = () =>
+  Consultant.find({ reported: true }).populate('displayName').exec();
 
-const falseReportOfConsultant = (reportedConsultantId) => 
+const falseReportOfConsultant = (reportedConsultantId) =>
   Consultant.updateOne(
     { _id: reportedConsultantId },
-    { $set: {reported: false} }
-).exec();
+    { $set: { reported: false } }
+  ).exec();
 
-const deactivateConsultant = (consultantId) => 
+const deactivateConsultant = (consultantId) =>
   Consultant.updateOne(
-  { _id: consultantId },
-  { $set: {deactivated: true} }
-).exec();
+    { _id: consultantId },
+    { $set: { deactivated: true } }
+  ).exec();
 
 module.exports = {
   addConsultant,
@@ -113,5 +114,5 @@ module.exports = {
   getReportedConsultants,
   reportConsultants,
   falseReportOfConsultant,
-  deactivateConsultant
+  deactivateConsultant,
 };

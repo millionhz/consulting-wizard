@@ -40,7 +40,6 @@ router.post('/report/:id', (req, res, next) => {
 //     .catch(next);
 // });
 
-
 router.get('/all-feedback', (req, res, next) => {
   getFeedback()
     .then((data) => {

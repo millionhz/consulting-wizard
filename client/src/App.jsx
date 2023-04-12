@@ -99,8 +99,10 @@ function App() {
         </Route>
         <Route
           path="viewfeedback"
-          element={<RoleAwareComponent consultant={<ViewFeedbackConsultant />} />}
-         />
+          element={
+            <RoleAwareComponent consultant={<ViewFeedbackConsultant />} />
+          }
+        />
         <Route
           path="reported-feedback"
           element={<RoleAwareComponent admin={<ViewReportedFeedback />} />}
