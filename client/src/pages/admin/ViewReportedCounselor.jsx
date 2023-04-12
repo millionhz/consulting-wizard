@@ -75,7 +75,7 @@ const Background = styled.div`
 `;
 const SeparatingLine = styled.div`
   display: flex;
-  width: 50vw;
+  width: auto;
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
