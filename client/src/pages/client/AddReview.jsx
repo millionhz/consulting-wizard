@@ -7,6 +7,8 @@ import {
   getConsultantById,
   getProfileInfo,
   setClientReview,
+  reportConsultant,
+
 } from '../../api/backend';
 
 function AddReview() {
@@ -41,6 +43,11 @@ function AddReview() {
       .catch((err) => console.log(err));
   };
 
+  function reportCounsellorHandler(rid) {
+    // console.log('Report Counsellor', rid);
+    reportConsultant(rid);
+  }
+
   return (
     <div>
       <NavBar page="View Appointments" />
@@ -55,6 +62,13 @@ function AddReview() {
             placeholder="Type here..."
           />
           <ReviewButton type="submit">SUBMIT</ReviewButton>
+          <ReportButton
+            onClick={() => {
+              reportCounsellorHandler(reviewer.id);
+            }}
+          >
+            <ButtonText>Report Counsellor</ButtonText>
+          </ReportButton>
         </ReviewDiv>
       </ReviewPage>
       <Footer />
@@ -85,6 +99,22 @@ const ReviewTitle = styled.p`
   font-weight: 600;
   margin: 0;
   padding: 0;
+`;
+const ButtonText = styled.div`
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.8rem;
+`;
+
+const ReportButton = styled.button`
+  text-align: left;
+  color: #fb1e1e;
+  background: #ffffff;
+  border: 2px #2ec309;
+  font-weight: 1000;
+  padding: 0rem 0rem 0rem 0rem;
 `;
 
 const ReviewLabel = styled.p`
