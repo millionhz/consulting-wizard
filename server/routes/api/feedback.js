@@ -2,7 +2,7 @@ const express = require('express');
 const {
   addFeedback,
   reportFeedback,
-  getReportedFeedback,
+  viewReportedFeedback,
   deleteFeedback,
   falseReport,
 } = require('../../models/feedback');
@@ -39,8 +39,8 @@ router.post('/report', (req, res, next) => {
 //     .catch(next);
 // });
 
-router.get('/', (req, res, next) => {
-  getReportedFeedback()
+router.get('/view', (req, res, next) => {
+  viewReportedFeedback()
     .then((data) => {
       res.json(data);
     })

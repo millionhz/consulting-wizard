@@ -39,11 +39,23 @@ export const viewPastAppointmentsConsultant = () =>
 
 export const viewUpcomingAppointmentsConsultant = () =>
   api.get('/appointment/consultant/upcoming');
-export const viewReportedFeedback = () => api.get('/feedback');
+export const viewReportedFeedback = () => api.get('/feedback/view');
 
 export const deleteFeedback = (id) => api.delete(`/feedback/delete/${id}`);
 
 export const falseReport = (id) => api.post(`/feedback/ignore/${id}`);
+
+export const getReportedClients = () => api.get('/admin/reportedClients');
+
+export const getReportedCounsultants = () => api.get('/admin/reportedConsultants');
+
+export const falseReportOfClient = (id) => api.post(`/admin/ignoreClient/${id}`);
+
+export const falseReportOfConsultant = (id) => api.post(`/admin/ignoreConsultant/${id}`);
+
+export const deactivateClient = (id) => api.post(`/admin/deactivateClient/${id}`);
+
+export const deactivateConsultant = (id) => api.post(`/admin/deactivateConsultant/${id}`);
 
 export const logout = () => api.post('/logout');
 
@@ -58,5 +70,5 @@ export const getAvailableAppointments = (id, date) =>
 
 export const deleteAppointment = (id) =>
   api.delete(`/appointment/consultant/${id}`);
-
+  
 export default api;

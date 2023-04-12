@@ -44,7 +44,7 @@ const reportFeedback = (reportedPostId) =>
 const getFeedbackbyConsultant = (consultantName) =>
   Feedback.find(consultantName).exec();
 
-const getReportedFeedback = () =>
+const viewReportedFeedback = () =>
   Feedback.find({ reported: true })
     .populate('respondent')
     .populate('reviewer')
@@ -62,7 +62,7 @@ module.exports = {
   addFeedback,
   reportFeedback,
   getFeedbackbyConsultant,
-  getReportedFeedback,
+  viewReportedFeedback,
   deleteFeedback,
   falseReport,
 };
