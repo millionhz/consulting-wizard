@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { css } from 'styled-components';
-import axios from 'axios';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import NavBarLogin from '../../components/NavBarLogin';
 import Footer from '../../components/Footer';

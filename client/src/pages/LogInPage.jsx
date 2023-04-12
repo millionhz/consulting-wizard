@@ -175,7 +175,6 @@ function LogInPage() {
                   borderColor: '#0b0b45',
                 },
               }}
-
               onClick={handleSubmit}
               // disabled={!password || !email}
               style={{

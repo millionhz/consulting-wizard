@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import DelIcon from '@mui/icons-material/Delete';
 import NavBarAdmin from '../../components/NavBarAdmin';
 import Footer from '../../components/Footer';
 import {
