@@ -39,7 +39,7 @@ export const viewPastAppointmentsConsultant = () =>
 
 export const viewUpcomingAppointmentsConsultant = () =>
   api.get('/appointment/consultant/upcoming');
-export const viewReportedFeedback = () => api.get('/feedback');
+export const viewReportedFeedback = () => api.get('/feedback/view');
 
 export const deleteFeedback = (id) => api.delete(`/feedback/delete/${id}`);
 
