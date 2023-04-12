@@ -1,7 +1,14 @@
 import styled from '@emotion/styled';
 import ProfileItem from './ProfileItem';
 
-function ProfileContent({ displayName, email, major, yearOfGraduation, bio }) {
+function ProfileContent({
+  displayName,
+  email,
+  major,
+  yearOfGraduation,
+  currentPlacement,
+  bio,
+}) {
   return (
     displayName && (
       <ContentDiv>
@@ -25,6 +32,13 @@ function ProfileContent({ displayName, email, major, yearOfGraduation, bio }) {
             description={yearOfGraduation}
             disabled
           />
+          {currentPlacement && (
+            <ProfileItem
+              title="Current Placement"
+              description={currentPlacement}
+              disabled
+            />
+          )}
           <ProfileItem
             title="Additional Information"
             description={bio}

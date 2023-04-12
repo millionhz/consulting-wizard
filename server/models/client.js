@@ -36,6 +36,7 @@ const clientSchema = new mongoose.Schema({
 });
 
 clientSchema.set('toObject', { getters: true });
+clientSchema.set('toJSON', { getters: true });
 
 const Client = mongoose.model('client', clientSchema);
 

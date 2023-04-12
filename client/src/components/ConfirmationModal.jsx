@@ -20,8 +20,8 @@ function Confirmation({ date, slot, counselor, closeModal, isOpen }) {
               backgroundColor: 'rgba(0, 0, 0, 0.75)',
             },
             content: {
-              width: '35%',
-              height: '55%',
+              width: '25%',
+              height: '35%',
               margin: 'auto',
               textAlign: 'left',
               color: '#000000',
@@ -40,8 +40,7 @@ function Confirmation({ date, slot, counselor, closeModal, isOpen }) {
             <ModalText>Date: {date.toDateString()}</ModalText>
             <ModalText>
               Time: {slot.from.toLocaleTimeString()} -{' '}
-              {slot.to.toLocaleTimeString()}
-              Pakistan Time (UTC +5)
+              {slot.to.toLocaleTimeString()} Pakistan Time (UTC +5)
             </ModalText>
           </BookingTime>
           <ModalButton onClick={goToHome}>OK</ModalButton>
@@ -61,6 +60,7 @@ const Confirmed = styled.div`
   font-size: 1.2rem;
   padding: 0;
   margin-bottom: 0;
+  margin-top: 1.5rem;
 `;
 
 const CloseButton = styled.button`
@@ -76,31 +76,12 @@ const ConfirmIcon = styled.img`
   width: 20px;
   height: auto;
   margin-left: 1.1rem;
-  margin-bottom: 0;
+  margin-bottom: 5px;
 `;
 
 const ModalHeading = styled.p`
   margin-bottom: 0;
 `;
-
-// const EmailNotif = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: flex-start;
-//   align-items: center;
-// `;
-
-// const InfoIcon = styled.p`
-//   color: #efe611;
-//   border: solid 2px #efe611;
-//   border-radius: 100%;
-//   width: 15px;
-//   height: 15px;
-//   text-align: center;
-//   font-size: 0.7rem;
-//   font-weight: 800;
-//   margin-right: 0.5rem;
-// `;
 
 const ModalText = styled.p`
   margin-top: 0;
@@ -119,7 +100,7 @@ const ModalButton = styled.button`
   border: solid 1px #2c9612;
   border-radius: 5px;
   color: #ffffff;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);

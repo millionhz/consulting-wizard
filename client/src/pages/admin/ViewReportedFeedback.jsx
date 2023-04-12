@@ -8,6 +8,7 @@ import {
   deleteFeedback,
   falseReport,
 } from '../../api/backend';
+import ReportedFeedbackItem from '../../components/ReportedFeedbackItem';
 
 function ViewReportedFeedback() {
   const [reportList, setReportList] = useState([]);
@@ -20,48 +21,31 @@ function ViewReportedFeedback() {
     setReportList(newReportList);
   }
 
-  function deleteHandler(id) {
+  const deleteHandler = (id) => {
     deleteFeedback(id);
     removeFeedback(id);
-  }
+  };
 
-  function ignoreHandler(id) {
+  const ignoreHandler = (id) => {
     falseReport(id);
     removeFeedback(id);
-  }
+  };
 
   return (
     <div>
       <NavBarAdmin page="Reported Feedback" />
       <Background>
         {reportList.map((reportFeedback, idx) => (
-          <div key={idx}>
-            <TextReport>
-              Posted by: {reportFeedback.reviewer ? reportFeedback.reviewer.displayName : 'Unknown'}
-            </TextReport>
-            <TextReport>
-              Posted to: {reportFeedback.respondent ? reportFeedback.respondent.displayName : 'Unknown'}
-            </TextReport>
-            <TextReport>{reportFeedback.content}</TextReport>
-            <div>
-              <IgnoreIcon
-                onClick={() => {
-                  ignoreHandler(reportFeedback._id);
-                }}
-              >
-                <TextReport>Ignore</TextReport>
-              </IgnoreIcon>
-              <DeleteIcon
-                onClick={() => {
-                  deleteHandler(reportFeedback._id);
-                }}
-              >
-                <DelIcon />
-              </DeleteIcon>
-            </div>
+          <ReportedFeedbackItem
+            key={idx}
+            reviewerName={reportFeedback.reviewer.displayName}
+            respondentName={reportFeedback.respondent.displayName}
+            content={reportFeedback.content}
+            id={reportFeedback._id}
+            ignoreHandler={ignoreHandler}
+            deleteHandler={deleteHandler}
+          />
 
-            <SeparatingLine />
-          </div>
         ))}
       </Background>
       <Footer />
@@ -79,37 +63,6 @@ const Background = styled.div`
   border-radius: 0rem;
   padding: 6rem 3.5rem 6rem 3.5rem;
   color: #000000;
-`;
-const SeparatingLine = styled.div`
-  display: flex;
-  width: 50vw;
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-between;
-  border-bottom: solid 1px #aaaaaa;
-  margin: auto;
-  margin-top: 1rem;
-  font-size: 0.8rem;
-  font-weight: 500;
-`;
-const TextReport = styled.p`
-  text-align: left;
-  font-weight: 500;
-  font-size: 0.8rem;
-`;
-const DeleteIcon = styled.button`
-  margin-left: 20px;
-  color: #fb1e1e;
-  background: #ffffff;
-  border: 2px #fb1e1e;
-  padding: 0.5rem 0.3rem 0.3rem 0.3rem;
-`;
-
-const IgnoreIcon = styled.button`
-  color: #2ec309;
-  background: #ffffff;
-  border: 2px #2ec309;
-  padding: 0rem 0rem 0rem 0rem;
 `;
 
 export default ViewReportedFeedback;
