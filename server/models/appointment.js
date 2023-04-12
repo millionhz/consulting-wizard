@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { getAppointmentTimes } = require('./consultant');
 
 const appointmentSchema = mongoose.Schema({
   consultant: {
@@ -26,37 +25,18 @@ appointmentSchema.set('toJSON', { getters: true });
 
 const Appointment = mongoose.model('Appointment', appointmentSchema);
 
-const getDateTime = (date, time) => {
-  const { hours, minutes } = time;
-  const dateTime = new Date(date);
-  dateTime.setHours(hours);
-  dateTime.setMinutes(minutes);
-  dateTime.setSeconds(0);
-  dateTime.setMilliseconds(0);
-  return dateTime;
-};
-
-const bootstrapAppointments = (consultant, appointmentTimes, date) =>
-  Promise.all(
-    appointmentTimes.map(({ from, to }) =>
-      Appointment({
-        consultant,
-        from: getDateTime(date, from),
-        to: getDateTime(date, to),
-      }).save()
-    )
-  );
-
 const getAppointmentById = (id) => Appointment.findById(id).exec();
 
-const getAppointmentsByConsultant = (consultant, date) =>
+const getAppointmentByConsultantAndDate = (consultant, from, to) =>
   Appointment.find({
     consultant,
     from: {
-      $gte: date,
-      $lt: new Date(date.getTime() + 24 * 60 * 60 * 1000),
+      $gte: from,
     },
-  });
+    to: {
+      $lte: to,
+    },
+  }).exec();
 
 const getAppointmentsByClientID = (client) =>
   Appointment.find({
@@ -71,26 +51,6 @@ const getAppointmentsByConsultantID = (consultant) =>
   })
     .populate('client')
     .exec();
-
-const getAvailableAppointments = (consultant, date) =>
-  getAppointmentsByConsultant(consultant, date).then((appointments) => {
-    const filter = (appointment) =>
-      !appointment.client && appointment.from > new Date();
-
-    if (appointments.length !== 0) {
-      return appointments.filter(filter);
-    }
-
-    return getAppointmentTimes(consultant).then((appointmentTimes) => {
-      if (appointmentTimes.length === 0) {
-        return [];
-      }
-
-      return bootstrapAppointments(consultant, appointmentTimes, date).then(
-        (appointments_) => appointments_.filter(filter)
-      );
-    });
-  });
 
 const bookAppointmentById = (appointmentId, client) =>
   getAppointmentById(appointmentId).then((appointment) => {
@@ -130,12 +90,23 @@ const viewUpcomingAppointmentsConsultant = (consultant) =>
     return appointments.filter(filter);
   });
 
+const createAppointment = (consultant, from, to) =>
+  Appointment({
+    consultant,
+    from,
+    to,
+  }).save();
+
+const deleteAppointment = (consultant, appointment) =>
+  Appointment.deleteOne({ _id: appointment, consultant }).exec();
+
 module.exports = {
-  bootstrapAppointments,
-  getAvailableAppointments,
   bookAppointmentById,
   viewPastAppointmentsClient,
   viewUpcomingAppointmentsClient,
   viewPastAppointmentsConsultant,
   viewUpcomingAppointmentsConsultant,
+  createAppointment,
+  deleteAppointment,
+  getAppointmentByConsultantAndDate,
 };

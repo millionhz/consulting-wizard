@@ -26,6 +26,7 @@ import ClientLanding from './pages/client/LandingPage';
 import ViewReportedFeedback from './pages/admin/ViewReportedFeedback';
 import ChangePassword from './pages/ChangePassword';
 import LogoutPage from './pages/LogoutPage';
+import SetTimeSlots from './pages/consultant/SetTimeSlots';
 
 function App() {
   const router = createBrowserRouter(
@@ -57,6 +58,10 @@ function App() {
           <Route
             path="book-appointment"
             element={<RoleAwareComponent client={<ClientSearch />} />}
+          />
+          <Route
+            path="set-slots"
+            element={<RoleAwareComponent consultant={<SetTimeSlots />} />}
           />
           <Route
             path="book-appointment/:id"
