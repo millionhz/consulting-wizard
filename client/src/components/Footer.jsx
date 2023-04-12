@@ -9,6 +9,7 @@ function Footer() {
 }
 
 const FooterDiv = styled.div`
+  width: 100%;
   color: #938d8d;
   text-align: left;
   padding: 0.5rem 3rem 0.2rem 3rem;

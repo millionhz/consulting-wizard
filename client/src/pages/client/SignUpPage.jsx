@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { css } from 'styled-components';
+import { css } from '@emotion/react';
 import NavBarLogin from '../../components/NavBarLogin';
 import Footer from '../../components/Footer';
 import FormInputDiv from '../../components/FormInputComponent';
@@ -234,7 +234,8 @@ const SubmitButton = styled.button`
     props.disabled &&
     css`
       opacity: 0.7;
-      cursor: not-allowed;`}
+      cursor: not-allowed;
+    `}
 `;
 
 const CancelButton = styled.button`

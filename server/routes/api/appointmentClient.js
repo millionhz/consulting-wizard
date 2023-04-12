@@ -1,28 +1,34 @@
 const express = require('express');
 const {
-  getAvailableAppointments,
+  getAppointmentByConsultantAndDate,
   bookAppointmentById,
   viewPastAppointmentsClient,
   viewUpcomingAppointmentsClient,
 } = require('../../models/appointment');
 const onlyClient = require('../../middlewares/onlyClient');
+const { getDate, getNextDate } = require('../../utils/dateTime');
 
 const router = express.Router();
 
 router.use(onlyClient);
 
 router.get('/', (req, res, next) => {
-  const { consultant, year, month, date } = req.query;
-  const dateObj = new Date(year, month, date);
+  // INFO: Get all unbooked appointments available on a certain date
+  const { id, date } = req.query;
+  // INFO: date is in ISO format
 
-  getAvailableAppointments(consultant, dateObj)
-    .then((appointments) => {
-      res.json(appointments);
+  const from = getDate(date);
+  const to = getNextDate(from);
+
+  getAppointmentByConsultantAndDate(id, from, to)
+    .then((data) => {
+      const filteredData = data.filter(
+        (appointment) =>
+          appointment.client === undefined && appointment.from > new Date()
+      );
+      res.json(filteredData);
     })
-    .catch((err) => {
-      res.sendStatus(500);
-      next(err);
-    });
+    .catch(next);
 });
 
 router.post('/', (req, res, next) => {

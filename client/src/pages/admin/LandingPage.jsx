@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import Carousel from '../../components/Carousel';
 import card1 from '../../assets/services-card-1.png';
 import card2 from '../../assets/services-card-3.png';

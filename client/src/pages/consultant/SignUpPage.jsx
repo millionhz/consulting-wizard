@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { css } from 'styled-components';
-import axios from 'axios';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import NavBarLogin from '../../components/NavBarLogin';
 import Footer from '../../components/Footer';
@@ -182,7 +181,7 @@ function SignUpPage() {
                 !confirmPassword ||
                 !yearOfGraduation ||
                 !major ||
-                !currentPlacement|| 
+                !currentPlacement ||
                 !linkedin
               }
             >
@@ -243,7 +242,8 @@ const SubmitButton = styled.button`
     props.disabled &&
     css`
       opacity: 0.7;
-      cursor: not-allowed;`}
+      cursor: not-allowed;
+    `}
 `;
 
 const CancelButton = styled.button`
@@ -262,7 +262,7 @@ const CancelButton = styled.button`
 
 export const ErrorDiv = styled.div`
   margin-left: 10rem;
-  margin-bottom:10px;
+  margin-bottom: 10px;
   font-size: 11px;
   color: red;
 `;

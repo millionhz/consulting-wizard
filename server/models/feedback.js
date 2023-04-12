@@ -41,10 +41,9 @@ const addFeedback = (reviewer, respondent, content) =>
 const reportFeedback = (reportedPostId) =>
   Feedback.updateOne(reportedPostId, { $set: { reported: true } }).exec();
 
-const getFeedbackbyConsultant = (consultantName) =>
-  Feedback.find(consultantName).exec();
+const getFeedback = () => Feedback.find({ reported: false }).exec();
 
-const getReportedFeedback = () =>
+const viewReportedFeedback = () =>
   Feedback.find({ reported: true })
     .populate('respondent')
     .populate('reviewer')
@@ -61,8 +60,8 @@ const falseReport = (reportedPostId) =>
 module.exports = {
   addFeedback,
   reportFeedback,
-  getFeedbackbyConsultant,
-  getReportedFeedback,
+  viewReportedFeedback,
   deleteFeedback,
+  getFeedback,
   falseReport,
 };

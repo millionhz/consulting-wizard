@@ -30,7 +30,6 @@ const FormLabel = styled.label`
   font-size: 13px;
   font-weight: 500;
   width: 40%;
-  
 `;
 
 const FormInput = styled.input`
@@ -38,7 +37,6 @@ const FormInput = styled.input`
   font-size: 12px;
   font-weight: 300;
   width: 55%;
-  
   padding: 0.3rem;
   border: 1px solid #786e6e;
   border-radius: 5px;

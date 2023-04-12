@@ -14,6 +14,7 @@ function AuthForm({ onSubmit, error }) {
 
   const submitHandler = (event) => {
     event.preventDefault();
+
     if (newPassword.length < 6) {
       return setPasswordFormatError('Password must be 6 characters at least');
     }
