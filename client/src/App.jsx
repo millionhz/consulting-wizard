@@ -17,6 +17,7 @@ import ClientSearch from './pages/client/Search';
 import ClientBookAppointment from './pages/client/BookAppointment';
 import AddReview from './pages/client/AddReview';
 import ConsultantProfile from './pages/client/ConsultantProfile';
+import ViewFeedbackConsultant from './pages/consultant/ViewFeedbackConsultant';
 import ClientProfile from './pages/consultant/ClientProfile';
 import ClientViewAppointments from './pages/client/ViewAppointments';
 import ConsultantViewAppointments from './pages/consultant/ViewAppointments';
@@ -96,6 +97,10 @@ function App() {
           />
           <Route path="logout" element={<LogoutPage />} />
         </Route>
+        <Route
+          path="viewfeedback"
+          element={<RoleAwareComponent consultant={<ViewFeedbackConsultant />} />}
+         />
         <Route
           path="reported-feedback"
           element={<RoleAwareComponent admin={<ViewReportedFeedback />} />}

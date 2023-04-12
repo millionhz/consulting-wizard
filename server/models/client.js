@@ -66,6 +66,9 @@ const updateClient = (id, attr) =>
     )
     .then((obj) => obj.save());
 
+const reportClient = (reportedId) =>
+  Client.updateOne(reportedId, { $set: { reported: true } }).exec();
+
 const getReportedClients = () => Client.find({ reported: true }).populate('displayName').exec();
 
 const falseReportOfClient = (reportedClientId) => 
@@ -80,4 +83,5 @@ const deactivateClient = (clientId) =>
   { $set: {deactivated: true} }
 ).exec();
 
-module.exports = { addClient, getClientById, updateClient, getReportedClients, deactivateClient, falseReportOfClient };
+module.exports = { addClient, getClientById, updateClient, getReportedClients, deactivateClient, falseReportOfClient, reportClient, };
+

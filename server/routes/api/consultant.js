@@ -3,6 +3,7 @@ const {
   getConsultants,
   getConsultantById,
   getReportedConsultants,
+  reportConsultants,
 } = require('../../models/consultant');
 
 const router = express.Router();
@@ -31,5 +32,13 @@ router.get('/reported', (req, res, next) => {
     })
     .catch(next);
 });
+
+router.post('/reportConsultant', (req, res, next) => {
+  const reportedId = req.body;
+
+  reportConsultants(reportedId).then((data) => {
+    res.json(data);
+  }).catch(next);
+})
 
 module.exports = router;

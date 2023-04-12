@@ -4,6 +4,7 @@ const {
   reportFeedback,
   viewReportedFeedback,
   deleteFeedback,
+  getFeedback,
   falseReport,
 } = require('../../models/feedback');
 
@@ -19,10 +20,10 @@ router.post('/', (req, res, next) => {
     .catch(next);
 });
 
-router.post('/report', (req, res, next) => {
-  const reportedPostId = req.body;
-
-  reportFeedback(reportedPostId)
+router.post('/report/:id', (req, res, next) => {
+  const reportedPostId = req.params.id;
+  const reportedId = { _id: reportedPostId.toString() };
+  reportFeedback(reportedId)
     .then((data) => {
       res.json(data);
     })
@@ -38,6 +39,15 @@ router.post('/report', (req, res, next) => {
 //     })
 //     .catch(next);
 // });
+
+
+router.get('/all-feedback', (req, res, next) => {
+  getFeedback()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch(next);
+});
 
 router.get('/view', (req, res, next) => {
   viewReportedFeedback()

@@ -9,13 +9,13 @@ function NavBarConsultant({ page }) {
       </div>
       <NavbarLinks>
         <NavLink title="About" page={page} link="/" />
+        <NavLink title="View Feedback" page={page} link="/viewfeedback" />
         <NavLink title="Mark Available Slots" page={page} link="set-slots" />
         <NavLink
           title="View Appointments"
           page={page}
           link="/view-appointments"
         />
-        <NavLink title="View Feedback" page={page} />
         <NavLink title="Settings" page={page} link="/manage-profile" />
         <NavLink title="Logout" page={page} link="/logout" />
       </NavbarLinks>

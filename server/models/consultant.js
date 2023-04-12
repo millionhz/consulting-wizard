@@ -86,6 +86,9 @@ const searchConsultant = (searchInput) => Consultant.find(searchInput).exec();
 
 const getConsultants = () => Consultant.find({}).exec();
 
+const reportConsultants = (reportedId) =>
+  Consultant.updateOne(reportedId, { $set: { reported: true } }).exec();
+
 const getReportedConsultants = () => Consultant.find({ reported: true }).populate('displayName').exec();
 
 const falseReportOfConsultant = (reportedConsultantId) => 
@@ -108,6 +111,7 @@ module.exports = {
   getConsultants,
   getAppointmentTimes,
   getReportedConsultants,
+  reportConsultants,
   falseReportOfConsultant,
   deactivateConsultant
 };
