@@ -44,7 +44,6 @@ function ViewReportedFeedback() {
             ignoreHandler={ignoreHandler}
             deleteHandler={deleteHandler}
           />
-
         ))}
       </Background>
       <Footer />

@@ -1,6 +1,6 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import styled from 'styled-components';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import styled from '@emotion/styled';
 import Carousel from 'react-bootstrap/Carousel';
 import image1 from '../assets/carousal-1.png';
 import image2 from '../assets/carousal-2.png';
