@@ -26,6 +26,8 @@ import AdminLanding from './pages/admin/LandingPage';
 import ClientLanding from './pages/client/LandingPage';
 import ViewReportedFeedback from './pages/admin/ViewReportedFeedback';
 import ChangePassword from './pages/ChangePassword';
+import ViewReportedUser from './pages/admin/ViewReportedUser';
+import ViewReportedCounselor from './pages/admin/ViewReportedCounselor';
 import LogoutPage from './pages/LogoutPage';
 import SetTimeSlots from './pages/consultant/SetTimeSlots';
 
@@ -97,9 +99,19 @@ function App() {
         </Route>
         <Route
           path="viewfeedback"
-          element={
-            <RoleAwareComponent consultant={<ViewFeedbackConsultant />} />
-          }
+          element={<RoleAwareComponent consultant={<ViewFeedbackConsultant />} />}
+         />
+        <Route
+          path="reported-feedback"
+          element={<RoleAwareComponent admin={<ViewReportedFeedback />} />}
+        />
+        <Route
+          path="reported-clients"
+          element={<RoleAwareComponent admin={<ViewReportedUser />} />}
+        />
+        <Route
+          path="reported-counselor"
+          element={<RoleAwareComponent admin={<ViewReportedCounselor />} />}
         />
         <Route element={<LoggedOutInterceptor redirect="/" />}>
           <Route path="login" element={<LogInPage />} />
