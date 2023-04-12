@@ -8,8 +8,9 @@ import {
   getProfileInfo,
   setClientReview,
   reportConsultant,
-
 } from '../../api/backend';
+
+
 
 function AddReview() {
   const location = useLocation();
@@ -17,7 +18,7 @@ function AddReview() {
   const id = location.pathname.split('/')[2];
   const [reviewer, setReviewer] = useState({});
 
-  useEffect(() => {
+  useEffect(() => { 
     getConsultantById(id)
       .then(({ data }) => setProfile(data))
       .catch((err) => console.log(err));
@@ -51,6 +52,7 @@ function AddReview() {
   return (
     <div>
       <NavBar page="View Appointments" />
+
       <ReviewPage>
         <ReviewDiv onSubmit={onSubmitHandler}>
           <ReviewTitle>Add Review</ReviewTitle>
@@ -62,9 +64,11 @@ function AddReview() {
             placeholder="Type here..."
           />
           <ReviewButton type="submit">SUBMIT</ReviewButton>
+
           <ReportButton
             onClick={() => {
               reportCounsellorHandler(reviewer.id);
+              // console.log("done");
             }}
           >
             <ButtonText>Report Counsellor</ButtonText>
@@ -114,6 +118,8 @@ const ReportButton = styled.button`
   background: #ffffff;
   border: 2px #2ec309;
   font-weight: 1000;
+  margin-top:1rem;
+  text-decoration: underline;
   padding: 0rem 0rem 0rem 0rem;
 `;
 
