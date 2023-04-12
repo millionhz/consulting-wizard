@@ -2,9 +2,10 @@ const express = require('express');
 const {
   addFeedback,
   reportFeedback,
-  getFeedbackbyConsultant,
   viewReportedFeedback,
   deleteFeedback,
+  getFeedback,
+  falseReport,
 } = require('../../models/feedback');
 
 const router = express.Router();
@@ -19,19 +20,28 @@ router.post('/', (req, res, next) => {
     .catch(next);
 });
 
-router.post('/report', (req, res, next) => {
-  const reportedPostId = req.body;
-
-  reportFeedback(reportedPostId)
+router.post('/report/:id', (req, res, next) => {
+  const reportedPostId = req.params.id;
+  const reportedId = { _id: reportedPostId.toString() };
+  reportFeedback(reportedId)
     .then((data) => {
       res.json(data);
     })
     .catch(next);
 });
 
-router.get('/', (req, res, next) => {
-  const consultantName = req.user;
-  getFeedbackbyConsultant(consultantName)
+// TODO: Implement get feedback by consultant
+// router.get('/consultant/:id', (req, res, next) => {
+//   const consultantName = req.user;
+//   getFeedbackbyConsultant(consultantName)
+//     .then((data) => {
+//       res.json(data);
+//     })
+//     .catch(next);
+// });
+
+router.get('/all-feedback', (req, res, next) => {
+  getFeedback()
     .then((data) => {
       res.json(data);
     })
@@ -40,6 +50,15 @@ router.get('/', (req, res, next) => {
 
 router.get('/view', (req, res, next) => {
   viewReportedFeedback()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch(next);
+});
+
+router.post('/ignore/:id', (req, res, next) => {
+  const feedbackId = req.params.id;
+  falseReport(feedbackId)
     .then((data) => {
       res.json(data);
     })

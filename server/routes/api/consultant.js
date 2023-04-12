@@ -2,8 +2,8 @@ const express = require('express');
 const {
   getConsultants,
   getConsultantById,
-  setAppointmentTimes,
   getReportedConsultants,
+  reportConsultants,
 } = require('../../models/consultant');
 
 const router = express.Router();
@@ -25,18 +25,18 @@ router.get('/:id', (req, res, next) => {
     .catch(next);
 });
 
-router.patch('/appointmentTimes', (req, res, next) => {
-  const { id } = req.user;
-  const { appointmentTimes } = req.body;
-  setAppointmentTimes(id, appointmentTimes)
+router.get('/reported', (req, res, next) => {
+  getReportedConsultants()
     .then((data) => {
       res.json(data);
     })
     .catch(next);
 });
 
-router.get('/reported', (req, res, next) => {
-  getReportedConsultants()
+router.post('/reportConsultant', (req, res, next) => {
+  const reportedId = req.body;
+
+  reportConsultants(reportedId)
     .then((data) => {
       res.json(data);
     })

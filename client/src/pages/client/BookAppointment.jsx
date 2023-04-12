@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import NavBar from '../../components/NavBarClient';
@@ -34,12 +34,8 @@ function BookAppointment() {
   const [date, setDate] = useState(new Date());
   const [selectedTimeslot, setSelectedTimeslot] = useState();
 
-  useEffect(() => {
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const date_ = date.getDate();
-
-    getAvailableAppointments(id, year, month, date_)
+  const refreshTimeList = useCallback(() => {
+    getAvailableAppointments(id, date.toISOString())
       .then(({ data }) => {
         const processedData = data.map((slot) => ({
           ...slot,
@@ -55,6 +51,10 @@ function BookAppointment() {
       });
   }, [id, date]);
 
+  useEffect(() => {
+    refreshTimeList();
+  }, [refreshTimeList]);
+
   const [modalIsOpen, setIsOpen] = useState(false);
   function openModal() {
     setIsOpen(true);
@@ -68,7 +68,8 @@ function BookAppointment() {
     bookAppointment(slot.id)
       .then(openModal)
       .then(() => {
-        setAppointmentTimes(appointmentTimes.filter((s) => s.id !== slot.id));
+        refreshTimeList();
+        // setAppointmentTimes(appointmentTimes.filter((s) => s.id !== slot.id));
       });
   };
 

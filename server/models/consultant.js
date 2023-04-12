@@ -2,38 +2,6 @@ const mongoose = require('mongoose');
 const userTypes = require('../utils/userTypes');
 const { addUser } = require('./user');
 
-const timeSchema = new mongoose.Schema(
-  {
-    hours: {
-      type: Number,
-      required: true,
-      min: 0,
-      max: 23,
-    },
-    minutes: {
-      type: Number,
-      required: true,
-      min: 0,
-      max: 59,
-    },
-  },
-  { _id: false }
-);
-
-const appointmentTimesSchema = new mongoose.Schema(
-  {
-    from: {
-      type: timeSchema,
-      required: true,
-    },
-    to: {
-      type: timeSchema,
-      required: true,
-    },
-  },
-  { _id: false }
-);
-
 const consultantSchema = new mongoose.Schema({
   displayName: {
     type: String,
@@ -61,12 +29,12 @@ const consultantSchema = new mongoose.Schema({
     maxLength: 255,
     default: '',
   },
-  appointmentTimes: {
-    type: [appointmentTimesSchema],
-    required: true,
-    default: [],
-  },
   reported: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  deactivated: {
     type: Boolean,
     required: true,
     default: false,
@@ -111,14 +79,6 @@ const updateConsultant = (id, attr) =>
     )
     .then((obj) => obj.save());
 
-const setAppointmentTimes = (id, appointmentTimes) =>
-  getConsultantById(id)
-    .then((obj) => {
-      obj.appointmentTimes = appointmentTimes;
-      return obj;
-    })
-    .then((obj) => obj.save());
-
 const getAppointmentTimes = (id) =>
   getConsultantById(id).then((obj) => obj.appointmentTimes);
 
@@ -126,7 +86,23 @@ const searchConsultant = (searchInput) => Consultant.find(searchInput).exec();
 
 const getConsultants = () => Consultant.find({}).exec();
 
-const getReportedConsultants = () => Consultant.find({ reported: true }).exec();
+const reportConsultants = (reportedId) =>
+  Consultant.updateOne(reportedId, { $set: { reported: true } }).exec();
+
+const getReportedConsultants = () =>
+  Consultant.find({ reported: true }).populate('displayName').exec();
+
+const falseReportOfConsultant = (reportedConsultantId) =>
+  Consultant.updateOne(
+    { _id: reportedConsultantId },
+    { $set: { reported: false } }
+  ).exec();
+
+const deactivateConsultant = (consultantId) =>
+  Consultant.updateOne(
+    { _id: consultantId },
+    { $set: { deactivated: true } }
+  ).exec();
 
 module.exports = {
   addConsultant,
@@ -134,7 +110,9 @@ module.exports = {
   updateConsultant,
   searchConsultant,
   getConsultants,
-  setAppointmentTimes,
   getAppointmentTimes,
   getReportedConsultants,
+  reportConsultants,
+  falseReportOfConsultant,
+  deactivateConsultant,
 };
