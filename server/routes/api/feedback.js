@@ -2,7 +2,7 @@ const express = require('express');
 const {
   addFeedback,
   reportFeedback,
-  getReportedFeedback,
+  viewReportedFeedback,
   deleteFeedback,
   getFeedback,
   falseReport,
@@ -40,14 +40,6 @@ router.post('/report/:id', (req, res, next) => {
 //     .catch(next);
 // });
 
-router.get('/', (req, res, next) => {
-  getReportedFeedback()
-    .then((data) => {
-      res.json(data);
-    })
-    .catch(next);
-});
-
 router.get('/all-feedback', (req, res, next) => {
   getFeedback()
     .then((data) => {
@@ -55,14 +47,17 @@ router.get('/all-feedback', (req, res, next) => {
     })
     .catch(next);
 });
-
 router.get('/view', (req, res, next) => {
   viewReportedFeedback()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch(next);
+});
 
 router.post('/ignore/:id', (req, res, next) => {
   const feedbackId = req.params.id;
   falseReport(feedbackId)
-
     .then((data) => {
       res.json(data);
     })

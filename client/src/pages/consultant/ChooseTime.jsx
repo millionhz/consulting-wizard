@@ -17,10 +17,10 @@
 
 //   return (
 //     <>
-//       <input type="time" 
-//       onChange={setTime} 
+//       <input type="time"
+//       onChange={setTime}
 //       value = {time}
-//     //   value={`${time.hour.toString().padStart(2, '0')}:${time.minute.toString().padStart(2, '0')}`} 
+//     //   value={`${time.hour.toString().padStart(2, '0')}:${time.minute.toString().padStart(2, '0')}`}
 //       />
 //       <button type='button' onChange={handleTimeChange} > Confirm </button>
 //       {/* <TimezoneSelect
@@ -42,9 +42,6 @@
 // }
 // export default TimePickerComponent;
 
-
-
-
 import React, { useState } from 'react';
 import TimePicker from 'react-time-picker';
 
@@ -63,22 +60,19 @@ function TimePickerPage() {
 
   return (
     <div>
-      <TimePicker
-        value={selectedTime}
-        onChange={handleTimeChange}
-      
-      />
-      <button type='button' onClick={handleAddTime}>Add Time</button>
-      {timeList.length > 0 &&
+      <TimePicker value={selectedTime} onChange={handleTimeChange} />
+      <button type="button" onClick={handleAddTime}>
+        Add Time
+      </button>
+      {timeList.length > 0 && (
         <ul>
           {timeList.map((time) => (
             <li key={time}>{time}</li>
           ))}
         </ul>
-      }
+      )}
     </div>
   );
 }
 
 export default TimePickerPage;
-

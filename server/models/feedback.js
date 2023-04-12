@@ -64,7 +64,7 @@ module.exports = {
   addFeedback,
   reportFeedback,
   getFeedbackbyConsultant,
-  getReportedFeedback,
+  viewReportedFeedback,
   deleteFeedback,
   getFeedback,
   falseReport,

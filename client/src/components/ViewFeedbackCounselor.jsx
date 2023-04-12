@@ -40,7 +40,7 @@ function ViewFeedbackCounselor() {
                 <ReportButton
                   onClick={() => {
                     reportFeedbackHandler(userFeedback._id);
-                    window.location.reload(true)
+                    window.location.reload(true);
                   }}
                 >
                   <ButtonText>Report Feedback</ButtonText>

@@ -23,14 +23,11 @@ export const getConsultantById = (id) => api.get(`/consultant/${id}`);
 
 export const getClientById = (id) => api.get(`/client/${id}`);
 
+export const setClientReview = (review) => api.post('/feedback', review);
 
 export const getFeedback = () => api.get('/feedback/all-feedback');
 
 export const reportFeedback = (id) => api.post(`/feedback/report/${id}`);
-
-export const getAvailableAppointments = (consultant, year, month, date) =>
-  api.get(`/appointment/`, { params: { consultant, year, month, date } });
-export const setClientReview = (review) => api.post('/feedback', review);
 
 export const bookAppointment = (appointmentId) =>
   api.post(`/appointment/client`, { appointmentId });

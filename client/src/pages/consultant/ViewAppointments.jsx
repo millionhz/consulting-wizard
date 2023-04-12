@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import NavBar from '../../components/NavBarConsultant';
 import Footer from '../../components/Footer';
 import AppointmentItem from '../../components/AppointmentItem';
 import {
-  getClientById,
+  // getClientById,
   viewPastAppointmentsConsultant,
   viewUpcomingAppointmentsConsultant,
 } from '../../api/backend';
