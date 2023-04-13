@@ -82,7 +82,7 @@ export const deleteAppointment = (id) =>
 
 export const reportConsultant = (id) =>
   api.post(`/consultant/report-consultant/${id}`);
-  
+
 export const reportClient = (id) => api.post(`/client/${id}`);
 
 export default api;

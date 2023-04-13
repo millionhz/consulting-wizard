@@ -46,7 +46,13 @@ function AuthForm({ onSubmit, error }) {
           color: '#000000',
         }}
       >
-        <h1 style={{ marginBottom: '0' }}>Change Password</h1>
+        <h1
+          style={{
+            marginBottom: '0',
+          }}
+        >
+          Change Password
+        </h1>
         <div
           style={{
             marginTop: '4rem',
@@ -56,11 +62,11 @@ function AuthForm({ onSubmit, error }) {
           <form onSubmit={submitHandler}>
             <label
               style={{
-                textAlign: 'right',
+                textAlign: 'left',
                 marginLeft: '20px',
               }}
             >
-              <strong>Old Password:</strong>
+              <strong style={{ marginLeft: '1rem' }}>Old Password:</strong>
               <br />
               <input
                 id="oldPassword"
@@ -86,11 +92,11 @@ function AuthForm({ onSubmit, error }) {
             </label>
             <label
               style={{
-                textAlign: 'right',
+                textAlign: 'left',
                 marginLeft: '20px',
               }}
             >
-              <strong>New Password:</strong>
+              <strong style={{ marginLeft: '1rem' }}>New Password:</strong>
               <br />
               <input
                 id="newPassword"
@@ -123,11 +129,13 @@ function AuthForm({ onSubmit, error }) {
 
             <label
               style={{
-                textAlign: 'right',
+                textAlign: 'left',
                 marginLeft: '20px',
               }}
             >
-              <strong>Confirm New Password:</strong>
+              <strong style={{ marginLeft: '1rem' }}>
+                Confirm New Password:
+              </strong>
               <br />
               <input
                 id="confirmNewPassword"

@@ -10,15 +10,13 @@ import {
   reportConsultant,
 } from '../../api/backend';
 
-
-
 function AddReview() {
   const location = useLocation();
   const [profile, setProfile] = useState({});
   const id = location.pathname.split('/')[2];
   const [reviewer, setReviewer] = useState({});
 
-  useEffect(() => { 
+  useEffect(() => {
     getConsultantById(id)
       .then(({ data }) => setProfile(data))
       .catch((err) => console.log(err));
@@ -42,6 +40,8 @@ function AddReview() {
     setClientReview(reviewData)
       .then(({ data }) => console.log(data))
       .catch((err) => console.log(err));
+
+    window.location.href = '/view-appointments';
   };
 
   function reportCounsellorHandler(rid) {
@@ -62,16 +62,16 @@ function AddReview() {
             rows="15"
             placeholder="Type here..."
           />
-          <ReviewButton type="submit">SUBMIT</ReviewButton>
+          <ReviewButton type="submit">SUBMIT REVIEW</ReviewButton>
 
           <ReportButton
             onClick={() => {
               reportCounsellorHandler(profile.id);
               alert('Counsellor has been reported to admin!');
-              window.location.href = '/view-appointments'
+              window.location.href = '/view-appointments';
             }}
           >
-            <ButtonText>Report Counsellor</ButtonText>
+            REPORT USER
           </ReportButton>
         </ReviewDiv>
       </ReviewPage>
@@ -103,27 +103,6 @@ const ReviewTitle = styled.p`
   font-weight: 600;
   margin: 0;
   padding: 0;
-`;
-const ButtonText = styled.div`
-  display: flex;
-  flex-direction: row;
-  text-align: left;
-  font-weight: 600;
-  font-size: 0.8rem;
-`;
-
-const ReportButton = styled.button`
-  text-align: left;
-  color: #fb1e1e;
-  background: #ffffff;
-  border: 2px #2ec309;
-  font-weight: 1000;
-  margin-top:1rem;
-  text-decoration: underline;
-  padding: 0rem 0rem 0rem 0rem;
-  &:hover {
-    color: #8b0000;
-  }
 `;
 
 const ReviewLabel = styled.p`
@@ -157,10 +136,25 @@ const ReviewButton = styled.button`
   border: solid 1px #2c9612;
   border-radius: 5px;
   padding: 0.2rem 1rem;
-  width: 8rem;
+  width: 140px;
 
   &:hover {
     background-color: #2c8612;
+  }
+`;
+
+const ReportButton = styled.button`
+  background-color: #f48686;
+  color: #ffffff;
+  font-size: 0.8rem;
+  border: solid 1px #f48686;
+  border-radius: 5px;
+  padding: 0.2rem 1rem;
+  width: 140px;
+  margin-top: 0.5rem;
+
+  &:hover {
+    background-color: #f47a86;
   }
 `;
 
