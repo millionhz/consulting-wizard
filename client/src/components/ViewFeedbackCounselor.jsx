@@ -148,7 +148,7 @@ const ReportButton = styled.button`
   width: 120px;
 
   &:hover {
-    background: #f47c86;
+    background: #f47a86;
     cursor: pointer;
   }
 `;
