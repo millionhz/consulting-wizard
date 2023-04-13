@@ -70,11 +70,13 @@ const TextReport = styled.p`
   font-size: 0.8rem;
   margin: 0 0 5px 15px;
 `;
+
 const DeleteIcon = styled.button`
   margin-left: 15px;
   color: #fb1e1e;
   background: transparent;
   border: none;
+  padding: 0;
 `;
 
 const DelIconStyled = styled(DelIcon)`
@@ -88,6 +90,7 @@ const IgnoreIcon = styled.button`
   border: none;
   padding: 0;
   font-size: 0.8rem;
+  margin-top: 5px;
 `;
 
 export default ReportedFeedback;

@@ -12,23 +12,32 @@ import {
 
 function ViewReportedUser() {
   const [userList, setuserList] = useState([]);
+
   useEffect(() => {
     getReportedClients().then(({ data }) => setuserList(data));
   }, []);
+
   function removeUser(id) {
     // const newList = userList.filter((user) => user._id !== id);
     setuserList((newList) => newList.filter((user) => user._id !== id));
   }
+
   async function deactivationHandler(id) {
     // send delete request to backend.Need the format in which the request needs to be sent
     await deactivateClient(id);
     removeUser(id);
   }
+
   async function ignoreHandler(id) {
     // send unflag request to backend. Need the format in which the request needs to be sent
     await falseReportOfClient(id);
     removeUser(id);
   }
+
+  const goToProfile = (id) => {
+    window.location.href = `/client/${id}`;
+  };
+
   return (
     <div>
       {console.log(userList)}
@@ -37,7 +46,12 @@ function ViewReportedUser() {
         {userList.map((userDeactivation) => (
           <>
             <ReportedItem>
-              <TextReport>User: {userDeactivation.displayName}</TextReport>
+              <UserDetails>
+                <TextReport>User: {userDeactivation.displayName}</TextReport>
+                <ProfileLink onClick={() => goToProfile(userDeactivation._id)}>
+                  View Account
+                </ProfileLink>
+              </UserDetails>
               <Icons>
                 <IconElement
                   className="ignoreButton"
@@ -87,7 +101,7 @@ const SeparatingLine = styled.div`
   width: 100%;
   border-bottom: solid 1px #aaaaaa;
   margin: auto;
-  margin-top: 0.5rem;
+  margin-top: 0.7rem;
 `;
 
 const ReportedItem = styled.div`
@@ -102,10 +116,35 @@ const Icons = styled.div`
   flex-direction: row;
 `;
 
+const UserDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
 const TextReport = styled.p`
   text-align: left;
   font-weight: 500;
   font-size: 1rem;
+  margin-bottom: 0;
+`;
+
+const ProfileLink = styled.button`
+  border: none;
+  padding: 0;
+  background: none;
+  text-align: left;
+  margin-top: 0;
+  font-weight: 500;
+  font-size: 0.7rem;
+  color: #0b0b45;
+  text-decoration: none;
+  pointer: cursor;
+
+  &:hover {
+    text-decoration: underline;
+    color: #0b0b45;
+  }
 `;
 
 const IconElement = styled.button`
