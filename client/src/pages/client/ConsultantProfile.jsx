@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import NavBar from '../../components/NavBarClient';
 import Footer from '../../components/Footer';
 import ProfileContent from '../../components/ProfileContent';
+import FeedbackContent from '../../components/FeedbackContent';
 import { getConsultantById } from '../../api/backend';
 
 function ConsultantProfile() {
@@ -21,7 +22,7 @@ function ConsultantProfile() {
     <div>
       <NavBar page="Book Appointment" />
 
-      <Profile className="profile">
+      <Profile className={active === 'profile' ? 'profile' : 'feedback'}>
         <TagsDiv>
           <MenuTag
             className={active === 'profile' ? 'active first' : 'first'}
@@ -39,7 +40,7 @@ function ConsultantProfile() {
         {active === 'profile' ? (
           <ProfileContent {...profile} />
         ) : (
-          <div>Feedback</div>
+          <FeedbackContent id={profile._id} />
         )}
       </Profile>
 
@@ -49,8 +50,7 @@ function ConsultantProfile() {
 }
 
 const Profile = styled.div`
-  min-height: 30vh;
-  width: 30vw;
+  min-height: 53vh;
   background: #ffffff;
   margin: auto;
   margin-top: 15vh;
@@ -58,6 +58,14 @@ const Profile = styled.div`
   border-radius: 1rem;
   padding: 0;
   color: #000000;
+
+  &.feedback {
+    width: 45vw;
+  }
+
+  &.profile {
+    width: 30vw;
+  }
 `;
 
 const TagsDiv = styled.div`

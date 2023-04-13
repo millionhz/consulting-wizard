@@ -27,6 +27,9 @@ export const setClientReview = (review) => api.post('/feedback', review);
 
 export const getFeedback = () => api.get('/feedback/all-feedback');
 
+export const getFeedbackByConsultant = (consultantId) =>
+  api.get(`/feedback/consultant/${consultantId}`);
+
 export const reportFeedback = (id) => api.post(`/feedback/report/${id}`);
 
 export const bookAppointment = (appointmentId) =>
