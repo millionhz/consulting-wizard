@@ -1,9 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
-
+import NavBarLogin from '../components/NavBarLogin';
 import { updatePassword } from '../api/firebaseAuth';
-import { UserContext } from '../context/UserContext';
 
 function AuthForm({ onSubmit, error }) {
   const [password, setPassword] = useState('');
@@ -14,17 +13,17 @@ function AuthForm({ onSubmit, error }) {
 
   const submitHandler = (event) => {
     event.preventDefault();
-
-    if (newPassword.length < 6) {
-      return setPasswordFormatError('Password must be 6 characters at least');
+    if (newPassword.length < 8) {
+      setPasswordFormatError('Password must be 8 characters at least');
+    } else {
+      setPasswordFormatError('');
     }
-    setPasswordFormatError('');
 
     if (newPassword !== confirmNewPassword) {
-      return setPasswordError('Passwords do not match!');
+      setPasswordError('Passwords do not match!');
+    } else {
+      setPasswordError('');
     }
-    setPasswordError('');
-
     if (!passwordError && !passwordFormatError) {
       onSubmit(password, newPassword);
     }
@@ -32,6 +31,7 @@ function AuthForm({ onSubmit, error }) {
 
   return (
     <div>
+      <NavBarLogin />
       <div
         className="background"
         style={{
@@ -56,8 +56,8 @@ function AuthForm({ onSubmit, error }) {
           <form onSubmit={submitHandler}>
             <label
               style={{
-                textAlign: 'right',
-                marginLeft: '20px',
+                textAlign: 'center',
+                marginLeft: '30px',
               }}
             >
               <strong>Old Password:</strong>
@@ -86,8 +86,8 @@ function AuthForm({ onSubmit, error }) {
             </label>
             <label
               style={{
-                textAlign: 'right',
-                marginLeft: '20px',
+                textAlign: 'center',
+                marginLeft: '30px',
               }}
             >
               <strong>New Password:</strong>
@@ -123,8 +123,8 @@ function AuthForm({ onSubmit, error }) {
 
             <label
               style={{
-                textAlign: 'right',
-                marginLeft: '20px',
+                textAlign: 'center',
+                marginLeft: '30px',
               }}
             >
               <strong>Confirm New Password:</strong>
@@ -183,16 +183,14 @@ function AuthForm({ onSubmit, error }) {
 }
 
 function ChangePassword() {
-  const { email } = useContext(UserContext);
   const [isError, setError] = useState(false);
   const navigate = useNavigate();
   const submitHandler = (password, newPassword) => {
-    updatePassword(email, password, newPassword)
+    updatePassword(password, newPassword)
       .then(() => {
         navigate('/');
       })
       .catch((err) => {
-        console.log(err);
         setError(true);
       });
   };
