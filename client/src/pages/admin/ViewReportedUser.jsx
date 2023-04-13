@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import NavBarAdmin from '../../components/NavBarAdmin';
 import Footer from '../../components/Footer';
+import ignoreIcon from '../../assets/ignore.png';
+import deactivateIcon from '../../assets/deactivate.png';
 import {
   getReportedClients,
   falseReportOfClient,
@@ -10,23 +12,32 @@ import {
 
 function ViewReportedUser() {
   const [userList, setuserList] = useState([]);
+
   useEffect(() => {
     getReportedClients().then(({ data }) => setuserList(data));
   }, []);
+
   function removeUser(id) {
     // const newList = userList.filter((user) => user._id !== id);
     setuserList((newList) => newList.filter((user) => user._id !== id));
   }
+
   async function deactivationHandler(id) {
     // send delete request to backend.Need the format in which the request needs to be sent
     await deactivateClient(id);
     removeUser(id);
   }
+
   async function ignoreHandler(id) {
     // send unflag request to backend. Need the format in which the request needs to be sent
     await falseReportOfClient(id);
     removeUser(id);
   }
+
+  const goToProfile = (id) => {
+    window.location.href = `/client/${id}`;
+  };
+
   return (
     <div>
       {console.log(userList)}
@@ -34,26 +45,36 @@ function ViewReportedUser() {
       <Background>
         {userList.map((userDeactivation) => (
           <>
-            <TextReport>Name: {userDeactivation.displayName}</TextReport>
-            <div>
-              <IgnoreIcon
-                onClick={() => {
-                  removeUser(userDeactivation._id);
-                  ignoreHandler(userDeactivation._id);
-                }}
-              >
-                <TextReport>Ignore</TextReport>
-              </IgnoreIcon>
-              <DeactIcon
-                onClick={() => {
-                  removeUser(userDeactivation._id);
-                  deactivationHandler(userDeactivation._id);
-                }}
-              >
-                <TextReport>Deactivate</TextReport>
-              </DeactIcon>
-            </div>
-
+            <ReportedItem>
+              <UserDetails>
+                <TextReport>User: {userDeactivation.displayName}</TextReport>
+                <ProfileLink onClick={() => goToProfile(userDeactivation._id)}>
+                  View Account
+                </ProfileLink>
+              </UserDetails>
+              <Icons>
+                <IconElement
+                  className="ignoreButton"
+                  onClick={() => {
+                    removeUser(userDeactivation._id);
+                    ignoreHandler(userDeactivation._id);
+                  }}
+                >
+                  <IconImage src={ignoreIcon} alt="ignore" />
+                  <IconText>Ignore Request</IconText>
+                </IconElement>
+                <IconElement
+                  className="deactivateButton"
+                  onClick={() => {
+                    removeUser(userDeactivation._id);
+                    deactivationHandler(userDeactivation._id);
+                  }}
+                >
+                  <IconImage src={deactivateIcon} alt="deactivate" />
+                  <IconText>Deactivate Account</IconText>
+                </IconElement>
+              </Icons>
+            </ReportedItem>
             <SeparatingLine />
           </>
         ))}
@@ -71,41 +92,88 @@ const Background = styled.div`
   margin-top: 15vh;
   margin-bottom: 5rem;
   border-radius: 0rem;
-  padding: 6rem 3.5rem 6rem 3.5rem;
+  padding: 3.5rem 3.5rem 6rem 3.5rem;
   color: #000000;
+  border-radius: 0.5rem;
 `;
+
 const SeparatingLine = styled.div`
-  display: flex;
-  width: 50vw;
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-between;
+  width: 100%;
   border-bottom: solid 1px #aaaaaa;
   margin: auto;
-  margin-top: 1rem;
-  font-size: 0.8rem;
-  font-weight: 500;
+  margin-top: 0.7rem;
 `;
+
+const ReportedItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 2.5rem 2rem 0rem 2rem;
+`;
+
+const Icons = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const UserDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
 const TextReport = styled.p`
   text-align: left;
   font-weight: 500;
-  font-size: 0.8rem;
-`;
-const DeactIcon = styled.button`
-  margin-left: 20px;
-  color: #fb1e1e;
-  background: #ffffff;
-  border: 2px #fb1e1e;
-  cursor: pointer;
-  padding: 0.5rem 0.3rem 0.3rem 0.3rem;
+  font-size: 1rem;
+  margin-bottom: 0;
 `;
 
-const IgnoreIcon = styled.button`
-  color: #2ec309;
+const ProfileLink = styled.button`
+  border: none;
+  padding: 0;
+  background: none;
+  text-align: left;
+  margin-top: 0;
+  font-weight: 500;
+  font-size: 0.7rem;
+  color: #0b0b45;
+  text-decoration: none;
+  pointer: cursor;
+
+  &:hover {
+    text-decoration: underline;
+    color: #0b0b45;
+  }
+`;
+
+const IconElement = styled.button`
   background: #ffffff;
-  border: 2px #2ec309;
+  border: none;
   cursor: pointer;
-  padding: 0rem 0rem 0rem 0rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &.ignoreButton {
+    color: #2ec309;
+  }
+
+  &.deactivateButton {
+    color: #fb1e1e;
+    margin-left: 1rem;
+  }
+`;
+
+const IconImage = styled.img`
+  width: 20px;
+  height: 20px;
+`;
+
+const IconText = styled.p`
+  font-size: 9px;
+  margin: 0;
 `;
 
 export default ViewReportedUser;
