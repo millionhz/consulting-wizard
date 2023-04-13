@@ -65,7 +65,7 @@ function ViewReportedUser() {
 
 const Background = styled.div`
   min-height: 100vh;
-  width: 50vw;
+  width: auto;
   background: #ffffff;
   margin: auto;
   margin-top: 15vh;

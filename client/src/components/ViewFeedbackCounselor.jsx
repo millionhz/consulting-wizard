@@ -28,6 +28,8 @@ function ViewFeedbackCounselor() {
                 <ReportButton
                   onClick={() => {
                     reportUserHandler(userFeedback.reviewer);
+                    alert('User has been reported!');
+                    window.location.reload(true);
                   }}
                 >
                   <ButtonText>Report User</ButtonText>
@@ -40,6 +42,7 @@ function ViewFeedbackCounselor() {
                 <ReportButton
                   onClick={() => {
                     reportFeedbackHandler(userFeedback._id);
+                    alert('Feedback has been reported!');
                     window.location.reload(true);
                   }}
                 >
@@ -71,13 +74,14 @@ const Background = styled.div`
 const SeparatingLine = styled.div`
   align: center;
   display: flex;
-  width: 50vw;
+  width: auto;
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
   border-bottom: solid 1px #aaaaaa;
   margin: auto;
   margin-top: 1rem;
+  margin-bottom: 1rem;
   font-size: 0.8rem;
   font-weight: 500;
 `;
@@ -116,6 +120,7 @@ const ButtonText = styled.div`
   text-align: left;
   font-weight: 600;
   font-size: 0.8rem;
+  text-decoration: underline;
 `;
 const FeedabckText = styled.p`
   display: flex;

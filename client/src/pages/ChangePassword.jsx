@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
-
+import NavBarLogin from '../components/NavBarLogin';
 import { updatePassword } from '../api/firebaseAuth';
 
 function AuthForm({ onSubmit, error }) {
@@ -31,6 +31,7 @@ function AuthForm({ onSubmit, error }) {
 
   return (
     <div>
+      <NavBarLogin />
       <div
         className="background"
         style={{
@@ -55,8 +56,8 @@ function AuthForm({ onSubmit, error }) {
           <form onSubmit={submitHandler}>
             <label
               style={{
-                textAlign: 'right',
-                marginLeft: '20px',
+                textAlign: 'center',
+                marginLeft: '30px',
               }}
             >
               <strong>Old Password:</strong>
@@ -85,8 +86,8 @@ function AuthForm({ onSubmit, error }) {
             </label>
             <label
               style={{
-                textAlign: 'right',
-                marginLeft: '20px',
+                textAlign: 'center',
+                marginLeft: '30px',
               }}
             >
               <strong>New Password:</strong>
@@ -122,8 +123,8 @@ function AuthForm({ onSubmit, error }) {
 
             <label
               style={{
-                textAlign: 'right',
-                marginLeft: '20px',
+                textAlign: 'center',
+                marginLeft: '30px',
               }}
             >
               <strong>Confirm New Password:</strong>
