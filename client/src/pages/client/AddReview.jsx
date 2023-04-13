@@ -68,6 +68,7 @@ function AddReview() {
             onClick={() => {
               reportCounsellorHandler(profile.id);
               alert('Counsellor has been reported to admin!');
+              window.location.href = '/view-appointments'
             }}
           >
             <ButtonText>Report Counsellor</ButtonText>
