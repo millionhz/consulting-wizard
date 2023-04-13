@@ -53,6 +53,8 @@ function ViewFeedbackCounselor() {
                   <ReportButton
                     onClick={() => {
                       reportUserHandler(userFeedback.reviewer);
+                      alert('User has been reported');
+                      window.location.reload(true);
                     }}
                   >
                     Report User
@@ -60,6 +62,7 @@ function ViewFeedbackCounselor() {
                   <ReportButton
                     onClick={() => {
                       reportFeedbackHandler(userFeedback._id);
+                      alert('Feedback has been reported');
                       window.location.reload(true);
                     }}
                   >
