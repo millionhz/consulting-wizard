@@ -11,77 +11,83 @@ function ReportedFeedback({
   deleteHandler,
 }) {
   return (
-    <div>
-      <TextReport>
-        Posted by: <p>{reviewerName}</p>
-      </TextReport>
-      <TextReport>
-        Posted to: <p>{respondentName}</p>
-      </TextReport>
-      <TextReport>
-        Feedback: <p>{content}</p>
-      </TextReport>
-      <div>
+    <ReportedItem>
+      <Icons>
         <IgnoreIcon
           onClick={() => {
             ignoreHandler(id);
           }}
         >
-          <TextReport>Ignore</TextReport>
+          Ignore
         </IgnoreIcon>
         <DeleteIcon
           onClick={() => {
             deleteHandler(id);
           }}
         >
-          <DelIcon />
+          <DelIconStyled />
         </DeleteIcon>
-      </div>
+      </Icons>
+      <TextReport>{reviewerName}</TextReport>
+      <TextReport>{content}</TextReport>
 
       <SeparatingLine />
-    </div>
+      <TextReport>Reported By: {respondentName}</TextReport>
+    </ReportedItem>
   );
 }
 
-const SeparatingLine = styled.div`
+const ReportedItem = styled.div`
   display: flex;
-  width: 100%;
-  align-items: center;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
+  padding: 0.5rem 2rem 1.5rem 2rem;
+  background: #f2f2f2;
+  margin-top: 3rem;
+  border-radius: 10px;
+`;
+
+const Icons = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-bottom: 0;
+`;
+
+const SeparatingLine = styled.div`
+  width: 100%;
   border-bottom: solid 1px #aaaaaa;
   margin: auto;
-  margin-top: 1rem;
-  font-size: 0.8rem;
-  font-weight: 500;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
 `;
 const TextReport = styled.p`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   text-align: left;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 0.8rem;
-  margin: 0;
-
-  p {
-    font-weight: 400;
-    margin-left: 5px;
-  }
+  margin: 0 0 5px 15px;
 `;
 const DeleteIcon = styled.button`
-  margin-left: 20px;
+  margin-left: 15px;
   color: #fb1e1e;
-  background: #ffffff;
-  border: 2px #fb1e1e;
-  padding: 0.5rem 0.3rem 0.3rem 0.3rem;
+  background: transparent;
+  border: none;
+`;
+
+const DelIconStyled = styled(DelIcon)`
+  width: 18px;
+  height: auto;
 `;
 
 const IgnoreIcon = styled.button`
   color: #2ec309;
-  background: #ffffff;
-  border: 2px #2ec309;
-  padding: 0rem 0rem 0rem 0rem;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 0.8rem;
 `;
 
 export default ReportedFeedback;

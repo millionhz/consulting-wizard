@@ -80,6 +80,7 @@ const Background = styled.div`
   border-radius: 0rem;
   padding: 3.5rem 3.5rem 6rem 3.5rem;
   color: #000000;
+  border-radius: 0.5rem;
 `;
 
 const SeparatingLine = styled.div`
