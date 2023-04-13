@@ -25,7 +25,7 @@ function LogInPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!email.includes('@lums.edu.pk')) {
+    if (!(email.includes('@lums.edu.pk') || email.includes('@app.com'))) {
       setEmailError(true);
     } else {
       setEmailError(false);
@@ -188,42 +188,6 @@ function LogInPage() {
             >
               Log In
             </Button>
-
-            <Grid
-              item
-              display="flex"
-              direction="row"
-              justifyContent="center"
-              alignItems="left"
-              marginTop={2}
-              fontSize={9}
-              color="#5E5858"
-              fontWeight={600}
-            >
-              <a
-                href="#"
-                style={{
-                  textDecoration: 'none',
-                  color: '#0b0b45',
-                  paddingLeft: 5,
-                  marginRight: 15,
-                }}
-              >
-                Forgot Password
-              </a>
-              <a
-                href="#"
-                style={{
-                  textDecoration: 'none',
-                  color: '#0b0b45',
-                  paddingLeft: 5,
-                  marginLeft: 15,
-                }}
-              >
-                Change Password
-              </a>
-            </Grid>
-
             <Grid
               item
               display="flex"
