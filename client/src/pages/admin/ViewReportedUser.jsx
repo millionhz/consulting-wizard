@@ -46,8 +46,8 @@ function ViewReportedUser() {
                     ignoreHandler(userDeactivation._id);
                   }}
                 >
-                  <img src={ignoreIcon} alt="ignore" />
-                  <p>Ignore Request</p>
+                  <IconImage src={ignoreIcon} alt="ignore" />
+                  <IconText>Ignore Request</IconText>
                 </IconElement>
                 <IconElement
                   className="deactivateButton"
@@ -56,8 +56,8 @@ function ViewReportedUser() {
                     deactivationHandler(userDeactivation._id);
                   }}
                 >
-                  <img src={deactivateIcon} alt="deactivate" />
-                  <p>Deactivate Account</p>
+                  <IconImage src={deactivateIcon} alt="deactivate" />
+                  <IconText>Deactivate Account</IconText>
                 </IconElement>
               </Icons>
             </ReportedItem>
@@ -116,16 +116,6 @@ const IconElement = styled.button`
   align-items: center;
   justify-content: center;
 
-  img {
-    width: 20px;
-    height: 20px;
-  }
-
-  p {
-    font-size: 9px;
-    margin: 0;
-  }
-
   &.ignoreButton {
     color: #2ec309;
   }
@@ -134,6 +124,16 @@ const IconElement = styled.button`
     color: #fb1e1e;
     margin-left: 1rem;
   }
+`;
+
+const IconImage = styled.img`
+  width: 20px;
+  height: 20px;
+`;
+
+const IconText = styled.p`
+  font-size: 9px;
+  margin: 0;
 `;
 
 export default ViewReportedUser;
