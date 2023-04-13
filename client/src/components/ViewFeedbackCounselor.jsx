@@ -12,15 +12,14 @@ import {
 function ViewFeedbackCounselor() {
   const [feedbackList, setFeedbackList] = useState([]);
 
-  const parseFeedback = (feedbacks) => {
-    return Promise.all(
+  const parseFeedback = (feedbacks) =>
+    Promise.all(
       feedbacks.map(async (feedback) => {
         const { data } = await getClientById(feedback.reviewer);
         const name = data ? data.displayName : 'User unavailable';
         return { ...feedback, reviewerName: name };
       })
     );
-  };
 
   useEffect(() => {
     getFeedback()
