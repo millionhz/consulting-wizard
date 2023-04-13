@@ -7,7 +7,10 @@ import {
   getConsultantById,
   getProfileInfo,
   setClientReview,
+  reportConsultant,
 } from '../../api/backend';
+
+
 
 function AddReview() {
   const location = useLocation();
@@ -15,7 +18,7 @@ function AddReview() {
   const id = location.pathname.split('/')[2];
   const [reviewer, setReviewer] = useState({});
 
-  useEffect(() => {
+  useEffect(() => { 
     getConsultantById(id)
       .then(({ data }) => setProfile(data))
       .catch((err) => console.log(err));
@@ -41,9 +44,14 @@ function AddReview() {
       .catch((err) => console.log(err));
   };
 
+  function reportCounsellorHandler(rid) {
+    reportConsultant(rid);
+  }
+
   return (
     <div>
       <NavBar page="View Appointments" />
+
       <ReviewPage>
         <ReviewDiv onSubmit={onSubmitHandler}>
           <ReviewTitle>Add Review</ReviewTitle>
@@ -55,6 +63,16 @@ function AddReview() {
             placeholder="Type here..."
           />
           <ReviewButton type="submit">SUBMIT</ReviewButton>
+
+          <ReportButton
+            onClick={() => {
+              reportCounsellorHandler(profile.id);
+              alert('Counsellor has been reported to admin!');
+              window.location.href = '/view-appointments'
+            }}
+          >
+            <ButtonText>Report Counsellor</ButtonText>
+          </ReportButton>
         </ReviewDiv>
       </ReviewPage>
       <Footer />
@@ -85,6 +103,27 @@ const ReviewTitle = styled.p`
   font-weight: 600;
   margin: 0;
   padding: 0;
+`;
+const ButtonText = styled.div`
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.8rem;
+`;
+
+const ReportButton = styled.button`
+  text-align: left;
+  color: #fb1e1e;
+  background: #ffffff;
+  border: 2px #2ec309;
+  font-weight: 1000;
+  margin-top:1rem;
+  text-decoration: underline;
+  padding: 0rem 0rem 0rem 0rem;
+  &:hover {
+    color: #8b0000;
+  }
 `;
 
 const ReviewLabel = styled.p`
