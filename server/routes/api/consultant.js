@@ -3,7 +3,7 @@ const {
   getConsultants,
   getConsultantById,
   getReportedConsultants,
-  reportConsultants,
+  reportConsultant,
 } = require('../../models/consultant');
 
 const router = express.Router();
@@ -24,19 +24,18 @@ router.get('/:id', (req, res, next) => {
     })
     .catch(next);
 });
-
-router.get('/reported', (req, res, next) => {
-  getReportedConsultants()
+router.post('/report-consultant/:id', (req, res, next) => {
+  const reportedPostId = req.params.id;
+  const reportedId = { _id: reportedPostId.toString() };
+  reportConsultant(reportedId)
     .then((data) => {
       res.json(data);
     })
     .catch(next);
 });
 
-router.post('/reportConsultant', (req, res, next) => {
-  const reportedId = req.body;
-
-  reportConsultants(reportedId)
+router.get('/reported', (req, res, next) => {
+  getReportedConsultants()
     .then((data) => {
       res.json(data);
     })

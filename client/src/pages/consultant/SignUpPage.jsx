@@ -45,10 +45,8 @@ function SignUpPage() {
       setPasswordFormat('');
     }
 
-    if (!email.includes('@lums.edu.pk')) {
-      setEmailError(
-        'Please enter a valid email address. You can only input your LUMS email ID'
-      );
+    if (!(email.includes('@lums.edu.pk') || email.includes('@app.com'))) {
+      setEmailError('Please enter a valid email address.');
     } else {
       setEmailError('');
     }

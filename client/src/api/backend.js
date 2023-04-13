@@ -80,6 +80,9 @@ export const getAvailableAppointments = (id, date) =>
 export const deleteAppointment = (id) =>
   api.delete(`/appointment/consultant/${id}`);
 
+export const reportConsultant = (id) =>
+  api.post(`/consultant/report-consultant/${id}`);
+  
 export const reportClient = (id) => api.post(`/client/${id}`);
 
 export default api;
