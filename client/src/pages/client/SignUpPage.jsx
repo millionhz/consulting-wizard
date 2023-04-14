@@ -14,11 +14,9 @@ function SignUpPage() {
   const [passwordError, setPasswordError] = useState('');
   const [passwordFormat, setPasswordFormat] = useState('');
   const [emailError, setEmailError] = useState('');
-  const [linkedInError, setlinkedInError] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [major, setMajor] = useState('');
   const [yearOfGraduation, setGraduationYear] = useState('');
-  const [linkedin, setLinkedin] = useState('');
   const [bio, setBio] = useState('');
 
   const PasswordValidate = () => {
@@ -32,12 +30,6 @@ function SignUpPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     PasswordValidate();
-    const regex = /^(ftp|http|https):\/\/[^ "]+$/;
-    if (!regex.test(linkedin)) {
-      setlinkedInError('Please input a valid link');
-    } else {
-      setlinkedInError('');
-    }
     if (password.length < 8) {
       setPasswordFormat('Password must be 8 characters at least');
     } else {
@@ -49,7 +41,7 @@ function SignUpPage() {
     } else {
       setEmailError('');
     }
-    if (!emailError && !passwordError && !passwordFormat && !linkedInError) {
+    if (!emailError && !passwordError && !passwordFormat) {
       const displayName = `${firstName} ${lastName}`;
       const data = {
         email,
@@ -135,14 +127,6 @@ function SignUpPage() {
             placeholder="Enter your year of graduation"
             setValue={setGraduationYear}
           />
-          <FormInputDiv
-            label="LinkedIn"
-            type="text"
-            name="linkedin"
-            placeholder="Enter the link to your LinkedIn account"
-            setValue={setLinkedin}
-          />
-          <ErrorDiv>{linkedInError} </ErrorDiv>
 
           <FormInputDiv
             label="Additional Information"
@@ -171,8 +155,7 @@ function SignUpPage() {
                 !lastName ||
                 !confirmPassword ||
                 !yearOfGraduation ||
-                !major ||
-                !linkedin
+                !major
               }
             >
               Submit

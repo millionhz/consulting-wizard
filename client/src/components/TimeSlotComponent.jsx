@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import BookSlotIcon from '../assets/book_slot.png';
 
 function TimeSlotComponent({ slot, BookHandler }) {
   const onClickHandler = () => {
@@ -15,7 +16,7 @@ function TimeSlotComponent({ slot, BookHandler }) {
     <TimeSlotStyling>
       <TimeSlotText>{`${start} - ${end} Pakistan Time (UTC +5)`}</TimeSlotText>
       <BookSlot onClick={onClickHandler}>
-        <BookIcon src="../../public/book_slot.png" alt="Book" />
+        <BookIcon src={BookSlotIcon} alt="Book" />
         <BookText>Book Slot</BookText>
       </BookSlot>
     </TimeSlotStyling>

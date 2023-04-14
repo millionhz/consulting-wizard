@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useCallback } from 'react';
 import Modal from 'react-modal';
+import GreenTickIcon from '../assets/green_tick.png';
 
 function Confirmation({ date, slot, counselor, closeModal, isOpen }) {
   const goToHome = useCallback(() => {
@@ -33,7 +34,7 @@ function Confirmation({ date, slot, counselor, closeModal, isOpen }) {
           <CloseButton onClick={closeModal}>X</CloseButton>
           <Confirmed>
             <ModalHeading>Booking Confirmed</ModalHeading>
-            <ConfirmIcon src="../../public/green_tick.png" alt="" />
+            <ConfirmIcon src={GreenTickIcon} alt="" />
           </Confirmed>
           <ModalText>with {counselor}</ModalText>
           <BookingTime>

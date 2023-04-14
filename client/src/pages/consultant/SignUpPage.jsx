@@ -17,8 +17,6 @@ function SignUpPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [major, setMajor] = useState('');
   const [yearOfGraduation, setGraduationYear] = useState('');
-  const [linkedin, setLinkedin] = useState('');
-  const [linkedInError, setlinkedInError] = useState('');
   const [currentPlacement, setCurrentPlacement] = useState('');
   const [bio, setBio] = useState('');
 
@@ -33,12 +31,6 @@ function SignUpPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     PasswordValidate();
-    const regex = /^(ftp|http|https):\/\/[^ "]+$/;
-    if (!regex.test(linkedin)) {
-      setlinkedInError('Please input a valid link');
-    } else {
-      setlinkedInError('');
-    }
     if (password.length < 8) {
       setPasswordFormat('Password must be 8 characters at least');
     } else {
@@ -50,7 +42,7 @@ function SignUpPage() {
     } else {
       setEmailError('');
     }
-    if (!emailError && !passwordError && !passwordFormat && !linkedInError) {
+    if (!emailError && !passwordError && !passwordFormat) {
       const displayName = `${firstName} ${lastName}`;
       const data = {
         email,
@@ -63,7 +55,6 @@ function SignUpPage() {
       };
 
       signUpConsultant(data)
-        .then((res) => res.json())
         .then((res) => {
           if (res.error) {
             alert(res.error);
@@ -137,14 +128,6 @@ function SignUpPage() {
             setValue={setGraduationYear}
           />
           <FormInputDiv
-            label="LinkedIn"
-            type="text"
-            name="linkedin"
-            placeholder="Enter the link to your LinkedIn account"
-            setValue={setLinkedin}
-          />
-          <ErrorDiv> {linkedInError} </ErrorDiv>
-          <FormInputDiv
             label="Current Placement"
             type="text"
             name="currentPlacement"
@@ -179,8 +162,7 @@ function SignUpPage() {
                 !confirmPassword ||
                 !yearOfGraduation ||
                 !major ||
-                !currentPlacement ||
-                !linkedin
+                !currentPlacement
               }
             >
               Submit
