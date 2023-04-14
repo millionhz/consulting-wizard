@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getDate, getNextDate, purgeMilliSeconds } from '../utils/dateTime';
 
 const api = axios.create({
   baseURL: '/api',
@@ -26,6 +27,9 @@ export const getClientById = (id) => api.get(`/client/${id}`);
 export const setClientReview = (review) => api.post('/feedback', review);
 
 export const getFeedback = () => api.get('/feedback/all-feedback');
+
+export const getFeedbackByConsultant = (consultantId) =>
+  api.get(`/feedback/consultant/${consultantId}`);
 
 export const reportFeedback = (id) => api.post(`/feedback/report/${id}`);
 
@@ -69,20 +73,27 @@ export const deactivateConsultant = (id) =>
 export const logout = () => api.post('/logout');
 
 export const addAppointmentTime = (from, to) =>
-  api.post('/appointment/consultant', { from, to });
+  api.post('/appointment/consultant', {
+    from: purgeMilliSeconds(from),
+    to: purgeMilliSeconds(to),
+  });
 
 export const getAppointmentsByDate = (date) =>
-  api.get(`/appointment/consultant/${date}`);
+  api.get(`/appointment/consultant/`, {
+    params: { from: getDate(date), to: getNextDate(date) },
+  });
 
 export const getAvailableAppointments = (id, date) =>
-  api.get(`/appointment/client`, { params: { id, date } });
+  api.get(`/appointment/client`, {
+    params: { id, from: getDate(date), to: getNextDate(date) },
+  });
 
 export const deleteAppointment = (id) =>
   api.delete(`/appointment/consultant/${id}`);
 
 export const reportConsultant = (id) =>
   api.post(`/consultant/report-consultant/${id}`);
-  
+
 export const reportClient = (id) => api.post(`/client/${id}`);
 
 export default api;

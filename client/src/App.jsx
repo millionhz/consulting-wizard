@@ -30,6 +30,8 @@ import ViewReportedUser from './pages/admin/ViewReportedUser';
 import ViewReportedCounselor from './pages/admin/ViewReportedCounselor';
 import LogoutPage from './pages/LogoutPage';
 import SetTimeSlots from './pages/consultant/SetTimeSlots';
+import ConsultantProfileAdmin from './pages/admin/ViewConsultant';
+import ClientProfileAdmin from './pages/admin/ViewClient';
 
 function App() {
   const router = createBrowserRouter(
@@ -85,11 +87,21 @@ function App() {
           />
           <Route
             path="consultant/:id"
-            element={<RoleAwareComponent client={<ConsultantProfile />} />}
+            element={
+              <RoleAwareComponent
+                client={<ConsultantProfile />}
+                admin={<ConsultantProfileAdmin />}
+              />
+            }
           />
           <Route
             path="client/:id"
-            element={<RoleAwareComponent consultant={<ClientProfile />} />}
+            element={
+              <RoleAwareComponent
+                consultant={<ClientProfile />}
+                admin={<ClientProfileAdmin />}
+              />
+            }
           />
           <Route
             path="reported-feedback"

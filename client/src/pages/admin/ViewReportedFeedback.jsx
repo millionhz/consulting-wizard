@@ -59,8 +59,9 @@ const Background = styled.div`
   margin-top: 15vh;
   margin-bottom: 5rem;
   border-radius: 0rem;
-  padding: 6rem 3.5rem 6rem 3.5rem;
+  padding: 3rem 3.5rem 6rem 3.5rem;
   color: #000000;
+  border-radius: 0.5rem;
 `;
 
 export default ViewReportedFeedback;
