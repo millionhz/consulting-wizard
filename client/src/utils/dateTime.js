@@ -6,7 +6,7 @@ export const getDate = (dateTime) => {
 
 export const getNextDate = (dateTime) => {
   const date = new Date(dateTime);
-  date.setDate(date.getDate() + 1);
   date.setHours(0, 0, 0, 0);
+  date.setDate(date.getDate() + 1);
   return date;
 };
