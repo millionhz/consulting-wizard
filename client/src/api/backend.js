@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getDate, getNextDate } from '../utils/dateTime';
+import { getDate, getNextDate, purgeMilliSeconds } from '../utils/dateTime';
 
 const api = axios.create({
   baseURL: '/api',
@@ -73,7 +73,10 @@ export const deactivateConsultant = (id) =>
 export const logout = () => api.post('/logout');
 
 export const addAppointmentTime = (from, to) =>
-  api.post('/appointment/consultant', { from, to });
+  api.post('/appointment/consultant', {
+    from: purgeMilliSeconds(from),
+    to: purgeMilliSeconds(to),
+  });
 
 export const getAppointmentsByDate = (date) =>
   api.get(`/appointment/consultant/`, {

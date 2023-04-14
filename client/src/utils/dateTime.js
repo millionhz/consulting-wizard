@@ -10,3 +10,9 @@ export const getNextDate = (dateTime) => {
   date.setDate(date.getDate() + 1);
   return date;
 };
+
+export const purgeMilliSeconds = (dateTime) => {
+  const date = new Date(dateTime);
+  date.setMilliseconds(0);
+  return date;
+}
