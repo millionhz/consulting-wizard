@@ -6,7 +6,6 @@ const {
   viewUpcomingAppointmentsClient,
 } = require('../../models/appointment');
 const onlyClient = require('../../middlewares/onlyClient');
-const { getDate, getNextDate } = require('../../utils/dateTime');
 
 const router = express.Router();
 
@@ -14,11 +13,8 @@ router.use(onlyClient);
 
 router.get('/', (req, res, next) => {
   // INFO: Get all unbooked appointments available on a certain date
-  const { id, date } = req.query;
+  const { id, from, to } = req.query;
   // INFO: date is in ISO format
-
-  const from = getDate(date);
-  const to = getNextDate(from);
 
   getAppointmentByConsultantAndDate(id, from, to)
     .then((data) => {
