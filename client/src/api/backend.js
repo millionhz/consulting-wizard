@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getDate, getNextDate } from '../utils/dateTime';
 
 const api = axios.create({
   baseURL: '/api',
@@ -75,10 +76,14 @@ export const addAppointmentTime = (from, to) =>
   api.post('/appointment/consultant', { from, to });
 
 export const getAppointmentsByDate = (date) =>
-  api.get(`/appointment/consultant/${date}`);
+  api.get(`/appointment/consultant/`, {
+    params: { from: getDate(date), to: getNextDate(date) },
+  });
 
 export const getAvailableAppointments = (id, date) =>
-  api.get(`/appointment/client`, { params: { id, date } });
+  api.get(`/appointment/client`, {
+    params: { id, from: getDate(date), to: getNextDate(date) },
+  });
 
 export const deleteAppointment = (id) =>
   api.delete(`/appointment/consultant/${id}`);
