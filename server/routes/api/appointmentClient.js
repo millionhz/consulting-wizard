@@ -6,7 +6,7 @@ const {
   viewUpcomingAppointmentsClient,
 } = require('../../models/appointment');
 const onlyClient = require('../../middlewares/onlyClient');
-const { getDate, getNextDate } = require('../../utils/dateTime');
+const { getDate, getNextDate, now } = require('../../utils/dateTime');
 
 const router = express.Router();
 
@@ -24,7 +24,7 @@ router.get('/', (req, res, next) => {
     .then((data) => {
       const filteredData = data.filter(
         (appointment) =>
-          appointment.client === undefined && appointment.from > new Date()
+          appointment.client === undefined && appointment.from > now()
       );
       res.json(filteredData);
     })

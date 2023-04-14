@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { now } = require('../utils/dateTime');
 
 const appointmentSchema = mongoose.Schema({
   consultant: {
@@ -54,7 +55,7 @@ const getAppointmentsByConsultantID = (consultant) =>
 
 const bookAppointmentById = (appointmentId, client) =>
   getAppointmentById(appointmentId).then((appointment) => {
-    if (appointment.from < new Date()) {
+    if (appointment.from < now()) {
       throw new Error('Appointment is in the past');
     }
 
@@ -68,25 +69,25 @@ const bookAppointmentById = (appointmentId, client) =>
 
 const viewPastAppointmentsClient = (client) =>
   getAppointmentsByClientID(client).then((appointments) => {
-    const filter = (appointment) => appointment.from < new Date();
+    const filter = (appointment) => appointment.from < now();
     return appointments.filter(filter);
   });
 
 const viewUpcomingAppointmentsClient = (client) =>
   getAppointmentsByClientID(client).then((appointments) => {
-    const filter = (appointment) => appointment.from > new Date();
+    const filter = (appointment) => appointment.from > now();
     return appointments.filter(filter);
   });
 
 const viewPastAppointmentsConsultant = (consultant) =>
   getAppointmentsByConsultantID(consultant).then((appointments) => {
-    const filter = (appointment) => appointment.from < new Date();
+    const filter = (appointment) => appointment.from < now();
     return appointments.filter(filter);
   });
 
 const viewUpcomingAppointmentsConsultant = (consultant) =>
   getAppointmentsByConsultantID(consultant).then((appointments) => {
-    const filter = (appointment) => appointment.from > new Date();
+    const filter = (appointment) => appointment.from > now();
     return appointments.filter(filter);
   });
 
