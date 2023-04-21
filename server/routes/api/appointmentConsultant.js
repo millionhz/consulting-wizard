@@ -39,7 +39,9 @@ router.post('/', (req, res, next) => {
 
 router.get('/past', (req, res, next) => {
   const { id } = req.user;
-  viewPastAppointmentsConsultant(id)
+  const { timestamp } = req;
+
+  viewPastAppointmentsConsultant(id, timestamp)
     .then((data) => {
       const filteredData = data.filter(
         (appointment) => appointment.client !== undefined
@@ -51,7 +53,9 @@ router.get('/past', (req, res, next) => {
 
 router.get('/upcoming', (req, res, next) => {
   const { id } = req.user;
-  viewUpcomingAppointmentsConsultant(id)
+  const { timestamp } = req;
+
+  viewUpcomingAppointmentsConsultant(id, timestamp)
     .then((data) => {
       const filteredData = data.filter(
         (appointment) => appointment.client !== undefined
