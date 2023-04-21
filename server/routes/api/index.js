@@ -10,8 +10,11 @@ const feedbackRouter = require('./feedback');
 const appointmentRouter = require('./appointment');
 const adminRouter = require('./admin');
 const logoutRouter = require('./logout');
+const timestamp = require('../../middlewares/timestamp');
 
 const router = express.Router();
+
+router.use(timestamp);
 
 router.use('/signUp', signUpRouter);
 router.use('/logIn', logInRouter);

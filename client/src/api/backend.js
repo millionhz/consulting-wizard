@@ -3,6 +3,9 @@ import { getDate, getNextDate, purgeMilliSeconds } from '../utils/dateTime';
 
 const api = axios.create({
   baseURL: '/api',
+  headers: {
+    timestamp: new Date().toISOString(),
+  },
 });
 
 export const sessionLogIn = (token) => api.post('/logIn', { token });
