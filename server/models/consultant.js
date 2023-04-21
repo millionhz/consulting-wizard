@@ -15,7 +15,6 @@ const consultantSchema = new mongoose.Schema({
   yearOfGraduation: {
     type: Number,
     required: true,
-    max: new Date().getFullYear() + 1,
   },
   currentPlacement: {
     type: String,
