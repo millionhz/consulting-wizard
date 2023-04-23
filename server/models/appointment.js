@@ -52,9 +52,9 @@ const getAppointmentsByConsultantID = (consultant) =>
     .populate('client')
     .exec();
 
-const bookAppointmentById = (appointmentId, client) =>
+const bookAppointmentById = (appointmentId, client, timestamp) =>
   getAppointmentById(appointmentId).then((appointment) => {
-    if (appointment.from < new Date()) {
+    if (appointment.from < new Date(timestamp)) {
       throw new Error('Appointment is in the past');
     }
 
@@ -66,27 +66,27 @@ const bookAppointmentById = (appointmentId, client) =>
     return appointment.save();
   });
 
-const viewPastAppointmentsClient = (client) =>
+const viewPastAppointmentsClient = (client, timestamp) =>
   getAppointmentsByClientID(client).then((appointments) => {
-    const filter = (appointment) => appointment.from < new Date();
+    const filter = (appointment) => appointment.from < new Date(timestamp);
     return appointments.filter(filter);
   });
 
-const viewUpcomingAppointmentsClient = (client) =>
+const viewUpcomingAppointmentsClient = (client, timestamp) =>
   getAppointmentsByClientID(client).then((appointments) => {
-    const filter = (appointment) => appointment.from > new Date();
+    const filter = (appointment) => appointment.from > new Date(timestamp);
     return appointments.filter(filter);
   });
 
-const viewPastAppointmentsConsultant = (consultant) =>
+const viewPastAppointmentsConsultant = (consultant, timestamp) =>
   getAppointmentsByConsultantID(consultant).then((appointments) => {
-    const filter = (appointment) => appointment.from < new Date();
+    const filter = (appointment) => appointment.from < new Date(timestamp);
     return appointments.filter(filter);
   });
 
-const viewUpcomingAppointmentsConsultant = (consultant) =>
+const viewUpcomingAppointmentsConsultant = (consultant, timestamp) =>
   getAppointmentsByConsultantID(consultant).then((appointments) => {
-    const filter = (appointment) => appointment.from > new Date();
+    const filter = (appointment) => appointment.from > new Date(timestamp);
     return appointments.filter(filter);
   });
 

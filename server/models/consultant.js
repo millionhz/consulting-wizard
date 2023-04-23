@@ -15,7 +15,6 @@ const consultantSchema = new mongoose.Schema({
   yearOfGraduation: {
     type: Number,
     required: true,
-    max: new Date().getFullYear() + 1,
   },
   currentPlacement: {
     type: String,
@@ -86,10 +85,8 @@ const searchConsultant = (searchInput) => Consultant.find(searchInput).exec();
 
 const getConsultants = () => Consultant.find({}).exec();
 
-const reportConsultant = (reportedId) => {
+const reportConsultant = (reportedId) =>
   Consultant.updateOne(reportedId, { $set: { reported: true } }).exec();
-  
-}
 
 const getReportedConsultants = () =>
   Consultant.find({ reported: true }).populate('displayName').exec();

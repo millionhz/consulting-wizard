@@ -15,7 +15,6 @@ const clientSchema = new mongoose.Schema({
   yearOfGraduation: {
     type: Number,
     required: true,
-    min: new Date().getFullYear() - 1,
   },
   bio: {
     type: String,

@@ -7,11 +7,23 @@ const {
   deleteAppointment,
 } = require('../../models/appointment');
 const onlyConsultant = require('../../middlewares/onlyConsultant');
-const { getDate, getNextDate } = require('../../utils/dateTime');
 
 const router = express.Router();
 
 router.use(onlyConsultant);
+
+router.get('/', (req, res, next) => {
+  // INFO: Get all appointments available on a certain date
+  const { id } = req.user;
+  const { from, to } = req.query;
+  // INFO: date is in ISO format
+
+  getAppointmentByConsultantAndDate(id, from, to)
+    .then((appointments) => {
+      res.json(appointments);
+    })
+    .catch(next);
+});
 
 router.post('/', (req, res, next) => {
   const { id } = req.user;
@@ -27,7 +39,9 @@ router.post('/', (req, res, next) => {
 
 router.get('/past', (req, res, next) => {
   const { id } = req.user;
-  viewPastAppointmentsConsultant(id)
+  const { timestamp } = req;
+
+  viewPastAppointmentsConsultant(id, timestamp)
     .then((data) => {
       const filteredData = data.filter(
         (appointment) => appointment.client !== undefined
@@ -39,7 +53,9 @@ router.get('/past', (req, res, next) => {
 
 router.get('/upcoming', (req, res, next) => {
   const { id } = req.user;
-  viewUpcomingAppointmentsConsultant(id)
+  const { timestamp } = req;
+
+  viewUpcomingAppointmentsConsultant(id, timestamp)
     .then((data) => {
       const filteredData = data.filter(
         (appointment) => appointment.client !== undefined
@@ -56,22 +72,6 @@ router.delete('/:appointmentId', (req, res, next) => {
   deleteAppointment(consultantId, appointmentId)
     .then((out) => {
       res.json(out);
-    })
-    .catch(next);
-});
-
-router.get('/:date', (req, res, next) => {
-  // INFO: Get all appointments available on a certain date
-  const { id } = req.user;
-  const { date } = req.params;
-  // INFO: date is in ISO format
-
-  const from = getDate(date);
-  const to = getNextDate(from);
-
-  getAppointmentByConsultantAndDate(id, from, to)
-    .then((appointments) => {
-      res.json(appointments);
     })
     .catch(next);
 });

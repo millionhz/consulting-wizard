@@ -6,7 +6,6 @@ const {
   viewUpcomingAppointmentsClient,
 } = require('../../models/appointment');
 const onlyClient = require('../../middlewares/onlyClient');
-const { getDate, getNextDate } = require('../../utils/dateTime');
 
 const router = express.Router();
 
@@ -14,17 +13,16 @@ router.use(onlyClient);
 
 router.get('/', (req, res, next) => {
   // INFO: Get all unbooked appointments available on a certain date
-  const { id, date } = req.query;
+  const { id, from, to } = req.query;
   // INFO: date is in ISO format
-
-  const from = getDate(date);
-  const to = getNextDate(from);
+  const { timestamp } = req;
 
   getAppointmentByConsultantAndDate(id, from, to)
     .then((data) => {
       const filteredData = data.filter(
         (appointment) =>
-          appointment.client === undefined && appointment.from > new Date()
+          appointment.client === undefined &&
+          appointment.from > new Date(timestamp)
       );
       res.json(filteredData);
     })
@@ -34,8 +32,9 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
   const { appointmentId } = req.body;
   const { id } = req.user;
+  const { timestamp } = req;
 
-  bookAppointmentById(appointmentId, id)
+  bookAppointmentById(appointmentId, id, timestamp)
     .then((appointment) => {
       res.json(appointment);
     })
@@ -47,7 +46,9 @@ router.post('/', (req, res, next) => {
 
 router.get('/past', (req, res, next) => {
   const { id } = req.user;
-  viewPastAppointmentsClient(id)
+  const { timestamp } = req;
+
+  viewPastAppointmentsClient(id, timestamp)
     .then((data) => {
       const filteredData = data.filter(
         (appointment) => appointment.client !== undefined
@@ -59,7 +60,9 @@ router.get('/past', (req, res, next) => {
 
 router.get('/upcoming', (req, res, next) => {
   const { id } = req.user;
-  viewUpcomingAppointmentsClient(id)
+  const { timestamp } = req;
+
+  viewUpcomingAppointmentsClient(id, timestamp)
     .then((data) => {
       const filteredData = data.filter(
         (appointment) => appointment.client !== undefined
