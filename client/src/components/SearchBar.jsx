@@ -29,18 +29,19 @@ function Searchbar({ onSearch }) {
       <SearchBar>
         <SearchInput
           type="text"
-          id="header-search"
+          data-testid="header-search"
           placeholder={filterOn !== '' ? `Search by ${filterOn}` : 'Search'}
           name="s"
           onChange={onQueryChange}
         />
-        <SearchIconButton onClick={onSearchHandler}>
+        <SearchIconButton onClick={onSearchHandler} data-testid="search-button">
           <SearchIcon />
         </SearchIconButton>
         <FilterButton
           onClick={() => {
             setFilterMenu(!filterMenu);
           }}
+          data-testid="filter-button"
         >
           <MenuIcon />
           <p>FILTER</p>
@@ -50,6 +51,7 @@ function Searchbar({ onSearch }) {
         style={{
           display: filterMenu ? 'block' : 'none',
         }}
+        data-testid="filter-menu"
       >
         <FilterList>
           <FilterItem onClick={setFilter('all')}>All Categories</FilterItem>

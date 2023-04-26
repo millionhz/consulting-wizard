@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import styled from '@emotion/styled';
 import NavBar from '../../components/NavBarClient';
 import Footer from '../../components/Footer';
@@ -78,15 +79,17 @@ function Search() {
         <Searchbar onSearch={onSearch} />
         <SearchResultsDiv>
           {results.map((result) => (
-            <SearchResult
-              name={result.displayName}
-              major={result.major}
-              year={result.yearOfGraduation}
-              placement={result.currentPlacement}
-              description={result.bio}
-              key={result.id}
-              id={result.id}
-            />
+            <BrowserRouter key={result.id}>
+              <SearchResult
+                name={result.displayName}
+                major={result.major}
+                year={result.yearOfGraduation}
+                placement={result.currentPlacement}
+                description={result.bio}
+                key={result.id}
+                id={result.id}
+              />
+            </BrowserRouter>
           ))}
         </SearchResultsDiv>
       </SearchPage>

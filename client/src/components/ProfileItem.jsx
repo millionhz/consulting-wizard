@@ -27,10 +27,14 @@ function ProfileItem({
     setInputField(false);
   };
 
-  const textField = <FieldDescription>{description}</FieldDescription>;
+  const textField = (
+    <FieldDescription data-testid={`text-field-${title}`}>
+      {description}
+    </FieldDescription>
+  );
 
   const editButton = (
-    <IconButton onClick={textToInput}>
+    <IconButton onClick={textToInput} data-testid={title}>
       <EditIcon />
     </IconButton>
   );
@@ -43,8 +47,11 @@ function ProfileItem({
         rows={rows}
         defaultValue={description}
         onChange={editHandler}
+        data-testid="edit-field"
       />
-      <CommitButton onClick={inputToText}>OK</CommitButton>
+      <CommitButton onClick={inputToText} data-testid="commit-button">
+        OK
+      </CommitButton>
     </EditField>
   );
 
