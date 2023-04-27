@@ -59,6 +59,9 @@ function SignUpPage() {
           if (res.error) {
             alert(res.error);
           } else {
+            // const successMessage = 'SIGN UP SUCCESSFUL!'
+            // successMessage.style.display = 'block';
+
             alert('Account created successfully!');
             window.location.href = '/login';
           }

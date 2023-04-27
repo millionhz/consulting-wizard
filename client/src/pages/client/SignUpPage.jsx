@@ -209,7 +209,7 @@ const SubmitButton = styled.button`
   margin-left: 1rem;
 
   &:hover {
-    cursor: pointer;
+    background-color: purple;
   }
   ${(props) =>
     props.disabled &&
