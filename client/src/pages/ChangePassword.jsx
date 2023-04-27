@@ -169,6 +169,7 @@ function AuthForm({ onSubmit, error }) {
         </div>
 
         <button
+          data-testid="submitButton"
           onClick={submitHandler}
           type="button"
           style={{
