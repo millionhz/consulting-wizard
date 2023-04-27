@@ -20,7 +20,7 @@ describe('SignUp', () => {
     expect(screen.getByRole('button', { name: 'Submit' })).toBeInTheDocument();
   });
 
-  test('en no input is provided, Submit Button is disabled', () => {
+  test('When no input is provided, Submit Button is disabled', () => {
     // const { getByText, getByRole } =
     render(<SignUp />);
     const fname = screen.getByPlaceholderText('Enter your first name');
