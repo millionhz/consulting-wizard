@@ -45,3 +45,14 @@ Start the client:
 ```bash
 cd ../client && npm run dev
 ```
+
+## Environment Variables
+
+The following is the schema for the environment variables used in the server.
+
+| Variable Name | Description |
+| --- | --- |
+| FIREBASE_SERVICE_ACCOUNT | The Firebase service account credential in the form of a JSON file. |
+| DB | The name or connection string of the database. |
+| EMAIL | The email address for email verification. |
+| PASSWORD | The password to authenticate with the email account. |
